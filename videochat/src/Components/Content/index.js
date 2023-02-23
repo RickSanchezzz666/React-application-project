@@ -4,11 +4,11 @@ import MedDocLogo from "./imgs/MedDoc.png";
 import {socket} from "../../Socket";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-
-AOS.init();
 import ACTIONS from "../../Socket/actions";
 import { useNavigate } from "react-router-dom";
 import {v4} from 'uuid';
+
+AOS.init();
 
 function Content () {
     const history = useNavigate();
