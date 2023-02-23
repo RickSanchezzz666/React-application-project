@@ -4,6 +4,7 @@ const socket = require('./src/Socket');
 const ACTIONS = require('./src/Socket/actions');
 const { Socket } = require('socket.io-client');
 const { config } = require('process');
+const {version, validate} = require('uuid')
 
 const app = express();
 const server = require('http').createServer(app);
@@ -13,9 +14,9 @@ const io = require('socket.io')(server);
 const PORT = process.env.PORT || 3001;
 
 function getClientRooms() {
-    const rooms = io.sockets.adapter;
+    const {rooms} = io.sockets.adapter;
 
-    return Array.from(rooms.keys());
+    return Array.from(rooms.keys()).filter(roomID => validate(roomID) && version(roomID) === 4);
 };
 
 function shareRoomsInfo() {
@@ -68,7 +69,9 @@ io.on('connection', socket => {
                     peerID: clientID,
                 })
             })
+            socket.leave(roomID);
         })
+        shareRoomsInfo();
     }
 
     socket.on(ACTIONS.LEAVE, leaveRoom);
