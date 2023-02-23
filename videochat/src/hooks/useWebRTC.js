@@ -40,7 +40,8 @@ function useWebRTC(roomID) {
             })
         }
 
-        startCapture().then(() => socket.emit(ACTIONS.JOIN, {room: roomID}))
+        startCapture()
+        .then(() => socket.emit(ACTIONS.JOIN, {room: roomID}))
         .catch(e => console.error('Error getting userMedia:', e))
     }, [roomID])
 

@@ -30,7 +30,7 @@ io.on('connection', socket => {
 
     socket.on(ACTIONS.JOIN, config => {
         const {room: roomID} = config;
-        const {rooms, joinedRooms} = socket;
+        const {rooms: joinedRooms} = socket;
 
         if(Array.from(joinedRooms).includes(roomID)) {
             return console.warn(`Already joined to ${roomID}`);

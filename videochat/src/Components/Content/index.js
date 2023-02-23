@@ -22,7 +22,20 @@ function Content () {
 
     return (
         <div>
-            main page
+            <h1>Available Rooms</h1>
+            <ul>
+                {rooms.map(roomID => (
+                    <li key={roomID}>
+                        {roomID}
+                        <button onClick={() => {
+                            history(`/room/${roomID}`)
+                        }}>Join Room</button>
+                    </li>
+                ))}
+            </ul>
+            <button onClick={() => {
+                history(`/room/${v4()}`)
+            }}>Create new room</button>
         </div>
     )
 }
