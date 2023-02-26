@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import './style.css';
 import MedDocLogo from "./imgs/MedDoc.png";
 import {socket} from "../../Socket";
@@ -13,15 +13,18 @@ AOS.init();
 function Content () {
     const history = useNavigate();
     const [rooms, updateRooms] = useState([]);
+    const rootNode = useRef();
 
     useEffect(() => {
         socket.on(ACTIONS.SHARE_ROOMS, ({rooms = []} = {}) => {
-            updateRooms(rooms);
+            if (rootNode.current) {
+                updateRooms(rooms);
+            }
         })
     }, [])
 
     return (
-        <div>
+        <div ref={rootNode}>
             <h1>Available Rooms</h1>
             <ul>
                 {rooms.map(roomID => (
