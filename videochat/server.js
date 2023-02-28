@@ -1,17 +1,33 @@
 const path = require('path');
 const express = require('express');
+const bodyParser = require('body-parser');
+const Mongo = require('./src/setup/mongoose');
+const UsersAPI = require('./src/api/users.api');
+const authMiddleware = require('./src/middlewares/auth.middleware');
 const socket = require('./src/Socket');
 const ACTIONS = require('./src/Socket/actions');
 const { Socket } = require('socket.io-client');
 const { config } = require('process');
 const {version, validate} = require('uuid')
+require('dotenv').config();
 
 const app = express();
 const server = require('http').createServer(app);
-
 const io = require('socket.io')(server);
+const PORT = process.env.PORT;
+app.use(bodyParser.json());
 
-const PORT = process.env.PORT || 3001;
+console.log('MONGO_DB_URI:', process.env.MONGO_DB_URI);
+
+const setup = async () => {
+    await Mongo.setupDb(process.env.MONGO_DB_URI);
+
+    authMiddleware(app);
+  
+    app.use(UsersAPI.router);
+};
+  
+setup();
 
 function getClientRooms() {
     const {rooms} = io.sockets.adapter;
@@ -95,5 +111,5 @@ io.on('connection', socket => {
 });
 
 server.listen(PORT, () => {
-    console.log('Server started!')
+    console.log(`Server started on ${PORT}`)
 });
