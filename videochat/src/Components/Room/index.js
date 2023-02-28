@@ -1,11 +1,10 @@
 import React from "react";
-import './style.css'
 import { useParams } from "react-router";
 import useWebRTC, { LOCAL_VIDEO } from "../../hooks/useWebRTC";
 import './style.css';
 
 function layout(clientsNumber = 1) {
-    const pairs = Array.from({length: clientsNumber}).reduce((acc, index, arr) => {
+    const pairs = Array.from({length: clientsNumber}).reduce((acc, next, index, arr) => {
         if (index % 2 === 0) {
             acc.push(arr.slice(index, index + 2))
         }
@@ -39,7 +38,13 @@ function Room () {
     console.log(clients);
 
     return (
-        <div className="room-container">
+        <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+            height: '100vh',
+        }}>
             {clients.map((clientID, index) => {
                 return (
                     <div key={clientID} style={videoLayout[index]}>
