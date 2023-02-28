@@ -5,6 +5,22 @@ const jwt = require('jsonwebtoken');
 
 const router = Router();
 
+router.post("/users/registration", async (req, res) => {
+    const { username, password, contact_information: { name, surname } } = req.body;
+
+    const user = new Users({ username, password, contact_information: { name, surname } });
+
+    try {
+        const doc = await user.save();
+        return res.status(200).send(doc);
+    } catch (err) {
+        console.error(err.toString());
+        res.status(400).send({
+            message: err.toString(),
+        });
+    }
+});
+
 router.get("/users/login", async (req, res) => {
  const { username, password } = req.query;
  if (!username) {
