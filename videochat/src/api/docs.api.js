@@ -1,27 +1,12 @@
 const { Router } = require('express');
-const { Users } = require('../models/users');
+const { Docs } = require('../models/docs');
+const { Clients } = require('../models/clients');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 
 const router = Router();
 
-router.post("/users/registration", async (req, res) => {
-    const { username, password, contact_information: { name, surname } } = req.body;
-
-    const user = new Users({ username, password, contact_information: { name, surname } });
-
-    try {
-        const doc = await user.save();
-        return res.status(200).send(doc);
-    } catch (err) {
-        console.error(err.toString());
-        res.status(400).send({
-            message: err.toString(),
-        });
-    }
-});
-
-router.get("/users/login", async (req, res) => {
+router.get("/login", async (req, res) => {
  const { username, password } = req.query;
  if (!username) {
   return res.status(400).send({
@@ -35,7 +20,7 @@ router.get("/users/login", async (req, res) => {
   });
  }
 
- const user = await Users.findOne({ username });
+ const user = await Docs.findOne({ username });
 
  if (!user) {
   return res.status(400).send({
@@ -62,12 +47,12 @@ router.get("/users/login", async (req, res) => {
  res.status(200).send({ token });
 });
 
-router.get("/users", passport.authenticate('jwt', { session: false }), async (req, res) => {
+router.get("/clients", passport.authenticate('jwt', { session: false }), async (req, res) => {
 
     const dbQuery = {};
 
-    const docs = await Users.find(dbQuery);
-    return res.status(200).send(docs);
+    const clients = await Clients.find(dbQuery);
+    return res.status(200).send(clients);
 });
 
 module.exports = { router };

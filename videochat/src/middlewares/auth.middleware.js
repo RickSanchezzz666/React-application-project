@@ -1,7 +1,7 @@
 const passport = require('passport');
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
-const { Users } = require('../models/users');
+const { Docs } = require('../models/docs');
 require('dotenv').config();
 
 const options = {
@@ -16,7 +16,7 @@ module.exports = (app) => {
   new JwtStrategy(options, async (payload, done) => {
    const { _id, username } = payload;
    try {
-    const user = await Users.findById(_id).select({ login: true });
+    const user = await Docs.findById(_id).select({ login: true });
     if (!user) {
      return done(null, false);
     }

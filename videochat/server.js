@@ -1,15 +1,16 @@
 const path = require('path');
 const express = require('express');
-const bodyParser = require('body-parser');
+const bodyParser = require('body-parser');                              // Парсер тіла POST API запитів
 const Mongo = require('./src/setup/mongoose');
-const UsersAPI = require('./src/api/users.api');
-const authMiddleware = require('./src/middlewares/auth.middleware');
+const LoginAPI = require('./src/api/docs.api');                         // Авторизація лікарів
+const { Clients } = require('./src/models/clients');                    // База клієнтів
+const authMiddleware = require('./src/middlewares/auth.middleware');    // Middleware
 const socket = require('./src/Socket');
 const ACTIONS = require('./src/Socket/actions');
 const { Socket } = require('socket.io-client');
 const { config } = require('process');
 const {version, validate} = require('uuid')
-require('dotenv').config();
+require('dotenv').config();                                             // Загальні серверні налаштування
 
 const app = express();
 const server = require('http').createServer(app);
@@ -24,7 +25,23 @@ const setup = async () => {
 
     authMiddleware(app);
   
-    app.use(UsersAPI.router);
+    app.use(LoginAPI.router);
+
+    app.post("/contact-form", async (req, res) => {
+        const { contact_information: { name, surname, email, phone }, location: { address, city, country, zipcode }, patient_info: { overall, blood_type} } = req.body;
+
+        const client = new Clients({
+            contact_information: { name, surname, email, phone }, location: { address, city, country, zipcode }, patient_info: { overall, blood_type}
+        });
+
+        try {
+            const ticket = await client.save();
+            return res.status(200).send('Операція успішна!');
+        } catch (err) {
+            console.error(err.toString());
+            res.status(400).send('Щось пішло не так : (');
+        }
+    });
 };
   
 setup();
