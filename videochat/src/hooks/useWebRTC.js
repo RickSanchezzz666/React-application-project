@@ -56,10 +56,15 @@ function useWebRTC(roomID) {
             })
 
             if (createOffer) {
-                const offer = await peerConnections.current[peerID].createOffer();
 
                 if(peerConnections.signalingState != "stable"){
-                    await peerConnections.current[peerID].setLocalDescription(offer)
+                    try {
+                        const offer = await peerConnections.current[peerID].createOffer();
+                        await peerConnections.current[peerID].setLocalDescription(offer)
+                    } catch (error) {
+                        console.error("Failed to create offer or set local description:", error);
+                    }
+                    
                 }
 
                 socket.emit(ACTIONS.RELAY_SDP, {
@@ -80,10 +85,8 @@ function useWebRTC(roomID) {
 
             if (remoteDescription.type === 'offer') {
                 const answer = await peerConnections.current[peerID].createAnswer();
-
-                if(peerConnections.signalingState != "stable"){
-                    await peerConnections.current[peerID].setLocalDescription(answer);
-                }
+                
+                await peerConnections.current[peerID].setLocalDescription(answer);
 
                 socket.emit(ACTIONS.RELAY_SDP, {
                     peerID,
