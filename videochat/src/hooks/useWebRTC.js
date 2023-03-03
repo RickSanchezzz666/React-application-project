@@ -56,10 +56,10 @@ function useWebRTC(roomID) {
             })
 
             if (createOffer) {
+                const offer = await peerConnections.current[peerID].createOffer();
 
                 if(peerConnections.signalingState != "stable"){
                     try {
-                        const offer = await peerConnections.current[peerID].createOffer();
                         await peerConnections.current[peerID].setLocalDescription(offer)
                     } catch (error) {
                         console.error("Failed to create offer or set local description:", error);
