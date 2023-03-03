@@ -81,7 +81,9 @@ function useWebRTC(roomID) {
             if (remoteDescription.type === 'offer') {
                 const answer = await peerConnections.current[peerID].createAnswer();
 
-                await peerConnections.current[peerID].setLocalDescription(answer);
+                if(peerConnections.signalingState != "stable"){
+                    await peerConnections.current[peerID].setLocalDescription(answer);
+                }
 
                 socket.emit(ACTIONS.RELAY_SDP, {
                     peerID,
