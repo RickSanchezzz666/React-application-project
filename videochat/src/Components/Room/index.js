@@ -38,13 +38,16 @@ function Room () {
     console.log(clients);
 
     return (
-        <div style={{
+        <div className="room-wrapper" style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             flexWrap: 'wrap',
             height: '100vh',
         }}>
+            <div className="intro-wrap">
+                <div className="intro-screen"></div>
+            </div>
             {clients.map((clientID, index) => {
                 return (
                     <div key={clientID} style={videoLayout[index]}>

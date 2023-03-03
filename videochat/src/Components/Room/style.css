@@ -1,0 +1,13 @@
+.intro-screen {
+    position: fixed;
+    overflow: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    display: flex;
+    justify-content: center;
+    top: 0%;
+    z-index: 99;
+    background: #272525;
+    width: 100%;
+    height: 100vh;
+}
