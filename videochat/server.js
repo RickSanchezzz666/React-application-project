@@ -10,12 +10,13 @@ const ACTIONS = require('./src/Socket/actions');
 const { Socket } = require('socket.io-client');
 const { config } = require('process');
 const {version, validate} = require('uuid')
-require('dotenv').config();                                             // Загальні серверні налаштування
+require('dotenv').config();                                            // Загальні серверні налаштування
 
 const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const PORT = process.env.PORT_BACK;
+app.use(express.static('build'));
 app.use(bodyParser.json());
 
 console.log('MONGO_DB_URI:', process.env.MONGO_DB_URI);
