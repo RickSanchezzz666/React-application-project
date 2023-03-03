@@ -42,7 +42,7 @@ function Room () {
         let opacity1 = document.getElementById('intro-scrn');
         opacity1.className += ' dell-opacity';
         let opacity2 = document.getElementById('intro-btn');
-        opacity2.className += ' dell-opacity';
+        opacity2.className = 'join-button-opacity';
     }
     
 
@@ -56,6 +56,7 @@ function Room () {
             flexWrap: 'wrap',
             height: '100vh',
         }}>
+            <div className="back-wrap"></div>
             <div className="intro-wrap">
                 <div id="intro-scrn" className="intro-screen">
                     <button id="intro-btn" className="join-button" onClick={dellOpacity}>Join meeting</button>

@@ -4,6 +4,32 @@
     overflow: hidden;
 }
 
+.room-wrapper {
+    background-color: #272525;
+}
+
+@keyframes back-appear {
+    0% {
+        height: 100vh;
+        width: 100vw;
+    }
+    75% {
+        height: 100vh;
+        width: 100vw;
+    }
+    100% {
+        background-color: rgba(39, 37, 37, 0);
+    }
+}
+
+.back-wrap {
+    z-index: 99,9;
+    background-color: #272525;
+    animation-name: back-appear;
+    animation-duration: 2s;
+    animation-timing-function: 1;
+}
+
 .intro-screen {
     position: fixed;
     overflow: hidden;
@@ -13,7 +39,7 @@
     justify-content: center;
     top: 0%;
     z-index: 99;
-    background: #272525;
+    background-color: #272525;
     width: 100%;
     height: 100vh;
 }
@@ -21,6 +47,19 @@
 .dell-opacity {
     opacity: 0;
 }
+
+.join-button-opacity {
+    margin-top: 66vh;
+    width: 1px;
+    height: 1px;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+    border-radius: 100px;
+    transition: 1s;
+    opacity: 0;
+}
+
+
 
 .join-button {
     margin-top: 66vh;
