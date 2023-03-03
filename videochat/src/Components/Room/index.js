@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import useWebRTC, { LOCAL_VIDEO } from "../../hooks/useWebRTC";
 import './style.css';
 
+
 function layout(clientsNumber = 1) {
     const pairs = Array.from({length: clientsNumber}).reduce((acc, next, index, arr) => {
         if (index % 2 === 0) {
@@ -30,10 +31,20 @@ function layout(clientsNumber = 1) {
     }).flat()
 }
 
+
 function Room () {
     const {id: roomID} = useParams();
     const {clients, provideMediaRef} = useWebRTC(roomID);
     const videoLayout = layout(clients.length);
+
+
+    function dellOpacity() {
+        let opacity1 = document.getElementById('intro-scrn');
+        opacity1.className += ' dell-opacity';
+        let opacity2 = document.getElementById('intro-btn');
+        opacity2.className += ' dell-opacity';
+    }
+    
 
     console.log(clients);
 
@@ -46,7 +57,9 @@ function Room () {
             height: '100vh',
         }}>
             <div className="intro-wrap">
-                <div className="intro-screen"></div>
+                <div id="intro-scrn" className="intro-screen">
+                    <button id="intro-btn" className="join-button" onClick={dellOpacity}>Join meeting</button>
+                </div>
             </div>
             {clients.map((clientID, index) => {
                 return (
