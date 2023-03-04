@@ -15,18 +15,18 @@ function layout(clientsNumber = 1) {
     }, [])
 
     const rowsNumber = pairs.length;
-    const height = `${65 / rowsNumber}%`
+    const height = `${75 / rowsNumber}%`
 
     return pairs.map((row, index, arr) => {
         if (index === arr.length - 1 && row.length === 1) {
             return [{
-                width: '65%',
+                width: '70%',
                 height,
             }]
         }
 
         return row.map(() => ({
-            width: '35%',
+            width: '37.5%',
             height
         }))
     }).flat()
@@ -104,7 +104,7 @@ function Room () {
                     <button id="intro-btn" className="join-button" onClick={dellOpacity}>Join meeting</button>
                 </div>
             </div>*/}
-            
+
             <div className="header-logo">
                 <img className="logo" src={logo}></img>
                 <span className="logo-name">MedDoc</span>
