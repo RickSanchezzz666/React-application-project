@@ -4,8 +4,50 @@
     overflow: hidden;
 }
 
-.room-wrapper {
+.room-wrapper .video-source {
+   margin: 0px 10px 0px 10px;
+}
+
+.video-source {
+    display: flex;
+    align-items: center;
+}
+
+.room-footer {
+    display: flex;
+    align-self: end;
+    height: 20vh;
+    width: 100%;
     background-color: #272525;
+    position: fixed;
+}
+
+.room-footer button {
+    height: 20px;
+}
+
+.header-logo {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 2.5fr;
+    top: 0;
+    left: 0;
+    margin-left: 10px;
+    margin-top: 10px;
+    position: fixed;
+}
+
+.logo {
+    z-index: 90;
+    height: 75px;
+    width: 75px;
+}
+
+.logo-name {
+    z-index: 90;
+    color: #04205A;
+    font-size: 37.5px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 @keyframes back-appear {
@@ -34,7 +76,7 @@
 }
 
 .intro-screen {
-    position: fixed;
+    position: absolute;
     overflow: hidden;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
@@ -79,4 +121,3 @@
     background-color: aqua;
     transition: 0.5s;
 }
-
