@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router";
 import useWebRTC, { LOCAL_VIDEO, userStream } from "../../hooks/useWebRTC";
 import './style.css';
 import logo from '../Content/imgs/logo_blue.png';
+import WebFont from 'webfontloader';
 
 
 function layout(clientsNumber = 1) {
@@ -15,18 +16,18 @@ function layout(clientsNumber = 1) {
     }, [])
 
     const rowsNumber = pairs.length;
-    const height = `${75 / rowsNumber}%`
-
+    const height = `${65 / rowsNumber}%`
+   
     return pairs.map((row, index, arr) => {
         if (index === arr.length - 1 && row.length === 1) {
             return [{
-                width: '70%',
+                width: '65%',
                 height,
             }]
         }
 
         return row.map(() => ({
-            width: '37.5%',
+            width: '30%',
             height
         }))
     }).flat()
@@ -35,6 +36,15 @@ function layout(clientsNumber = 1) {
 
 
 function Room () {
+    useEffect(() => {
+        WebFont.load({
+          google: {
+            families: ['Arvo']
+          }
+        });
+       }, []);
+    
+
     const {id: roomID} = useParams();
     const {clients, provideMediaRef} = useWebRTC(roomID);
     const videoLayout = layout(clients.length);
@@ -88,6 +98,7 @@ function Room () {
     console.log(clients);
 
     return (
+
         <div className="room-wrapper" style={{
             display: 'flex',
             alignItems: 'center',
@@ -125,6 +136,7 @@ function Room () {
                     </div>
                 )
             })}
+            <div className="emptiness"></div>
             <div className="room-footer">
                 <button id="off-video-button">Hide cam</button>
                 <button id="off-audio-button">Mute mic</button>

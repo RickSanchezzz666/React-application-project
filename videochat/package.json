@@ -25,7 +25,8 @@
     "socket.io-client": "^4.6.0",
     "typed.js": "^2.0.12",
     "uuid": "^9.0.0",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "webfontloader": "^1.6.28"
   },
   "scripts": {
     "start:dev-server": "npx nodemon server.js",

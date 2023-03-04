@@ -5,7 +5,7 @@
 }
 
 .room-wrapper .video-source {
-   margin: 0px 20px 0px 20px;
+   margin: 50px 20px 0px 20px;
 }
 
 
@@ -21,6 +21,12 @@
     height: 20vh;
     width: 100%;
     background-color: #272525;
+    position: fixed;
+}
+
+.emptiness {
+    height: 20vh;
+    width: 100%;
 }
 
 .room-footer button {
@@ -48,7 +54,7 @@
     z-index: 90;
     color: #04205A;
     font-size: 37.5px;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: 'Arvo';
 }
 
 @keyframes back-appear {
