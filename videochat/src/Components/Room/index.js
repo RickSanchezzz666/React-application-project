@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router";
-import useWebRTC, { LOCAL_VIDEO } from "../../hooks/useWebRTC";
+import useWebRTC, { LOCAL_VIDEO, userStream } from "../../hooks/useWebRTC";
 import './style.css';
 
 
@@ -32,10 +32,30 @@ function layout(clientsNumber = 1) {
 }
 
 
+
 function Room () {
     const {id: roomID} = useParams();
     const {clients, provideMediaRef} = useWebRTC(roomID);
     const videoLayout = layout(clients.length);
+
+    const videoButton = document.getElementById('off-video-button');
+    
+    function hideCam() {
+        const videoTrack = userStream.getTracks().find(track => track.kind === 'video');
+    }
+
+    if(videoButton) {
+        videoButton.addEventListener('click', () => {
+            const videoTrack = userStream.getTracks().find(track => track.kind === 'video');
+            if (videoTrack.enabled) {
+                videoTrack.enabled = false;
+                videoButton.innerHTML = 'Show cam'
+            } else {
+                videoTrack.enabled = true;
+                videoButton.innerHTML = "Hide cam"
+            }
+        });
+    }
 
 
     function dellOpacity() {
@@ -56,12 +76,16 @@ function Room () {
             flexWrap: 'wrap',
             height: '100vh',
         }}>
+
             <div className="back-wrap"></div>
+
             <div className="intro-wrap">
                 <div id="intro-scrn" className="intro-screen">
                     <button id="intro-btn" className="join-button" onClick={dellOpacity}>Join meeting</button>
+                    <button id="off-video-button">Hide cam</button>
                 </div>
             </div>
+
             {clients.map((clientID, index) => {
                 return (
                     <div key={clientID} style={videoLayout[index]}>

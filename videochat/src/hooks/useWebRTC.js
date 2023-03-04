@@ -5,6 +5,7 @@ import ACTIONS from "../Socket/actions";
 import useStateWithCallback from './useStateWithCallback';
 
 export const LOCAL_VIDEO = 'LOCAL_VIDEO';
+export let userStream = 'userStream';
 
 function useWebRTC(roomID) {
     const [clients, updateClients] = useStateWithCallback([]);
@@ -124,6 +125,8 @@ function useWebRTC(roomID) {
                 }
             })
 
+            userStream = localMediaStream.current;
+
             addNewClient(LOCAL_VIDEO, () => {
                 const localVideoElement = peerMediaElements.current[LOCAL_VIDEO];
 
@@ -149,7 +152,7 @@ function useWebRTC(roomID) {
         peerMediaElements.current[id] = node;
     }, [])
 
-    return {clients, provideMediaRef};
+    return {clients, provideMediaRef };
 }
 
 export default useWebRTC;
