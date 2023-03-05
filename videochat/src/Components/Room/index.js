@@ -107,6 +107,9 @@ function Room () {
     if(leaveButton) {
         leaveButton.addEventListener('click', () => {
             userStream.getTracks().forEach(track => track.stop());
+            setTimeout(() => {
+                window.location.reload()
+            }, 25);
         })
     }
 
@@ -116,7 +119,6 @@ function Room () {
         let opacity2 = document.getElementById('intro-btn');
         opacity2.className = 'join-button-opacity';
     }
-    
 
     console.log(clients);
 
