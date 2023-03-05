@@ -24,7 +24,7 @@
     position: fixed;
 }
 
-.emptiness {
+.room-emptiness {
     height: 20vh;
     width: 100%;
 }
@@ -46,14 +46,14 @@
 
 .logo {
     z-index: 90;
-    height: 75px;
-    width: 75px;
+    height: 50px;
+    width: 50px;
 }
 
 .logo-name {
     z-index: 90;
     color: #04205A;
-    font-size: 37.5px;
+    font-size: 25px;
     font-family: 'Arvo';
 }
 

@@ -136,10 +136,10 @@ function Room () {
                     </div>
                 )
             })}
-            <div className="emptiness"></div>
+            <div className="room-emptiness"></div>
             <div className="room-footer">
-                <button id="off-video-button">Hide cam</button>
                 <button id="off-audio-button">Mute mic</button>
+                <button id="off-video-button">Hide cam</button>
             </div>
         </div>
     )
