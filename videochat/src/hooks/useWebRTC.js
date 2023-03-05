@@ -59,7 +59,7 @@ function useWebRTC(roomID) {
             if (createOffer) {
                 const offer = await peerConnections.current[peerID].createOffer();
 
-                await peerConnections.current[peerID].setLocalDescription(offer)
+                await peerConnections.current[peerID].setLocalDescription(offer);
                 
                 socket.emit(ACTIONS.RELAY_SDP, {
                     peerID,

@@ -10,6 +10,7 @@ function Content () {
     const history = useNavigate();
     const [rooms, updateRooms] = useState([]);
     const rootNode = useRef();
+
     {/* const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
 
