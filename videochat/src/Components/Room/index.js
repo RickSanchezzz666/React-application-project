@@ -10,6 +10,7 @@ import settings from '../Content/imgs/setting.png';
 import camera from '../Content/imgs/camera.png';
 import cameraOff from '../Content/imgs/camera-off.png';
 import WebFont from 'webfontloader';
+import { Link } from 'react-router-dom';
 
 
 function layout(clientsNumber = 1) {
@@ -58,6 +59,8 @@ function Room () {
     const videoButton = document.getElementById('off-video-button');
     const audioButton = document.getElementById('off-audio-button');
 
+    const leaveButton = document.getElementById('room-call-leave')
+
     const videoLogo = document.getElementById('off-video-button');
     const audioLogo = document.getElementById('off-audio-button');
     
@@ -99,6 +102,12 @@ function Room () {
                 audioLogo.innerHTML = '<img src="/static/media/microphone.effb021cb32309301520.png">'
             }
         });
+    }
+
+    if(leaveButton) {
+        leaveButton.addEventListener('click', () => {
+            userStream.getTracks().forEach(track => track.stop());
+        })
     }
 
     function dellOpacity() {
@@ -163,7 +172,9 @@ function Room () {
                         <img src={camera}></img>
                     </button>
                     <button className="room-button" id="room-call-leave">
-                        <img src={phone}></img>
+                        <Link className="room-button-text" to='/'>
+                            <img src={phone}></img>
+                        </Link>
                     </button>
                 </div>
             </div>

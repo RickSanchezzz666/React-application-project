@@ -156,6 +156,11 @@ background-color: #CDA4EE;
     transition: 0.25s;
 }
 
+.room-button-text {
+    text-decoration: none;
+    color: black;
+}
+
 #room-settings:hover,
 #room-call-leave:hover,
 .video-button-on:hover,
