@@ -146,14 +146,16 @@
     height: 50px;
     width: 50px;
     border-radius: 100px 100px 100px 100px;
--moz-border-radius: 100px 100px 100px 100px;
--webkit-border-radius: 100px 100px 100px 100px;
-background-color: #CDA4EE;
+    -moz-border-radius: 100px 100px 100px 100px;
+    -webkit-border-radius: 100px 100px 100px 100px;
+    background-color: #CDA4EE;
 }
 
 #room-call-leave {
     background-color: #E43B3B;
     transition: 0.25s;
+    height: 60px;
+    width: 60px;
 }
 
 .room-button-text {

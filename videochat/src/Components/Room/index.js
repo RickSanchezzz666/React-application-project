@@ -64,26 +64,17 @@ function Room () {
     const videoLogo = document.getElementById('off-video-button');
     const audioLogo = document.getElementById('off-audio-button');
     
-    function hideCam() {
-        const videoTrack = userStream.getTracks().find(track => track.kind === 'video');
-    }
-
-    function muteMic() {
-        const audioTrack = userStream.getTracks().find(track => track.kind === 'audio');
-    }
-
-
     if(videoButton) {
         videoButton.addEventListener('click', () => {
-            const videoTrack = userStream.getTracks().find(track => track.kind === 'video');
+            const videoTrack = userStream.getVideoTracks()[0];
             if (videoTrack.enabled) {
                 videoTrack.enabled = false;
                 videoButton.className = 'room-button video-button-off';
-                videoLogo.innerHTML = '<img src="/static/media/camera-off.964b9b1cba873749ea0a.png">'
+                videoLogo.innerHTML = `<img src=${cameraOff} alt="Camera Off">`;
             } else {
                 videoTrack.enabled = true;
                 videoButton.className = 'room-button video-button-on';
-                videoLogo.innerHTML = '<img src="/static/media/camera.e4b171aa2da395b00e68.png">'
+                videoLogo.innerHTML = `<img src=${camera} alt="Camera On">`;
             }
         });
     }
@@ -91,15 +82,15 @@ function Room () {
 
     if(audioButton) {
         audioButton.addEventListener('click', () => {
-            const audioTrack = userStream.getTracks().find(track => track.kind === 'audio');
+            const audioTrack = userStream.getAudioTracks()[0];
             if (audioTrack.enabled) {
                 audioTrack.enabled = false;
                 audioButton.className = 'room-button video-button-off';
-                audioLogo.innerHTML = '<img src="/static/media/microphone-off.d119a010849be20d09f2.png">'
+                audioLogo.innerHTML = `<img src=${microphoneOff} alt="Microphone Off">`
             } else {
                 audioTrack.enabled = true;
                 audioButton.className = 'room-button video-button-on';
-                audioLogo.innerHTML = '<img src="/static/media/microphone.effb021cb32309301520.png">'
+                audioLogo.innerHTML = `<img src=${microphone} alt="Microphone On">`
             }
         });
     }
