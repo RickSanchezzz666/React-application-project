@@ -18,6 +18,8 @@
 .room-footer {
     display: flex;
     align-self: end;
+    justify-content: center;
+    align-items: center;
     height: 20vh;
     width: 100%;
     background-color: #272525;
@@ -27,10 +29,6 @@
 .room-emptiness {
     height: 20vh;
     width: 100%;
-}
-
-.room-footer button {
-    height: 20px;
 }
 
 .header-logo {
@@ -127,4 +125,26 @@
 .join-button:hover {
     background-color: aqua;
     transition: 0.5s;
+}
+
+.room-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-column-gap: 15px;
+    justify-items: center;
+    align-items: center;
+}
+
+.room-buttons img {
+    z-index: 99.9;
+    height: 32.5px;
+    width: 32.5px;
+}
+
+.room-button {
+    height: 50px;
+    width: 50px;
+    border-radius: 100px 100px 100px 100px;
+-moz-border-radius: 100px 100px 100px 100px;
+-webkit-border-radius: 100px 100px 100px 100px;
 }

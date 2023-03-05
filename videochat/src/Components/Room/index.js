@@ -3,6 +3,10 @@ import { useParams } from "react-router";
 import useWebRTC, { LOCAL_VIDEO, userStream } from "../../hooks/useWebRTC";
 import './style.css';
 import logo from '../Content/imgs/logo_blue.png';
+import microphone from '../Content/imgs/microphone.png';
+import phone from '../Content/imgs/phone-call.png';
+import settings from '../Content/imgs/setting.png';
+import camera from '../Content/imgs/camera.png';
 import WebFont from 'webfontloader';
 
 
@@ -138,8 +142,20 @@ function Room () {
             })}
             <div className="room-emptiness"></div>
             <div className="room-footer">
-                <button id="off-audio-button">Mute mic</button>
-                <button id="off-video-button">Hide cam</button>
+                <div className="room-buttons">
+                    <button className="room-button" id="room-settings">
+                        <img src={settings}></img>
+                    </button>
+                    <button className="room-button" id="off-audio-button">
+                        <img src={microphone}></img>
+                    </button>
+                    <button className="room-button" id="off-video-button">
+                        <img src={camera}></img>
+                    </button>
+                    <button className="room-button" id="room-call-leave">
+                        <img src={phone}></img>
+                    </button>
+                </div>
             </div>
         </div>
     )
