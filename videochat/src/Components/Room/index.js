@@ -4,9 +4,11 @@ import useWebRTC, { LOCAL_VIDEO, userStream } from "../../hooks/useWebRTC";
 import './style.css';
 import logo from '../Content/imgs/logo_blue.png';
 import microphone from '../Content/imgs/microphone.png';
+import microphoneOff from '../Content/imgs/microphone-off.png';
 import phone from '../Content/imgs/phone-call.png';
 import settings from '../Content/imgs/setting.png';
 import camera from '../Content/imgs/camera.png';
+import cameraOff from '../Content/imgs/camera-off.png';
 import WebFont from 'webfontloader';
 
 
