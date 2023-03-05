@@ -69,10 +69,8 @@ function Room () {
             const videoTrack = userStream.getTracks().find(track => track.kind === 'video');
             if (videoTrack.enabled) {
                 videoTrack.enabled = false;
-                videoButton.innerHTML = 'Show cam'
             } else {
                 videoTrack.enabled = true;
-                videoButton.innerHTML = "Hide cam"
             }
         });
     }
@@ -82,10 +80,8 @@ function Room () {
             const audioTrack = userStream.getTracks().find(track => track.kind === 'audio');
             if (audioTrack.enabled) {
                 audioTrack.enabled = false;
-                audioButton.innerHTML = 'Mute mic'
             } else {
                 audioTrack.enabled = true;
-                audioButton.innerHTML = "Unmute mic"
             }
         });
     }
@@ -149,7 +145,7 @@ function Room () {
                     <button className="room-button" id="off-audio-button">
                         <img src={microphone}></img>
                     </button>
-                    <button className="room-button" id="off-video-button">
+                    <button className="room-button video-button-on" id="off-video-button">
                         <img src={camera}></img>
                     </button>
                     <button className="room-button" id="room-call-leave">

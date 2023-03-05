@@ -136,15 +136,25 @@
 }
 
 .room-buttons img {
-    z-index: 99.9;
+    z-index: 99.8;
     height: 32.5px;
-    width: 32.5px;
+    width: 32.5px
 }
 
 .room-button {
+    padding-top: 3.5px;
     height: 50px;
     width: 50px;
     border-radius: 100px 100px 100px 100px;
 -moz-border-radius: 100px 100px 100px 100px;
 -webkit-border-radius: 100px 100px 100px 100px;
+background-color: #CDA4EE;
+}
+
+#room-call-leave {
+    background-color: #E43B3B;
+}
+
+.video-button-off {
+    background-color: #CDA4EE;
 }
