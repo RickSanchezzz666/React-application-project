@@ -11,7 +11,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Content />} />
         <Route path='/room/:id' element={<Room />} />
-        <Route path='/contact-us' element={<ContactForm />} />
+        <Route path='/contact' element={<ContactForm />} />
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
