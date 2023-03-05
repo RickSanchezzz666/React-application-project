@@ -16,7 +16,7 @@ const schema = new Schema({
     patient_info: { 
         overall: { type: String, default: '' },
         blood_type: { type: String, default: '' }
-    },
+    }
 });
 
 const Clients = new model('clients', schema)
