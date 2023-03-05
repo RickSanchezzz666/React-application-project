@@ -35,7 +35,7 @@ function Content () {
                 history(`/room/${v4()}`)
             }}>Create new room</button><br/><br/><br/>
             <button onClick={() => {
-                history('/contact-us');
+                history('/contact');
             }}>Contact Us</button>
         </div>
     )
