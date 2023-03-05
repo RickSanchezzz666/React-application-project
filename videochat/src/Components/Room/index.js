@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import useWebRTC, { LOCAL_VIDEO, userStream } from "../../hooks/useWebRTC";
 import './style.css';
@@ -47,7 +47,7 @@ function Room () {
           }
         });
        }, []);
-    
+
 
     const {id: roomID} = useParams();
     const {clients, provideMediaRef} = useWebRTC(roomID);
@@ -55,6 +55,9 @@ function Room () {
 
     const videoButton = document.getElementById('off-video-button');
     const audioButton = document.getElementById('off-audio-button');
+
+    const videoLogo = document.getElementById('off-video-button');
+    const audioLogo = document.getElementById('off-audio-button');
     
     function hideCam() {
         const videoTrack = userStream.getTracks().find(track => track.kind === 'video');
@@ -64,28 +67,37 @@ function Room () {
         const audioTrack = userStream.getTracks().find(track => track.kind === 'audio');
     }
 
+
     if(videoButton) {
         videoButton.addEventListener('click', () => {
             const videoTrack = userStream.getTracks().find(track => track.kind === 'video');
             if (videoTrack.enabled) {
                 videoTrack.enabled = false;
+                videoButton.className = 'room-button video-button-off';
+                videoLogo.innerHTML = '<img src="/static/media/camera-off.964b9b1cba873749ea0a.png">'
             } else {
                 videoTrack.enabled = true;
+                videoButton.className = 'room-button video-button-on';
+                videoLogo.innerHTML = '<img src="/static/media/camera.e4b171aa2da395b00e68.png">'
             }
         });
     }
+
 
     if(audioButton) {
         audioButton.addEventListener('click', () => {
             const audioTrack = userStream.getTracks().find(track => track.kind === 'audio');
             if (audioTrack.enabled) {
                 audioTrack.enabled = false;
+                audioButton.className = 'room-button video-button-off';
+                audioLogo.innerHTML = '<img src="/static/media/microphone-off.d119a010849be20d09f2.png">'
             } else {
                 audioTrack.enabled = true;
+                audioButton.className = 'room-button video-button-on';
+                audioLogo.innerHTML = '<img src="/static/media/microphone.effb021cb32309301520.png">'
             }
         });
     }
-
 
     function dellOpacity() {
         let opacity1 = document.getElementById('intro-scrn');
@@ -142,7 +154,7 @@ function Room () {
                     <button className="room-button" id="room-settings">
                         <img src={settings}></img>
                     </button>
-                    <button className="room-button" id="off-audio-button">
+                    <button className="room-button audio-button-on" id="off-audio-button">
                         <img src={microphone}></img>
                     </button>
                     <button className="room-button video-button-on" id="off-video-button">

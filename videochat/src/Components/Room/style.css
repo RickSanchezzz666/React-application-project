@@ -153,8 +153,35 @@ background-color: #CDA4EE;
 
 #room-call-leave {
     background-color: #E43B3B;
+    transition: 0.25s;
+}
+
+#room-settings:hover,
+#room-call-leave:hover,
+.video-button-on:hover,
+.video-button-off:hover,
+.audio-button-on:hover,
+.audio-button-off:hover {
+    filter: brightness(0.8);
+    transition: 0.25s;
+}
+
+.video-button-on {
+    background-color: #CDA4EE;
+    transition: 0.25s;
 }
 
 .video-button-off {
+    background-color: #E43B3B;
+    transition: 0.25s;
+}
+
+.audio-button-on {
     background-color: #CDA4EE;
+    transition: 0.25s;
+}
+
+.audio-button-off {
+    background-color: #E43B3B;
+    transition: 0.25s;
 }
