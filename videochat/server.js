@@ -16,6 +16,7 @@ const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const PORT = process.env.PORT_BACK;
+//app.use("/ui", express.static('build'));
 app.use(express.static('build'));
 app.use(bodyParser.json());
 
@@ -26,6 +27,10 @@ const setup = async () => {
 
     authMiddleware(app);
   
+    {/*app.get("/ui*", (req,res) => {
+        res.sendFile(path.join(__dirname, 'build', 'index.html'));
+    });*/}
+
     app.use(LoginAPI.router);
 
     app.post("/contact-form", async (req, res) => {

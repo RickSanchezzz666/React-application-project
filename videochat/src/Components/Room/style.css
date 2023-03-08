@@ -8,8 +8,6 @@
    margin: 50px 20px 0px 20px;
 }
 
-
-
 .video-source {
     display: flex;
     align-items: center;
@@ -20,14 +18,14 @@
     align-self: end;
     justify-content: center;
     align-items: center;
-    height: 20vh;
+    height: 140px;
     width: 100%;
     background-color: #272525;
     position: fixed;
 }
 
 .room-emptiness {
-    height: 20vh;
+    height: 140px;
     width: 100%;
 }
 

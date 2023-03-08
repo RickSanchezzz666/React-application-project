@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router";
 import useWebRTC, { LOCAL_VIDEO, userStream } from "../../hooks/useWebRTC";
 import './style.css';
@@ -64,8 +64,9 @@ function Room () {
     const videoLogo = document.getElementById('off-video-button');
     const audioLogo = document.getElementById('off-audio-button');
     
-    if(videoButton) {
-        videoButton.addEventListener('click', () => {
+    
+    function turnOffVideo() {
+        if(videoButton) {
             const videoTrack = userStream.getVideoTracks()[0];
             if (videoTrack.enabled) {
                 videoTrack.enabled = false;
@@ -76,12 +77,12 @@ function Room () {
                 videoButton.className = 'room-button video-button-on';
                 videoLogo.innerHTML = `<img src=${camera} alt="Camera On">`;
             }
-        });
+        }
     }
 
 
-    if(audioButton) {
-        audioButton.addEventListener('click', () => {
+    function turnOffAudio() {
+        if(audioButton) {
             const audioTrack = userStream.getAudioTracks()[0];
             if (audioTrack.enabled) {
                 audioTrack.enabled = false;
@@ -92,23 +93,16 @@ function Room () {
                 audioButton.className = 'room-button video-button-on';
                 audioLogo.innerHTML = `<img src=${microphone} alt="Microphone On">`
             }
-        });
+        }
     }
 
-    if(leaveButton) {
-        leaveButton.addEventListener('click', () => {
+    function callLeave() {
+        if(leaveButton) {
             userStream.getTracks().forEach(track => track.stop());
-            setTimeout(() => {
-                window.location.reload()
-            }, 25);
-        })
-    }
-
-    function dellOpacity() {
-        let opacity1 = document.getElementById('intro-scrn');
-        opacity1.className += ' dell-opacity';
-        let opacity2 = document.getElementById('intro-btn');
-        opacity2.className = 'join-button-opacity';
+                setTimeout(() => {
+                    window.location.reload()
+                }, 0);
+        }
     }
 
     console.log(clients);
@@ -123,14 +117,6 @@ function Room () {
             height: '100vh',
             width: '100vw',
         }}>
-
-            {/*<div className="back-wrap"></div>
-
-            <div className="intro-wrap">
-                <div id="intro-scrn" className="intro-screen">
-                    <button id="intro-btn" className="join-button" onClick={dellOpacity}>Join meeting</button>
-                </div>
-            </div>*/}
 
             <div className="header-logo">
                 <img className="logo" src={logo}></img>
@@ -158,13 +144,13 @@ function Room () {
                     <button className="room-button" id="room-settings">
                         <img src={settings}></img>
                     </button>
-                    <button className="room-button audio-button-on" id="off-audio-button">
+                    <button onClick={turnOffAudio} className="room-button audio-button-on" id="off-audio-button">
                         <img src={microphone}></img>
                     </button>
-                    <button className="room-button video-button-on" id="off-video-button">
+                    <button onClick={turnOffVideo} className="room-button video-button-on" id="off-video-button">
                         <img src={camera}></img>
                     </button>
-                    <button className="room-button" id="room-call-leave">
+                    <button onClick={callLeave} className="room-button" id="room-call-leave">
                         <Link className="room-button-text" to='/'>
                             <img src={phone}></img>
                         </Link>
