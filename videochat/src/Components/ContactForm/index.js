@@ -1,51 +1,30 @@
 import React, { useState } from 'react';
-import './style.css';
 import axios from 'axios';
 
-const ContactForm = () => {
-    const [formData, setFormData] = useState({
-      username: '',
-      password: ''
-    });
-  
-    const handleChange = (event) => {
-      setFormData({ ...formData, [event.target.name]: event.target.value });
-    };
-  
-    const handleSubmit = async (event) => {
-      event.preventDefault();
-      try {
-        await axios.get('http://localhost:3001/login', formData);
-        alert('Форма успішно надіслана');
-      } catch (error) {
-        console.error(error);
-        alert('Виникла помилка');
-      }
-    };
-  
-    return (
-      <form onSubmit={handleSubmit}>
-        <label>
-          First Name:
-          <input
-            type="text"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Last Name:
-          <input
-            type="text"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-          />
-        </label>
-        <button type="submit">Submit</button>
-      </form>
-    );
-  };
-  
-  export default ContactForm;
+function App() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [data, setData] = useState(null);
+
+  const fetchData = async () => {
+    const url = `/login?username=${username}&password=${password}`;
+
+    try {
+      const response = await axios.get(url);
+      setData(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  return (
+    <div>
+      <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+      <button onClick={fetchData}>Submit</button>
+      {data && <div>{JSON.stringify(data)}</div>}
+    </div>
+  );
+}
+
+export default App;
