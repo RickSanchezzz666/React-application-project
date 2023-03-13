@@ -1,0 +1,155 @@
+/*------------------------------------------------------*/
+                /*Main Contact Component*/
+
+.contact-page {
+    width: 100vw;
+    height: 100vh;
+    background-image: url('../../images/back.png');
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+}
+
+.contact-page-background {
+    color: white;
+    display: flex;
+    height: 100vh;
+    width: 100% ;
+    justify-content: center;
+    align-items: start;
+}
+
+/*------------------------------------------------------*/
+                /*Application Form*/
+
+.application-form-wrapper {
+    margin-left: 750px;
+    margin-top: 100px;
+    height: 450px;
+    width: 550px;
+}
+
+.application-form {
+    height: 100%;
+    width: 100%;
+    background: #A4CFE7;
+    border: 3px solid #4486AB;
+    border-radius: 8px;
+    padding: 10px 10px 10px 10px;
+    grid-area: 1 / 2 / 2 / 3;
+    display: grid;
+    justify-content: end;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(7, 1fr);
+}
+
+.application-form {
+    grid-area: 1 / 1 / 8 / 5;
+}
+ 
+.application-form-header {
+    grid-area: 1 / 2 / 2 / 4;
+    display: flex;
+    justify-content: center;
+    font-family: 'Arvo';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 25px;
+    color: #1F0044;
+}
+
+
+.contact-text-input { 
+    left: 15px;
+    width: 58px;
+    height: 18px;
+    font-family: 'Arvo';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    color: #1F0044;
+    padding: 5%;
+} 
+
+.contact-page-input {
+    left: 20px;
+    width: 200px;
+    height: 23px;
+    background: #FEFEFE;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    border-color: #A4CFE7;
+}
+
+.contact-text-input-complains {
+    right: 97px;
+    width: 58px;
+    height: 18px;
+    font-family: 'Arvo';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    color: #1F0044;
+    padding: 10px;
+}
+
+.contact-page-input-complains {
+    width: 350px;
+    height: 100px;
+    background: #FEFEFE;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+}
+
+.application-form-create {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    grid-area: 7 / 2 / 8 / 4;
+}
+
+.application-form-create-button {
+    top: 20px;
+    left: 50px;
+    width: 125px;
+    height: 30px;
+    color: black;
+    background: #FFFFFF;
+    border: 2px solid #4486AB;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+}
+
+.application-form-name {
+    grid-area: 2 / 1 / 3 / 3;
+    margin-left: 40px;
+}
+
+.application-form-email {
+    grid-area: 3 / 1 / 4 / 3;
+    margin-left: 40px;
+}
+
+.application-form-birthday {
+    grid-area: 4 / 1 / 5 / 3;
+    margin-left: 40px   ;
+}
+
+.application-form-lastname {
+    grid-area: 2 / 3 / 3 / 5;
+    margin-left: 20px;
+}
+
+.application-form-complains {
+    margin-left: 40px;
+    grid-area: 5 / 1 / 7 / 4;
+}
+
+.form-app-margin {
+    margin-right: 444px;
+}
