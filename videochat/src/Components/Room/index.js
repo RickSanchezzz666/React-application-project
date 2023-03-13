@@ -10,7 +10,7 @@ import settings from '../Content/imgs/setting.png';
 import camera from '../Content/imgs/camera.png';
 import cameraOff from '../Content/imgs/camera-off.png';
 import WebFont from 'webfontloader';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 
 
 function layout(clientsNumber = 1) {
@@ -55,7 +55,6 @@ function Room () {
     const {id: roomID} = useParams();
     const {clients, provideMediaRef} = useWebRTC(roomID);
     const videoLayout = layout(clients.length);
-    const history = useNavigate();
 
     const videoButton = document.getElementById('off-video-button');
     const audioButton = document.getElementById('off-audio-button');
@@ -151,11 +150,11 @@ function Room () {
                     <button onClick={turnOffVideo} className="room-button video-button-on" id="off-video-button">
                         <img src={camera}></img>
                     </button>
-                    <button onClick={callLeave} className="room-button" id="room-call-leave">
-                        <div onClick={() => history('/')} className="room-button-text" to='/'>
+                    <Link className="room-button-text" to='/'>
+                        <button onClick={callLeave} className="room-button" id="room-call-leave">
                             <img src={phone}></img>
-                        </div>
-                    </button>
+                        </button>
+                    </Link>
                 </div>
             </div>
         </div>

@@ -154,6 +154,7 @@
     transition: 0.25s;
     height: 60px;
     width: 60px;
+    cursor: pointer;
 }
 
 .room-button-text {
