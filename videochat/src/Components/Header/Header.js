@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import "./Header.css";
 import WebFont from 'webfontloader';
 import logo from '../../images/logo_white.png'
+import { Link } from "react-router-dom";
 
 const Header = () => {
   useEffect(() => {
@@ -17,8 +18,8 @@ const Header = () => {
     <header className="header">
       <div className="header-wrapper">
         <div className="header-logo-wrapper">
-          <div><img className="header-logo" src={logo} /></div>
-          <div><span className="header-logo-name">MedDoc</span></div>
+          <Link to='/' className="header-router"><img className="header-logo" src={logo} /></Link>
+          <Link to='/' className="header-router"><span className="header-logo-name">MedDoc</span></Link>
         </div>
 
         <div className="header-links">
