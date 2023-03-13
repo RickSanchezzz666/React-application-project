@@ -9,6 +9,7 @@ const socket = require('./src/Socket');
 const ACTIONS = require('./src/Socket/actions');
 const { Socket } = require('socket.io-client');
 const { config } = require('process');
+const cors = require('cors')
 const {version, validate} = require('uuid')
 require('dotenv').config();                                            // Загальні серверні налаштування
 
@@ -19,6 +20,7 @@ const PORT = process.env.PORT_BACK;
 //app.use("/ui", express.static('build'));
 
 app.use(bodyParser.json());
+app.use(cors());
 
 console.log('MONGO_DB_URI:', process.env.MONGO_DB_URI);
 
