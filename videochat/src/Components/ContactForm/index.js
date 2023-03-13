@@ -38,7 +38,7 @@ function App() {
           </div>
           <div className="application-form-birthday">
           <label className="contact-text-input" for="birthday">Birthday</label>
-            <input type="text" id="birthday" className="contact-page-input" />
+            <input type="date" id="birthday" className="contact-page-input" />
           </div>
           <div className="application-form-lastname">
           <label className="contact-text-input" for="LastName">LastName</label>
