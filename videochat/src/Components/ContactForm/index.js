@@ -41,7 +41,7 @@ function App() {
             <input type="date" id="birthday" className="contact-page-input" />
           </div>
           <div className="application-form-lastname">
-          <label className="contact-text-input" for="LastName">LastName</label>
+          <label className="contact-text-input" for="LastName">Last Name</label>
             <input type="text" id="LastName" className="contact-page-input" />
           </div>
           <div className="application-form-complains">

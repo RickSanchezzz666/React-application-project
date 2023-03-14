@@ -63,7 +63,8 @@
     grid-template-columns: 1fr 1fr 1fr 2fr;
     grid-column-gap: 40px;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 10px;
+    height: 50px;
 }
 
 .header-links-text {
