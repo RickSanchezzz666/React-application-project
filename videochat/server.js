@@ -36,18 +36,18 @@ const setup = async () => {
     app.use(LoginAPI.router);
 
     app.post("/contact-form", async (req, res) => {
-        const { contact_information: { name, surname, email, phone }, location: { address, city, country, zipcode }, patient_info: { overall, blood_type} } = req.body;
+        const { contact_information: { name, surname, email, phone }, location: { address, city, country, zipcode }, patient_info: { birthday, overall, blood_type} } = req.body;
 
         const client = new Clients({
-            contact_information: { name, surname, email, phone }, location: { address, city, country, zipcode }, patient_info: { overall, blood_type}
+            contact_information: { name, surname, email, phone }, location: { address, city, country, zipcode }, patient_info: { birthday, overall, blood_type}
         });
 
         try {
             const ticket = await client.save();
-            return res.status(200).send('Операція успішна!');
+            return res.status(200).send('SUCCCCCCCCCCCEEEESSSSSSSSSSSSSSSSS!!!!!!!!!');
         } catch (err) {
             console.error(err.toString());
-            res.status(400).send('Щось пішло не так : (');
+            res.status(400).send('Oy shit, something went wrong');
         }
     });
 

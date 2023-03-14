@@ -14,7 +14,8 @@ const schema = new Schema({
         zipcode: { type: String, default: '' }
     },
     patient_info: { 
-        overall: { type: String, default: '' },
+        birthday: { type: String, required: true },
+        overall: { type: String, required: true, default: '' },
         blood_type: { type: String, default: '' }
     }
 });
