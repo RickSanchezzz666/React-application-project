@@ -2,15 +2,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -o-user-select: none;
-    user-select: none;
-    -webkit-user-drag: none;
-    -khtml-user-drag: none;
-    -moz-user-drag: none;
-    -o-user-drag: none;
 }
 
 .NotFoundPage {
@@ -26,6 +17,15 @@
     -moz-animation: UnicoreAnimator 5s ease infinite;
     -o-animation: UnicoreAnimator 5s ease infinite;
     animation: UnicoreAnimator 5s ease infinite;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
 }
 
 @-webkit-keyframes UnicoreAnimator {
@@ -64,4 +64,29 @@
     font-size: 40px;
     font-family:Trebuchet MS;
     font-weight: bold;
+}
+
+.back-button {
+    height: 60px;
+    width: 300px;
+    margin-top: 6vh;
+    background: rgba(255, 255, 255, 0.14);
+    border-radius: 12px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(9.7px);
+    -webkit-backdrop-filter: blur(9.7px);
+    border: 1px solid rgba(255, 255, 255, 0.32);
+    color: white;
+    font-size: 25px;
+    font-family:Trebuchet MS;
+    font-weight: bold;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.back-button:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    -webkit-backdrop-filter: blur(13.5px);
 }
