@@ -2,13 +2,13 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router";
 import useWebRTC, { LOCAL_VIDEO, userStream } from "../../hooks/useWebRTC";
 import './style.css';
-import logo from '../Content/imgs/logo_blue.png';
-import microphone from '../Content/imgs/microphone.png';
-import microphoneOff from '../Content/imgs/microphone-off.png';
-import phone from '../Content/imgs/phone-call.png';
-import settings from '../Content/imgs/setting.png';
-import camera from '../Content/imgs/camera.png';
-import cameraOff from '../Content/imgs/camera-off.png';
+import logo from './imgs/logo_blue.png';
+import microphone from './imgs/microphone.png';
+import microphoneOff from './imgs/microphone-off.png';
+import phone from './imgs/phone-call.png';
+import settings from './imgs/setting.png';
+import camera from './imgs/camera.png';
+import cameraOff from './imgs/camera-off.png';
 import WebFont from 'webfontloader';
 import { Link} from 'react-router-dom';
 
@@ -118,9 +118,9 @@ function Room () {
             width: '100vw',
         }}>
 
-            <div className="header-logo">
-                <img className="logo" src={logo}></img>
-                <span className="logo-name">MedDoc</span>
+            <div className="header-logo-room">
+                <img className="room-logo" src={logo}></img>
+                <span className="room-logo-name">MedDoc</span>
             </div>
             {clients.map((clientID, index) => {
                 return (

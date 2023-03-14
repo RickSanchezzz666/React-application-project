@@ -1,6 +1,9 @@
 * {
     margin: 0;
     padding: 0;
+}
+
+.room-wrapper {
     overflow: hidden;
 }
 
@@ -29,7 +32,7 @@
     width: 100%;
 }
 
-.header-logo {
+.header-logo-room {
     display: grid;
     align-items: center;
     grid-template-columns: 1fr 2.5fr;
@@ -40,13 +43,13 @@
     position: fixed;
 }
 
-.logo {
+.room-logo {
     z-index: 90;
     height: 50px;
     width: 50px;
 }
 
-.logo-name {
+.room-logo-name {
     z-index: 90;
     color: #04205A;
     font-size: 25px;
