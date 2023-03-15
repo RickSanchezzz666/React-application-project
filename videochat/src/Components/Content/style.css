@@ -412,6 +412,7 @@
     display: grid;
     justify-content: center;
     position: relative;
+    width: 1500px;
 }
 
 .container-4-div-1 {
