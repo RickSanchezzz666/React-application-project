@@ -456,20 +456,21 @@
     border-radius: 5px;
     position: relative;
     bottom: 150px;
-    left: 270px;
+    left: 180px;
 }
 
 .container-4-text-2 {
+    margin-top: 20px;
     position: relative;
     top: 20px;
     left: 25px;
-    width: 272px;
+    width: 450px;
     height: 75px;
     font-family: 'Arvo';
     font-style: normal;
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 20px;  
+    font-weight: 600;
+    font-size: 27.5px;
+    line-height: 25px;  
     color: #034265;
 }
 
@@ -479,10 +480,10 @@
 
 .container-4-image{
     position: relative;
-    width: 500px;
+    width: 525px;
     height: 450px;
-    bottom: 130px;
-    left: 125px;
+    bottom: 135px;
+    left: 50px;
 }
 
 /*------------------------------------------------------*/
