@@ -410,7 +410,7 @@
 
 .container-4-wrapper {
     display: grid;
-    justify-content: center;
+    justify-self: center;
     position: relative;
     width: 1500px;
 }
