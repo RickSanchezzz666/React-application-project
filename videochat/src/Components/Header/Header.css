@@ -2,21 +2,15 @@
                 /*Main Header Component*/
 
 .header {
-    display: grid;
+    display: flex;
     align-items: center;
-    justify-self: center;
+    padding: 0 3vw;
+    justify-content: space-between;
     position: absolute;
-    width: 100%;
+    width: 100vw;
     height: 75px;
     background-color: #0B4A85F2;
     z-index: 10;
-}
-
-.header-wrapper {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    justify-self: center;
-    position: relative;
 }
 
 /*------------------------------------------------------*/
@@ -26,8 +20,6 @@
     display: grid;
     align-items: center;
     grid-template-columns: 1fr 2.5fr;
-    margin-right: 500px;
-    width: 250px;
 }
 
 .header-logo {
@@ -53,20 +45,13 @@
                 /*Header Links*/
 
 .header-links {
+    justify-content: space-between;
     text-decoration: none;
     color: white;
-    justify-self: end;
-    margin-right: 25px;
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 2fr;
-    grid-column-gap: 40px;
-    align-items: center;
-    margin-top: 10px;
-    height: 50px;
 }
 
 .header-links-text {
+    margin-right: 1.5vw;
     font-size: 23px;
     font-family: 'Arvo';
 }
@@ -74,14 +59,12 @@
 .header-sign-button {
     width: 85px;
     height: 30px;
+    font-size: 23px;
+    font-family: 'Arvo';
     background-color: #3389D8;
     border-radius: 7.5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     color: white;
     text-decoration: none;
-    margin-left: 50px;
     border: 0px;
     -webkit-box-shadow: 0px 6px 6px -1px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 6px 6px -1px rgba(0,0,0,0.75);

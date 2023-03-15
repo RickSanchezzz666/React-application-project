@@ -16,7 +16,6 @@ const Header = () => {
   return (
 
     <header className="header">
-      <div className="header-wrapper">
         <div className="header-logo-wrapper">
           <Link to='/' className="header-router"><img className="header-logo" src={logo} /></Link>
           <Link to='/' className="header-router"><span className="header-logo-name">MedDoc</span></Link>
@@ -26,11 +25,8 @@ const Header = () => {
           <span className="header-links-text">Contact</span>
           <span className="header-links-text">About us</span>
           <span className="header-links-text">English</span>
-          <button className="header-sign-button">
-            <span className="header-links-text">Sign in</span>
-          </button>
+          <button className="header-sign-button">Sign in</button>
         </div>
-      </div>
     </header>
     
   );
