@@ -4,17 +4,13 @@ import {socket} from "../../Socket";
 import ACTIONS from "../../Socket/actions";
 import { useNavigate } from "react-router-dom";
 import {v4} from 'uuid';
-import Header from '../Header/Header'
+import Header from '../Header/Header';
+import Footer from "../Footer/Footer";
 import doctorMainImage from '../../images/people_phone.png';
 import doctorImage1 from '../../images/vuyko_left.png';
 import doctorImage2 from '../../images/vuyko_centr.png';
 import doctorImage3 from '../../images/vuyko_right.png';
 import doctorImage4 from '../../images/vuyko_at_the_end.png';
-import centralLogo from '../../images/Unicore white logo.png';
-import viber from '../../images/viber.png';
-import facebook from '../../images/facebook.png';
-import telegram from '../../images/telegram.png';
-import instagram from '../../images/instagram.png';
 import WebFont from 'webfontloader';
 
 function Content () {
@@ -128,27 +124,7 @@ function Content () {
       </div>
     </div>
 
-    <div className="footer-wrapper">
-    <footer className="footer">
-      <div className="footer-contact">
-        <div className="footer-contact-contact-word">Contact:</div>
-        <div className="footer-contact-phone-1">+380 (97) 010 6092</div>
-        <div className="footer-contact-phone-2">+380 (97) 077 0442</div>
-        <div className="footer-contact-email">meddoc@gmail.com</div>
-      </div>
-
-      <div className="footer-company-logo-wrapper">
-        <img className="footer-company-logo" src={centralLogo}></img>
-      </div>
-
-      <div className="footer-messengers-wrapper">
-        <div className="footer-messengers-circle"><img className="footer-messenger-logo" src={viber} alt="" /> </div>
-        <div className="footer-messengers-circle"><img className="footer-messenger-logo" src={facebook} alt="" /></div>
-        <div className="footer-messengers-circle"><img className="footer-messenger-logo" src={telegram} alt="" /></div>
-        <div className="footer-messengers-circle"><img className="footer-messenger-logo" src={instagram} alt="" /></div>
-      </div>
-    </footer>
-    </div>
+    <Footer />
 
     </div>
     )

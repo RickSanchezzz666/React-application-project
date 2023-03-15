@@ -17,7 +17,6 @@ const Footer = () => {
    }, []);
 
   return (
-    <div className="footer-wrapper">
     <footer className="footer">
       <div className="footer-contact">
         <div className="footer-contact-contact-word">Contact:</div>
@@ -26,9 +25,7 @@ const Footer = () => {
         <div className="footer-contact-email">meddoc@gmail.com</div>
       </div>
 
-      <div className="footer-company-logo-wrapper">
-        <img className="footer-company-logo" src={centralLogo}></img>
-      </div>
+      <img className="footer-company-logo" src={centralLogo} alt=""></img>
 
       <div className="footer-messengers-wrapper">
         <div className="footer-messengers-circle"><img className="footer-messenger-logo" src={viber} alt="" /> </div>
@@ -37,7 +34,6 @@ const Footer = () => {
         <div className="footer-messengers-circle"><img className="footer-messenger-logo" src={instagram} alt="" /></div>
       </div>
     </footer>
-    </div>
   );
 };
 

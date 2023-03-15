@@ -28,10 +28,6 @@ const setup = async () => {
     await Mongo.setupDb(process.env.MONGO_DB_URI);
 
     authMiddleware(app);
-  
-    {/*app.get("/ui*", (req,res) => {
-        res.sendFile(path.join(__dirname, 'build', 'index.html'));
-    });*/}
 
     app.use(LoginAPI.router);
 
@@ -43,7 +39,7 @@ const setup = async () => {
         });
 
         try {
-            const ticket = await client.save();
+            await client.save();
             return res.status(200).send('SUCCCCCCCCCCCEEEESSSSSSSSSSSSSSSSS!!!!!!!!!');
         } catch (err) {
             console.error(err.toString());

@@ -10,7 +10,7 @@ import settings from './imgs/setting.png';
 import camera from './imgs/camera.png';
 import cameraOff from './imgs/camera-off.png';
 import WebFont from 'webfontloader';
-import { Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 function layout(clientsNumber = 1) {

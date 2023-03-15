@@ -24,7 +24,6 @@ const Header = () => {
         <div className="header-links">
           <Link to='/contact' className="header-router"><span className="header-links-text">Contact</span></Link>
           <span className="header-links-text">About us</span>
-          <span className="header-links-text">English</span>
           <button className="header-sign-button">Sign in</button>
         </div>
     </header>

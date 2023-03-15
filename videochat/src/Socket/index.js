@@ -11,4 +11,4 @@ const socket = io('http://localhost:3001/', options);
 
 module.exports = {
     socket
-} 
+}
