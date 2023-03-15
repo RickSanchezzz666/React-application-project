@@ -5,13 +5,14 @@
     width: 100%;
     display: grid;
     justify-content: center;
-    background-color: #A4CFE7;
+    background-color: rgba(164, 207, 231, 0.56);
 }
 
 /*------------------------------------------------------*/
                 /*About Us Component 1*/
 
 .about-us-container-1 {
+    margin-top: 75px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     justify-self: center;
@@ -28,8 +29,8 @@
 }
 
 .grid-1-wrapper {
-    margin-top: 50px;
-    margin-left: 50px;
+    margin-top: 75px;
+    margin-left: 100px;
 }
 
 .container-1-text-1 {
@@ -112,7 +113,7 @@
     display: grid;
     justify-self: center;
     position: relative;
-    margin-top: 675px;
+    margin-top: 750px;
 }
 
 .container-2-wrapper {
@@ -224,7 +225,7 @@
     position: absolute;
     width: 1525px;
     height: 520px;
-    margin-top: 1100px;
+    margin-top: 1175px;
 }
 
 .container-3-wrapper {
@@ -307,7 +308,7 @@
     text-transform: uppercase;
     color: #F69841;
     position: relative;
-    top: 100px;
+    top: 110px;
 }
 
 .container-3-cont-2 {
@@ -325,7 +326,7 @@
 
 .container-3-num-2 {
     position: relative;
-    left: 50px;
+    left: 25px;
     top: 90px;
     width: 225px;
     height: 63px;
@@ -349,7 +350,7 @@
     text-transform: uppercase;
     color: #F69841;
     position: relative;
-    top: 100px;
+    top: 110px;
 }
 
 .container-3-cont-3 {
@@ -367,7 +368,7 @@
 
 .container-3-num-3 {
     position: relative;
-    left: 30px;
+    left: 7px;
     top: 90px;
     width: 225px;
     height: 63px;
@@ -391,7 +392,7 @@
     text-transform: uppercase;
     color: #F69841;
     position: relative;
-    top: 100px;
+    top: 110px;
 }
 
 /*------------------------------------------------------*/
@@ -403,7 +404,7 @@
     position: absolute;
     width: 1525px;
     height: 500px;
-    margin-top: 1750px;
+    margin-top: 1825px;
 }
 
 
@@ -448,8 +449,8 @@
 
 .container-4-div-2 {
     grid-area: 3 / 1 / 6 / 4;
-    width: 450px;
-    height: 400px;
+    width: 500px;
+    height: 450px;
     background: #FFFFFF;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 5px;

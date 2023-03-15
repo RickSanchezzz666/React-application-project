@@ -17,8 +17,8 @@ const Footer = () => {
    }, []);
 
   return (
+    <div className="footer-wrapper">
     <footer className="footer">
-      <div className="footer-wrapper">
       <div className="footer-contact">
         <div className="footer-contact-contact-word">Contact:</div>
         <div className="footer-contact-phone-1">+380 (97) 010 6092</div>
@@ -36,8 +36,8 @@ const Footer = () => {
         <div className="footer-messengers-circle"><img className="footer-messenger-logo" src={telegram} alt="" /></div>
         <div className="footer-messengers-circle"><img className="footer-messenger-logo" src={instagram} alt="" /></div>
       </div>
-      </div>
     </footer>
+    </div>
   );
 };
 

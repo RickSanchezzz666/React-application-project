@@ -15,6 +15,7 @@ import viber from '../../images/viber.png';
 import facebook from '../../images/facebook.png';
 import telegram from '../../images/telegram.png';
 import instagram from '../../images/instagram.png';
+import WebFont from 'webfontloader';
 
 function Content () {
     const history = useNavigate();
@@ -28,6 +29,14 @@ function Content () {
             }
         })
     }, [])
+
+    useEffect(() => {
+      WebFont.load({
+        google: {
+          families: ['Bree Serif']
+        }
+      });
+     }, []);
 
     return (
     <div className="about-us-component">
