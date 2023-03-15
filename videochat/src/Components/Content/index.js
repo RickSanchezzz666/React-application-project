@@ -1,5 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import './style.css';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import CountUp from 'react-countup';
 import {socket} from "../../Socket";
 import ACTIONS from "../../Socket/actions";
 import { useNavigate } from "react-router-dom";
@@ -17,6 +20,9 @@ function Content () {
     const history = useNavigate();
     const [rooms, updateRooms] = useState([]);
     const rootNode = useRef();
+    AOS.init({
+      once: true,
+    });
 
     useEffect(() => {
         socket.on(ACTIONS.SHARE_ROOMS, ({rooms = []} = {}) => {
@@ -51,13 +57,13 @@ function Content () {
           </div>
         </div>
         <div className="container-1-doctor-img">
-          <img src={doctorMainImage} alt="" className="doctor-image" />
+          <img data-aos="fade-up" src={doctorMainImage} alt="" className="doctor-image" />
         </div>
       </div>
 
       <div className="about-us-container-2">
         <div className="container-2-wrapper">
-          <div className="container-2-cont-1">
+          <div className="container-2-cont-1" data-aos="flip-left">
             <div className="container-2-text-1">
               <p className="container-2-text-2">Consultation of a family doctor</p>
               <p className="container-2-text-2">Get medical help online</p>
@@ -65,7 +71,7 @@ function Content () {
             </div>
               <div className="doctor-image-1"><img src={doctorImage1} alt="" className="container-2-image-1"/></div>
             </div>
-            <div className="container-2-cont-2">
+            <div className="container-2-cont-2" data-aos="flip-right" data-aos-delay="100">
               <div className="container-2-text-1">
                 <p className="container-2-text-3">Ordering medicines online</p>
                 <p className="container-2-text-3">Search and reservation of drugs with a discount</p>
@@ -74,7 +80,7 @@ function Content () {
                 <img src={doctorImage2} alt="" className="container-2-image-2"/>
               </div>
             </div>
-            <div className="container-2-cont-3">
+            <div className="container-2-cont-3" data-aos="flip-up" data-aos-delay="200">
               <div className="container-2-text-1">
                 <p className="container-2-text-2">Consultation of a pediatrician online</p>
                 <p className="container-2-text-2">Get medical help online<br></br>Doctor's consultation in one click (video/audio/chat)</p>
@@ -91,17 +97,17 @@ function Content () {
           <div className="container-3-large-line"></div>
           <div className="container-3-tall-line"></div>
         <div className="container-3-grid">
-          <div className="container-3-cont-1">
-            <div className="container-3-num-1">+1.5m</div>
-            <div className="container-3-down-text-1">USERS</div>
+          <div className="container-3-cont-1" data-aos="fade-up">
+            <CountUp className="container-3-num" duration={3} end={40000}></CountUp>
+            <div className="container-3-down-text">USERS</div>
           </div>
-          <div className="container-3-cont-2">
-            <div className="container-3-num-2">+600</div>
-            <div className="container-3-down-text-2">DOCTORS</div>
+          <div className="container-3-cont-2" data-aos="fade-up" data-aos-delay="100">
+            <CountUp className="container-3-num" duration={3.5} end={600}></CountUp>
+            <div className="container-3-down-text">DOCTORS</div>
           </div>
-          <div className="container-3-cont-3">
-            <div className="container-3-num-3">+5000</div>
-            <div className="container-3-down-text-3">POSITIVE REVIEWS</div>
+          <div className="container-3-cont-3" data-aos="fade-up" data-aos-delay="200">
+            <CountUp className="container-3-num" duration={4} end={5000}></CountUp>
+            <div className="container-3-down-text">POSITIVE REVIEWS</div>
           </div>
         </div>
       </div>

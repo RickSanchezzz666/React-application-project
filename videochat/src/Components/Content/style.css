@@ -276,40 +276,31 @@
     z-index: 2;
     border: solid #4556B0 10px;
     border-radius: 5px;
-    display: grid;
-    grid-template-rows: 1fr 1fr 7fr;
+    display: flex;
     justify-content: center;
     justify-items: center;
     align-items: center;
+    flex-direction: column;
 }
 
-.container-3-num-1 {
-    position: relative;
-    top: 90px;
-    width: 225px;
-    height: 63px;
+.container-3-num {
     font-family: 'Arvo';
     font-style: normal;
     font-weight: 700;
-    font-size: 80px;
+    font-size: 75px;
     line-height: 80px;
     color: #F79841;
-
 }
 
-.container-3-down-text-1 {
-    width: 55px;
-    height: 20px;
+.container-3-down-text {
     font-family: 'Arvo';
     font-style: normal;
+    margin-top: 20px;
     font-weight: 700;
-    right: 15px;
     font-size: 25px;
     line-height: 20px;
     text-transform: uppercase;
     color: #F69841;
-    position: relative;
-    top: 110px;
 }
 
 .container-3-cont-2 {
@@ -323,35 +314,11 @@
     z-index: 2;
     border: solid #4556B0 10px;
     border-radius: 5px;
-}
-
-.container-3-num-2 {
-    position: relative;
-    left: 25px;
-    top: 90px;
-    width: 225px;
-    height: 63px;
-    font-family: 'Arvo';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 85px;
-    line-height: 80px;
-    color: #F79841;
-}
-
-.container-3-down-text-2 {
-    width: 55px;
-    height: 20px;
-    font-family: 'Arvo';
-    font-style: normal;
-    font-weight: 700;
-    left: 80px;
-    font-size: 25px;
-    line-height: 20px;
-    text-transform: uppercase;
-    color: #F69841;
-    position: relative;
-    top: 110px;
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .container-3-cont-3 {
@@ -365,6 +332,11 @@
     z-index: 2;
     border: solid #4556B0 10px;
     border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .container-3-num-3 {
@@ -379,21 +351,6 @@
     font-size: 85px;
     line-height: 80px;
     color: #F79841;
-}
-
-.container-3-down-text-3 {
-    width: 250px;
-    height: 20px;
-    font-family: 'Arvo';
-    font-style: normal;
-    font-weight: 700;
-    left: 20px;
-    font-size: 25px;
-    line-height: 20px;
-    text-transform: uppercase;
-    color: #F69841;
-    position: relative;
-    top: 110px;
 }
 
 /*------------------------------------------------------*/
