@@ -4,7 +4,7 @@
 .header {
     display: flex;
     align-items: center;
-    padding: 0 3vw;
+    padding: 0 15px;
     justify-content: space-between;
     position: absolute;
     width: 100vw;
@@ -39,6 +39,7 @@
 
 .header-router {
     text-decoration: none;
+    color: white;
 }
 
 /*------------------------------------------------------*/
@@ -48,6 +49,7 @@
     justify-content: space-between;
     text-decoration: none;
     color: white;
+    padding-right: 20px;
 }
 
 .header-links-text {
