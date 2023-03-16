@@ -15,6 +15,8 @@ import doctorImage2 from '../../images/vuyko_centr.png';
 import doctorImage3 from '../../images/vuyko_right.png';
 import doctorImage4 from '../../images/vuyko_at_the_end.png';
 import WebFont from 'webfontloader';
+import VisibilitySensor from 'react-visibility-sensor';
+import { useInView } from "react-intersection-observer";
 
 function Content () {
     const history = useNavigate();
@@ -39,6 +41,8 @@ function Content () {
         }
       });
      }, []);
+
+     const { ref, inView} = useInView({triggerOnce: true});
 
     return (
     <div className="about-us-component">
@@ -96,17 +100,17 @@ function Content () {
       <div className="container-3-wrapper">
           <div className="container-3-large-line"></div>
           <div className="container-3-tall-line"></div>
-        <div className="container-3-grid">
+        <div ref={ref} className="container-3-grid">
           <div className="container-3-cont-1" data-aos="fade-up">
-            <CountUp className="container-3-num" duration={3} end={40000}></CountUp>
-            <div className="container-3-down-text">USERS</div>
+            {inView ? <CountUp className="container-3-num" duration={3} end={40000} /> : null}
+          <div className="container-3-down-text">USERS</div>
           </div>
           <div className="container-3-cont-2" data-aos="fade-up" data-aos-delay="100">
-            <CountUp className="container-3-num" duration={3.5} end={600}></CountUp>
+            {inView ? <CountUp className="container-3-num" duration={3.5} end={600} /> : null}
             <div className="container-3-down-text">DOCTORS</div>
           </div>
           <div className="container-3-cont-3" data-aos="fade-up" data-aos-delay="200">
-            <CountUp className="container-3-num" duration={4} end={5000}></CountUp>
+            {inView ? <CountUp className="container-3-num" duration={4} end={5000} /> : null}
             <div className="container-3-down-text">POSITIVE REVIEWS</div>
           </div>
         </div>
