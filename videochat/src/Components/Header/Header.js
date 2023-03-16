@@ -3,6 +3,8 @@ import "./Header.css";
 import WebFont from 'webfontloader';
 import logo from '../../images/logo_white.png'
 import { Link } from "react-router-dom";
+import * as Scroll from 'react-scroll';
+import { animateScroll } from "react-scroll";
 
 const Header = () => {
   useEffect(() => {
@@ -12,6 +14,12 @@ const Header = () => {
       }
     });
    }, []);
+
+   let scroll = Scroll.animateScroll;
+
+   function ScrollToAboutUs() {
+    scroll.scrollTo(1588);
+   }
 
   return (
 
@@ -23,7 +31,7 @@ const Header = () => {
 
         <div className="header-links">
           <Link to='/contact' className="header-router"><span className="header-links-text">Contact</span></Link>
-          <span className="header-links-text">About us</span>
+          <Link to='/' onClick={ScrollToAboutUs} className="header-router"><span className="header-links-text">About us</span></Link>
           <button className="header-sign-button">Sign in</button>
         </div>
     </header>
