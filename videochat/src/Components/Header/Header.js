@@ -4,7 +4,6 @@ import WebFont from 'webfontloader';
 import logo from '../../images/logo_white.png'
 import { Link } from "react-router-dom";
 import * as Scroll from 'react-scroll';
-import { animateScroll } from "react-scroll";
 
 const Header = () => {
   useEffect(() => {
