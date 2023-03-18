@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 
 const router = Router();
 
-router.get("/login", async (req, res) => {
+router.get("/api/login", async (req, res) => {
  const { username, password } = req.query;
  if (!username) {
   return res.status(400).send({
@@ -47,7 +47,7 @@ router.get("/login", async (req, res) => {
  res.status(200).send({ token });
 });
 
-router.get("/clients", passport.authenticate('jwt', { session: false }), async (req, res) => {
+router.get("/api/clients", passport.authenticate('jwt', { session: false }), async (req, res) => {
 
     const dbQuery = {};
 

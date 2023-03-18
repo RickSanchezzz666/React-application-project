@@ -31,7 +31,7 @@ const setup = async () => {
 
     app.use(LoginAPI.router);
 
-    app.post("/contact-form", async (req, res) => {
+    app.post("/api/contact-form", async (req, res) => {
         const { contact_information: { name, surname, email, phone }, location: { address, city, country, zipcode }, patient_info: { birthday, overall, blood_type} } = req.body;
 
         const client = new Clients({

@@ -27,7 +27,7 @@ function App() {
       },
     };
 
-    axios.post('/contact-form', data)
+    axios.post('/api/contact-form', data)
       .then(response => {
         console.log(response.data);
         return alert(response.data);
