@@ -31,7 +31,7 @@ const Header = () => {
         <div className="header-links">
           <Link to='/contact' className="header-router"><span className="header-links-text">Contact</span></Link>
           <Link to='/' onClick={ScrollToAboutUs} className="header-router"><span className="header-links-text">About us</span></Link>
-          <Link to='/login'><button className="header-sign-button">Sign in</button></Link>
+          <Link to='/doctor/login'><button className="header-sign-button">Sign in</button></Link>
         </div>
     </header>
     

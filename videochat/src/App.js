@@ -4,6 +4,7 @@ import Content from './Components/Content';
 import Room from './Components/Room';
 import NotFoundPage from './Components/NotFoundPage';
 import ContactForm from './Components/ContactForm';
+import SignInPage from './Components/SignInPage';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path='/' element={<Content />} />
         <Route path='/room/:id' element={<Room />} />
         <Route path='/contact' element={<ContactForm />} />
+        <Route path='/doctor/login' element={<SignInPage />} />
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
