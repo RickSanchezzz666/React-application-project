@@ -5,6 +5,7 @@ import Room from './Components/Room';
 import NotFoundPage from './Components/NotFoundPage';
 import ContactForm from './Components/ContactForm';
 import SignInPage from './Components/SignInPage';
+import DoctorsCabinet from './Components/DoctorsCabinet';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path='/room/:id' element={<Room />} />
         <Route path='/contact' element={<ContactForm />} />
         <Route path='/doctor/login' element={<SignInPage />} />
+        <Route path='/doctor/cabinet' element={<DoctorsCabinet />} />
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>

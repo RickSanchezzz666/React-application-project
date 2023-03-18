@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from "react-router-dom";
 import axios from 'axios';
 
 const SignInPage = () => {
@@ -11,7 +12,7 @@ const SignInPage = () => {
       const response = await axios.post('/api/login', { username, password });
       const { token } = response.data;
       localStorage.setItem('token', token);
-      return alert(`Your token was successfully saved.\nToken: ${token}`);
+      return alert(`Your token was successfully saved.\nToken: ${token}\n\nPlease use button "Manual Redirect"`);
     } catch (error) {
       console.error(error);
       return alert('Something went wrong.');
@@ -31,6 +32,8 @@ const SignInPage = () => {
       </label>
       <br/>
       <button type="submit">Login</button>
+      <br/><br/>
+      <Link to='/doctor/cabinet'><button type="submit">Manual Redirect</button></Link>
     </form>
   );
 };
