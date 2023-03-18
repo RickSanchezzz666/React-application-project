@@ -29,7 +29,7 @@ const DoctorsCabinet = () => {
   return (
     <div>
       <span className='alerter'>! Check validity of your token !</span><br/><br/>
-      <button onClick={handleGetUsers}>Get Users</button>
+      <button id='getusers' onClick={handleGetUsers}>Get Users</button>
       <table class="clientsList">
         <thead>
           <tr>
