@@ -8,7 +8,7 @@ const SignInPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.get(`/api/login?username=${username}&password=${password}`);
+      const response = await axios.post('/api/login', { username, password });
       const { token } = response.data;
       localStorage.setItem('token', token);
       return alert(`Your token was successfully saved.\nToken: ${token}`);

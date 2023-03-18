@@ -4,7 +4,7 @@ import axios from 'axios';
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
 
-function App() {
+function ContactForm() {
   
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -76,4 +76,4 @@ function App() {
   );
 }
 
-export default App;
+export default ContactForm;

@@ -15,10 +15,9 @@ import doctorImage2 from '../../images/vuyko_centr.png';
 import doctorImage3 from '../../images/vuyko_right.png';
 import doctorImage4 from '../../images/vuyko_at_the_end.png';
 import WebFont from 'webfontloader';
-import VisibilitySensor from 'react-visibility-sensor';
 import { useInView } from "react-intersection-observer";
 
-function Content () {
+function Content() {
     const history = useNavigate();
     const [rooms, updateRooms] = useState([]);
     const rootNode = useRef();
