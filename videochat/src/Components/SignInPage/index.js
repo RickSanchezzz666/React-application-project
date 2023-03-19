@@ -1,11 +1,12 @@
 import './style.css';
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 const SignInPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,7 +15,7 @@ const SignInPage = () => {
       const { token } = response.data;
       localStorage.setItem('token', token);
       alert(`Your token was successfully saved.\nToken: ${token}\n\nYou will be redirected`);
-      window.location.href = '/doctor/cabinet';
+      navigate('/doctor/cabinet');
     } catch (error) {
       console.error(error);
       return alert('Something went wrong.');
