@@ -6,6 +6,7 @@ import NotFoundPage from './Components/NotFoundPage';
 import ContactForm from './Components/ContactForm';
 import SignInPage from './Components/SignInPage';
 import DoctorsCabinet from './Components/DoctorsCabinet';
+import PrivateRoute from './Components/PrivateRoute';
 
 function App() {
   return (
