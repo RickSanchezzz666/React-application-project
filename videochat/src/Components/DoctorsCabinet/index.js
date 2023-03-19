@@ -1,6 +1,9 @@
 import './style.css';
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import {socket} from "../../Socket";
+import {v4} from 'uuid';
+import ACTIONS from "../../Socket/actions";
 import axios from "axios";
 
 const getUsers = async (token) => {
@@ -21,6 +24,8 @@ const getUsers = async (token) => {
 const DoctorsCabinet = () => {
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
+  const [rooms, updateRooms] = useState([]);
+  const rootNode = useRef();
 
   const handleGetUsers = () => {
     const token = localStorage.getItem("token");
@@ -34,6 +39,28 @@ const DoctorsCabinet = () => {
 
   return (
     <div>
+      <div className="phoneCall">
+          <img src="/images/call.png" alt="" className="call" />
+          <div className="cyrcleAboutUs1"></div>
+          <div className="cyrcleAboutUs2"></div>
+        </div>
+        <div ref={rootNode}>
+            <h1>Available Rooms</h1>
+            <ul>
+                {rooms.map(roomID => (
+                    <li key={roomID}>
+                        {roomID}
+                        <button onClick={() => {
+                            navigate(`/room/${roomID}`)
+                        }}>Join Room</button>
+                    </li>
+                ))}
+            </ul>
+            <button onClick={() => {
+                navigate(`/room/${v4()}`)
+            }}>Create new room</button><br/><br/><br/>
+        </div>
+
       <span className='alerter'>! Check validity of your token !</span><br/><br/>
       <button id='getusers' onClick={handleGetUsers}>Get Users</button><br/>
       <button onClick={handleLogout}>Logout</button>
