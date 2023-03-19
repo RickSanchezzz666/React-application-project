@@ -10,22 +10,17 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
     return false;
   };
 
+  if (isAuthenticated()) {
+    return <Route {...rest} component={Component} />;
+  }
+
   return (
-    <Route
-      {...rest}
-      render={({ location }) =>
-        isAuthenticated() ? (
-          <Component />
-        ) : (
-          <Navigate
-            to={{
-              pathname: '/doctor/login',
-              state: { from: location },
-            }}
-            replace
-          />
-        )
-      }
+    <Navigate
+      to={{
+        pathname: '/doctor/login',
+        state: { from: rest.location },
+      }}
+      replace
     />
   );
 };
