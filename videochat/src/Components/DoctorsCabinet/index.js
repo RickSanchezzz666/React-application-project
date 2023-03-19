@@ -13,7 +13,7 @@ const getUsers = async (token) => {
     return res.data;
   } catch (error) {
     console.error(error);
-    alert("Somwthing went wrong, see console");
+    alert("Something went wrong, see console");
     return [];
   }
 };
