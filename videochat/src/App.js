@@ -16,7 +16,7 @@ function App() {
         <Route path='/room/:id' element={<Room />} />
         <Route path='/contact' element={<ContactForm />} />
         <Route path='/doctor/login' element={<SignInPage />} />
-        <Route path='/doctor/cabinet' element={<DoctorsCabinet />} />
+        <Route path='/doctor/cabinet' element={<PrivateRoute><DoctorsCabinet /></PrivateRoute>} />
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>

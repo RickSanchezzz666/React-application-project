@@ -1,27 +1,18 @@
 import React from 'react';
 import { Route, Navigate } from 'react-router-dom';
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
-  const isAuthenticated = () => {
+const auth = {
+  isAuthenticated: () => {
     const token = localStorage.getItem('token');
-    if (token) {
-      return true;
-    }
-    return false;
-  };
-
-  if (isAuthenticated()) {
-    return <Route {...rest} component={Component} />;
+    return token ? true : false;
   }
+}
 
-  return (
-    <Navigate
-      to={{
-        pathname: '/doctor/login',
-        state: { from: rest.location },
-      }}
-      replace
-    />
+const PrivateRoute = ({ children }) => {
+  return auth.isAuthenticated() ? (
+    children
+  ) : (
+    <Navigate to="/doctor/login" replace />
   );
 };
 
