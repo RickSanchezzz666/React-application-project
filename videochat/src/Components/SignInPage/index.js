@@ -13,7 +13,8 @@ const SignInPage = () => {
       const response = await axios.post('/api/login', { username, password });
       const { token } = response.data;
       localStorage.setItem('token', token);
-      return alert(`Your token was successfully saved.\nToken: ${token}\n\nPlease use button "Manual Redirect"`);
+      alert(`Your token was successfully saved.\nToken: ${token}\n\nYou will be redirected`);
+      window.location.href = '/doctor/cabinet';
     } catch (error) {
       console.error(error);
       return alert('Something went wrong.');

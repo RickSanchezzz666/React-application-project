@@ -1,5 +1,6 @@
 import './style.css';
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const getUsers = async (token) => {
@@ -9,7 +10,6 @@ const getUsers = async (token) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    alert("Data received successfully");
     return res.data;
   } catch (error) {
     console.error(error);
@@ -20,16 +20,23 @@ const getUsers = async (token) => {
 
 const DoctorsCabinet = () => {
   const [users, setUsers] = useState([]);
+  const navigate = useNavigate();
 
   const handleGetUsers = () => {
     const token = localStorage.getItem("token");
     getUsers(token).then((data) => setUsers(data));
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/doctor/login");
+  };
+
   return (
     <div>
       <span className='alerter'>! Check validity of your token !</span><br/><br/>
-      <button id='getusers' onClick={handleGetUsers}>Get Users</button>
+      <button id='getusers' onClick={handleGetUsers}>Get Users</button><br/>
+      <button onClick={handleLogout}>Logout</button>
       <table class="clientsList">
         <thead>
           <tr>
