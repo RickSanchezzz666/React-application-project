@@ -1,0 +1,79 @@
+/*------------------------------------------------------*/
+                /*Main Header Component*/
+
+.sign-in-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    height: 75px;
+    background-color: rgb(128,91,234);
+    z-index: 10;
+}
+
+/*------------------------------------------------------*/
+                /*Header Logo*/
+
+.sign-in-header-logo-wrapper {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 2.5fr;
+    margin-right: 800px;
+}
+
+.header-logo {
+    margin: 10px;
+    z-index: 100;
+    height: 55px;
+    width: 55px;
+    margin-bottom: 5px;
+}
+
+.header-logo-name {
+    z-index: 85;
+    color: #FFFFFF;
+    font-size: 33px;
+    font-family: 'Arvo';
+}
+
+.header-router {
+    text-decoration: none;
+    color: white;
+}
+
+/*------------------------------------------------------*/
+                /*Header Links*/
+
+.sign-in-header-links {
+    justify-content: space-between;
+    text-decoration: none;
+    color: white;
+    padding-right: 20px;
+}
+
+.header-links-text {
+    margin-right: 1.5vw;
+    font-size: 23px;
+    font-family: 'Arvo';
+}
+
+.header-sign-button {
+    width: 85px;
+    height: 30px;
+    font-size: 23px;
+    font-family: 'Arvo';
+    background-color: #3389D8;
+    border-radius: 7.5px;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    border: 0px;
+    -webkit-box-shadow: 0px 6px 6px -1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 6px 6px -1px rgba(0,0,0,0.75);
+    box-shadow: 0px 6px 6px -1px rgba(0,0,0,0.75);
+}
+
+.header-sign-button .header-links-text {
+    padding-bottom: 2.5px;
+}

@@ -2,6 +2,7 @@ import './style.css';
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import axios from 'axios';
+import Header from '../SignInHeader/Header';
 
 const SignInPage = () => {
   const [username, setUsername] = useState('');
@@ -22,21 +23,22 @@ const SignInPage = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Username:
-        <input type="text" value={username} onChange={(e) => setUsername(e.target.value)}/>
-      </label>
-      <br />
-      <label>
-        Password:
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-      </label>
-      <br/>
-      <button type="submit">Login</button>
-      <br/><br/>
-      <Link to='/doctor/cabinet'><button type="submit">Manual Redirect</button></Link>
-    </form>
+     <div className="sign-in-container">
+      <Header />
+      <div className="sign-in-form-wrapper">
+         <form className="sign-in-form" onSubmit={handleSubmit}>
+             <label className="sing-in-login-label">Login</label>
+             <input className="sign-in-login" id="loginSign" type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+ 
+             <label className="sing-in-login-label">Password</label>
+             <input className="sing-in-password" id="passwordSign" type="text" value={password} onChange={(e) => setPassword(e.target.value)} />
+             <div className="sing-in-login-button-wrapper">
+              <button className="sing-in-login-button" type="submit">Sign In</button>
+             </div>
+             <Link to='/doctor/cabinet'><button type="submit">Manual Redirect</button></Link>
+         </form>
+     </div>
+   </div>
   );
 };
 
