@@ -21,7 +21,7 @@ const getUsers = async (token) => {
   }
 };
 
-const DoctorsCabinet = () => {
+const DoctorsAccount = () => {
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
   const [rooms, updateRooms] = useState([]);
@@ -126,4 +126,4 @@ const DoctorsCabinet = () => {
   );
 };
 
-export default DoctorsCabinet;
+export default DoctorsAccount;

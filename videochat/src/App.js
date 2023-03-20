@@ -5,7 +5,7 @@ import Room from './Components/Room';
 import NotFoundPage from './Components/NotFoundPage';
 import ContactForm from './Components/ContactForm';
 import SignInPage from './Components/SignInPage';
-import DoctorsCabinet from './Components/DoctorsCabinet';
+import DoctorsAccount from './Components/DoctorsAccount';
 import PrivateRoute from './Components/PrivateRoute';
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
         <Route path='/room/:id' element={<Room />} />
         <Route path='/contact' element={<ContactForm />} />
         <Route path='/doctor/login' element={<SignInPage />} />
-        <Route path='/doctor/cabinet' element={<PrivateRoute><DoctorsCabinet /></PrivateRoute>} />
+        <Route path='/doctor/account' element={<PrivateRoute><DoctorsAccount /></PrivateRoute>} />
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
