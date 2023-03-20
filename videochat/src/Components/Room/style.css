@@ -21,14 +21,14 @@
     align-self: end;
     justify-content: center;
     align-items: center;
-    height: 140px;
+    height: 100px;
     width: 100%;
     background-color: #272525;
     position: fixed;
 }
 
 .room-emptiness {
-    height: 140px;
+    height: 100px;
     width: 100%;
 }
 

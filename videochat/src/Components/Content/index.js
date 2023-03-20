@@ -1,12 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect } from "react";
 import './style.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import CountUp from 'react-countup';
-import {socket} from "../../Socket";
-import ACTIONS from "../../Socket/actions";
-import { useNavigate } from "react-router-dom";
-import {v4} from 'uuid';
 import Header from '../Header/Header';
 import Footer from "../Footer/Footer";
 import doctorMainImage from '../../images/people_phone.png';
@@ -18,9 +14,6 @@ import WebFont from 'webfontloader';
 import { useInView } from "react-intersection-observer";
 
 function Content() {
-    const history = useNavigate();
-    const [rooms, updateRooms] = useState([]);
-    const rootNode = useRef();
     AOS.init({
       once: true,
     });
@@ -52,7 +45,7 @@ function Content() {
           </div>
         </div>
         <div className="container-1-doctor-img">
-          <img data-aos="fade-up" src={doctorMainImage} alt="" className="doctor-image" />
+          <img data-aos="fade-up" data-aos-delay="200" src={doctorMainImage} alt="" className="doctor-image" />
         </div>
       </div>
 
@@ -124,7 +117,6 @@ function Content() {
         </div>
       </div>
     </div>
-
     <Footer />
 
     </div>
@@ -139,20 +131,3 @@ export default Content;
           <div className="cyrcleAboutUs1"></div>
           <div className="cyrcleAboutUs2"></div>
         </div>  */
-
-/*<div ref={rootNode}>
-            <h1>Available Rooms</h1>
-            <ul>
-                {rooms.map(roomID => (
-                    <li key={roomID}>
-                        {roomID}
-                        <button onClick={() => {
-                            history(`/room/${roomID}`)
-                        }}>Join Room</button>
-                    </li>
-                ))}
-            </ul>
-            <button onClick={() => {
-                history(`/room/${v4()}`)
-            }}>Create new room</button><br/><br/><br/>
-        </div>   */

@@ -28,10 +28,10 @@ const Footer = () => {
       <img className="footer-company-logo" src={centralLogo} alt=""></img>
 
       <div className="footer-messengers-wrapper">
-        <div className="footer-messengers-circle"><img className="footer-messenger-logo" src={viber} alt="" /> </div>
-        <div className="footer-messengers-circle"><img className="footer-messenger-logo" src={facebook} alt="" /></div>
-        <div className="footer-messengers-circle"><img className="footer-messenger-logo" src={telegram} alt="" /></div>
-        <div className="footer-messengers-circle"><img className="footer-messenger-logo" src={instagram} alt="" /></div>
+        <a href="https://viber.com" className="footer-messengers-circle"><img className="footer-messenger-logo" src={viber} alt="" /> </a>
+        <a href="https://facebook.com" className="footer-messengers-circle"><img className="footer-messenger-logo" src={facebook} alt="" /></a>
+        <a href="https://web.telegram.org" className="footer-messengers-circle"><img className="footer-messenger-logo" src={telegram} alt="" /></a>
+        <a href="https://instagram.com" className="footer-messengers-circle"><img className="footer-messenger-logo" src={instagram} alt="" /></a>
       </div>
     </footer>
   );

@@ -43,6 +43,7 @@
     border-radius: 100px;
     margin-left: 15px;
     transition: 0.5s;
+    z-index: 99;
 }
 
 .footer-messenger-logo{

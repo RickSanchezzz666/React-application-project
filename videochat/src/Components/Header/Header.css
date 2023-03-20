@@ -72,8 +72,22 @@
     -webkit-box-shadow: 0px 6px 6px -1px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 6px 6px -1px rgba(0,0,0,0.75);
     box-shadow: 0px 6px 6px -1px rgba(0,0,0,0.75);
+    transition: 0.5s;
 }
 
 .header-sign-button .header-links-text {
     padding-bottom: 2.5px;
+}
+
+.header-sign-button:hover {
+    transition: 0.5s;
+    -webkit-box-shadow: 0px 4px 6px -1px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 4px 6px -1px rgba(0,0,0,0.75);
+box-shadow: 0px 4px 6px -1px rgba(0,0,0,0.75);
+transform: scale(0.97);
+}
+
+.header-sign-button:active {
+    transform: scale(0.90);
+    transition: 0.25s;
 }

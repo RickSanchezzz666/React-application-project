@@ -23,18 +23,21 @@ function layout(clientsNumber = 1) {
     }, [])
 
     const rowsNumber = pairs.length;
-    const height = `${65 / rowsNumber}%`
+    let height = `${70 / rowsNumber}%`
+    if (rowsNumber === 3) {
+        height = `${60 / rowsNumber}%`
+    }
    
     return pairs.map((row, index, arr) => {
         if (index === arr.length - 1 && row.length === 1) {
             return [{
-                width: '65%',
+                width: '70%',
                 height,
             }]
         }
 
         return row.map(() => ({
-            width: '30%',
+            width: '32.5%',
             height
         }))
     }).flat()

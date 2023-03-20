@@ -27,6 +27,14 @@ const DoctorsCabinet = () => {
   const [rooms, updateRooms] = useState([]);
   const rootNode = useRef();
 
+  useEffect(() => {
+    socket.on(ACTIONS.SHARE_ROOMS, ({rooms = []} = {}) => {
+        if (rootNode.current) {
+            updateRooms(rooms);
+        }
+    })
+}, [])
+
   const handleGetUsers = () => {
     const token = localStorage.getItem("token");
     getUsers(token).then((data) => setUsers(data));
@@ -36,15 +44,6 @@ const DoctorsCabinet = () => {
     localStorage.removeItem("token");
     navigate("/doctor/login");
   };
-
-  
-  useEffect(() => {
-    socket.on(ACTIONS.SHARE_ROOMS, ({rooms = []} = {}) => {
-        if (rootNode.current) {
-            updateRooms(rooms);
-        }
-    })
-}, [])
 
   return (
     <div>
