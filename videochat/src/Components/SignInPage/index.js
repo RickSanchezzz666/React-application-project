@@ -32,7 +32,7 @@ const SignInPage = () => {
              <input className="sign-in-login" id="loginSign" type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
  
              <label className="sing-in-login-label">Password</label>
-             <input className="sing-in-password" id="passwordSign" type="text" value={password} onChange={(e) => setPassword(e.target.value)} />
+             <input className="sing-in-password" id="passwordSign" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
              <div className="sing-in-login-button-wrapper">
               <button className="sing-in-login-button" type="submit">Sign In</button>
              </div>
