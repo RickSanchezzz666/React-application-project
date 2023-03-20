@@ -40,6 +40,7 @@ grid-template-rows: repeat(5, 1fr);
   height: 250px;
   opacity: 0.9;
   z-index: 3;
+  padding-left: 5px;
 }
 
 .sign-in-login {

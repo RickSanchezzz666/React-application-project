@@ -1,5 +1,5 @@
 import './style.css';
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {socket} from "../../Socket";
 import {v4} from 'uuid';
@@ -36,6 +36,15 @@ const DoctorsCabinet = () => {
     localStorage.removeItem("token");
     navigate("/doctor/login");
   };
+
+  
+  useEffect(() => {
+    socket.on(ACTIONS.SHARE_ROOMS, ({rooms = []} = {}) => {
+        if (rootNode.current) {
+            updateRooms(rooms);
+        }
+    })
+}, [])
 
   return (
     <div>

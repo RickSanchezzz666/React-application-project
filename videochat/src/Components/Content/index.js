@@ -26,14 +26,6 @@ function Content() {
     });
 
     useEffect(() => {
-        socket.on(ACTIONS.SHARE_ROOMS, ({rooms = []} = {}) => {
-            if (rootNode.current) {
-                updateRooms(rooms);
-            }
-        })
-    }, [])
-
-    useEffect(() => {
       WebFont.load({
         google: {
           families: ['Bree Serif']
