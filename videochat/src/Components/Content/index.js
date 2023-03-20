@@ -10,6 +10,7 @@ import doctorImage1 from '../../images/vuyko_left.png';
 import doctorImage2 from '../../images/vuyko_centr.png';
 import doctorImage3 from '../../images/vuyko_right.png';
 import doctorImage4 from '../../images/vuyko_at_the_end.png';
+import phone from '../../images/call.png'
 import WebFont from 'webfontloader';
 import { useInView } from "react-intersection-observer";
 
@@ -47,8 +48,8 @@ function Content() {
         <div className="container-1-doctor-img">
           <img data-aos="fade-up" data-aos-delay="200" src={doctorMainImage} alt="" className="doctor-image" />
         </div>
-      </div>
 
+      </div>  
       <div className="about-us-container-2">
         <div className="container-2-wrapper">
           <div className="container-2-cont-1" data-aos="flip-left">
@@ -124,10 +125,3 @@ function Content() {
 }
 
 export default Content;
-
-
-/*<div className="phoneCall">
-          <img src="/images/call.png" alt="" className="call" />
-          <div className="cyrcleAboutUs1"></div>
-          <div className="cyrcleAboutUs2"></div>
-        </div>  */
