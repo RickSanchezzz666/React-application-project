@@ -63,9 +63,6 @@ function Room () {
     const audioButton = document.getElementById('off-audio-button');
 
     const leaveButton = document.getElementById('room-call-leave')
-
-    const videoLogo = document.getElementById('off-video-button');
-    const audioLogo = document.getElementById('off-audio-button');
     
     
     function turnOffVideo() {
@@ -74,11 +71,11 @@ function Room () {
             if (videoTrack.enabled) {
                 videoTrack.enabled = false;
                 videoButton.className = 'room-button video-button-off';
-                videoLogo.innerHTML = `<img src=${cameraOff} alt="Camera Off">`;
+                videoButton.innerHTML = `<img src=${cameraOff} alt="Camera Off">`;
             } else {
                 videoTrack.enabled = true;
                 videoButton.className = 'room-button video-button-on';
-                videoLogo.innerHTML = `<img src=${camera} alt="Camera On">`;
+                videoButton.innerHTML = `<img src=${camera} alt="Camera On">`;
             }
         }
     }
@@ -90,11 +87,11 @@ function Room () {
             if (audioTrack.enabled) {
                 audioTrack.enabled = false;
                 audioButton.className = 'room-button video-button-off';
-                audioLogo.innerHTML = `<img src=${microphoneOff} alt="Microphone Off">`
+                audioButton.innerHTML = `<img src=${microphoneOff} alt="Microphone Off">`
             } else {
                 audioTrack.enabled = true;
                 audioButton.className = 'room-button video-button-on';
-                audioLogo.innerHTML = `<img src=${microphone} alt="Microphone On">`
+                audioButton.innerHTML = `<img src=${microphone} alt="Microphone On">`
             }
         }
     }

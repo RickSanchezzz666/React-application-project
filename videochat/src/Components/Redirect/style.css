@@ -1,0 +1,10 @@
+.redirect-component {
+    width: 100%;
+    height: 100vh;
+}
+
+.redirect-button-wrapper img {
+    z-index: 99.8;
+    height: 32.5px;
+    width: 32.5px
+}

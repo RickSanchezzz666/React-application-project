@@ -62,6 +62,10 @@ function ContactForm() {
           <label className="contact-text-input" htmlFor="LastName">Last Name</label>
             <input type="text" id="LastName" className="contact-page-input" value={surname} onChange={(event) => setSurname(event.target.value)} />
           </div>
+          <div className="application-form-number">
+          <label className="contact-text-input" htmlFor="Number">Phone Number</label>
+            <input type="text" id="Number" className="contact-page-input" />
+          </div>
           <div className="application-form-complains">
             <div><label className="contact-text-input-complains" htmlFor="complains">Complains</label></div>
             <div><textarea className="contact-page-input-complains" id="complains" value={complains} onChange={(event) => setComplains(event.target.value)}></textarea></div>

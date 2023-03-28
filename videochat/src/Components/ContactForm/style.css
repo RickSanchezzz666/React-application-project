@@ -149,6 +149,12 @@
     margin-left: 20px;
 }
 
+.application-form-number {
+    grid-area: 3 / 3 / 3 / 5;
+    margin-left: 20px;
+}
+
+
 .application-form-complains {
     margin-left: 40px;
     grid-area: 5 / 1 / 7 / 5;
