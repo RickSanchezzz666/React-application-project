@@ -18,6 +18,11 @@
     align-self: center;
 }
 
+.redirect-link {
+    color: white;
+    text-decoration: none;
+}
+
 .redirect-button-wrapper {
     position: relative;
     display: grid;

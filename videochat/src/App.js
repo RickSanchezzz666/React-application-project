@@ -7,7 +7,7 @@ import ContactForm from './Components/ContactForm';
 import SignInPage from './Components/SignInPage';
 import DoctorsAccount from './Components/DoctorsAccount';
 import PrivateRoute from './Components/PrivateRoute';
-import Redirect from './Components/Redirect'
+import RedirectPage from './Components/Redirect';
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Content />} />
         <Route path='/room/:id' element={<Room />} />
-        <Route path='/redirect/:id' element={<Redirect />} />
+        <Route path='/redirect/:id' element={<RedirectPage />} />
         <Route path='/contact' element={<ContactForm />} />
         <Route path='/doctor/login' element={<SignInPage />} />
         <Route path='/doctor/account' element={<PrivateRoute><DoctorsAccount /></PrivateRoute>} />

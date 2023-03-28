@@ -13,9 +13,6 @@ import WebFont from 'webfontloader';
 import { useEffect } from "react";
 
 
-export let videoSwitch = 'videoSwitch';
-export let audioSwitch = 'audioSwitch';
-
 function Redirect() {
     function layout(clientsNumber = 1) {
         const pairs = Array.from({length: clientsNumber}).reduce((acc, next, index, arr) => {
@@ -42,7 +39,6 @@ function Redirect() {
             }))
         }).flat()
     }
-
     useEffect(() => {
         WebFont.load({
           google: {
@@ -62,6 +58,10 @@ function Redirect() {
 
     let videoSwitch = true;
     let audioSwitch = true;
+
+    let pathName = window.location.pathname;
+    let pathNameSlice = pathName.slice(10, 46);
+    let redirectPath = `/room/${pathNameSlice}`;
 
     function redirectTurnOffVideo() {
         if(videoButton) {
@@ -107,6 +107,7 @@ function Redirect() {
         }
     }
 
+
     return(
         <div className="redirect-component">
             <div className="header-logo-room">
@@ -143,7 +144,11 @@ function Redirect() {
                         </button>
                     </Link>
             </div>
-            <div className="redirect-join-button">Join Meeting</div>
+            <div className="redirect-join-button" id="redirect-join-button">
+                <Link className="redirect-link" to={redirectPath}>
+                    Join Meeting
+                </Link>
+            </div>
         </div>
     )
 }

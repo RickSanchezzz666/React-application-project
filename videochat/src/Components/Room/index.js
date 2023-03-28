@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import useWebRTC, { LOCAL_VIDEO, userStream } from "../../hooks/useWebRTC";
 import './style.css';
 import logo from './imgs/logo_blue.png';
@@ -11,8 +11,8 @@ import camera from './imgs/camera.png';
 import cameraOff from './imgs/camera-off.png';
 import WebFont from 'webfontloader';
 import { Link } from 'react-router-dom';
-import { videoSwitch, audioSwitch } from "../Redirect";
 
+let redirectAvailability = true;
 
 function layout(clientsNumber = 1) {
     const pairs = Array.from({length: clientsNumber}).reduce((acc, next, index, arr) => {
@@ -60,17 +60,32 @@ function Room () {
     const {clients, provideMediaRef} = useWebRTC(roomID);
     const videoLayout = layout(clients.length);
 
+    const navigate = useNavigate();
+
+    let pathName = window.location.pathname;
+    let pathNameSlice = pathName.slice(6, 42);
+    let redirectPath = `/redirect/${pathNameSlice}`;
+
+
+    if(redirectAvailability === true) {
+        setTimeout(() => {
+            navigate(redirectPath)
+            redirectAvailability = false;
+        }, 1666);
+    }
+
+
     const videoButton = document.getElementById('off-video-button');
     const audioButton = document.getElementById('off-audio-button');
 
     const leaveButton = document.getElementById('room-call-leave')
 
-    if(videoSwitch === false) {
+    /*if(videoSwitch === false) {
         turnOffVideo();
     }
     if(audioSwitch === false) {
         turnOffAudio();
-    }
+    }*/
     
     
     function turnOffVideo() {
@@ -113,11 +128,13 @@ function Room () {
         }
     }
 
+    turnOffVideo();
+
     console.log(clients);
 
     return (
 
-        <div className="room-wrapper" style={{
+        <div id="main-component" className="room-wrapper" style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -125,7 +142,7 @@ function Room () {
             height: '100vh',
             width: '100vw',
         }}>
-
+            
             <div className="header-logo-room">
                 <img className="room-logo" src={logo}></img>
                 <span className="room-logo-name">MedDoc</span>
