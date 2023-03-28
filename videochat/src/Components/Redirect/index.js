@@ -6,8 +6,13 @@ import cameraOff from '../Room/imgs/camera-off.png';
 import microphone from '../Room/imgs/microphone.png';
 import microphoneOff from '../Room/imgs/microphone-off.png';
 import phone from '../Room/imgs/phone-call.png';
+import logo from '../Room/imgs/logo_blue.png';
 import useWebRTC, { LOCAL_VIDEO, userStream } from "../../hooks/useWebRTC";
 import { Link } from "react-router-dom";
+import WebFont from 'webfontloader';
+import { useEffect } from "react";
+
+
 export let videoSwitch = 'videoSwitch';
 export let audioSwitch = 'audioSwitch';
 
@@ -21,22 +26,30 @@ function Redirect() {
             return acc;
         }, [])
     
-        let height = `90%`
+        let height = `65%`
        
         return pairs.map((row, index, arr) => {
             if (index === arr.length - 1 && row.length === 1) {
                 return [{
-                    width: '90%',
+                    width: '65%',
                     height,
                 }]
             }
     
             return row.map(() => ({
-                width: '90%',
+                width: '65%',
                 height
             }))
         }).flat()
     }
+
+    useEffect(() => {
+        WebFont.load({
+          google: {
+            families: ['Arvo']
+          }
+        });
+       }, []);
 
     const {id: roomID} = useParams();
     const {clients, provideMediaRef} = useWebRTC(roomID);
@@ -96,9 +109,14 @@ function Redirect() {
 
     return(
         <div className="redirect-component">
+            <div className="header-logo-room">
+                <img className="room-logo" src={logo}></img>
+                <span className="room-logo-name">MedDoc</span>
+            </div>
+
             {clients.map((clientID, index) => {
                 return (
-                    <div className="video-source" key={clientID} style={videoLayout[index]}>
+                    <div className="redirect-video-source" key={clientID} style={videoLayout[index]}>
                         <video 
                             width='100%'
                             height='100%'
@@ -125,6 +143,7 @@ function Redirect() {
                         </button>
                     </Link>
             </div>
+            <div className="redirect-join-button">Join Meeting</div>
         </div>
     )
 }

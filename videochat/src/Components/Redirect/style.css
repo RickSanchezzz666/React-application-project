@@ -1,10 +1,61 @@
 .redirect-component {
     width: 100%;
     height: 100vh;
+    display: grid;
+    grid-template-rows: 5fr 1fr;
 }
 
 .redirect-button-wrapper img {
     z-index: 99.8;
     height: 32.5px;
     width: 32.5px
+}
+
+.redirect-video-source {
+    position: absolute;
+    display: flex;
+    justify-self: center;
+    align-self: center;
+}
+
+.redirect-button-wrapper {
+    position: relative;
+    display: grid;
+    justify-self: center;
+    align-self: end;
+    margin-bottom: 25px;
+    margin-left: 75px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-column-gap: 5px;
+    justify-items: center;
+    align-items: center;
+}
+
+.redirect-join-button {
+    background:linear-gradient(to bottom, #2b65c9 5%, #116bd9 100%);
+	background-color:#2b65c9;
+	border-radius:50px;
+	border:1px solid #1b45c2;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	padding: 19px 31px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #134ad4;
+    width: 165px;
+    height: 60px;
+    display: grid;
+    justify-self: center;
+    margin-top: 25px;
+}
+
+.redirect-join-button:hover {
+	background:linear-gradient(to bottom, #116bd9 5%, #2b65c9 100%);
+	background-color:#116bd9;
+}
+.redirect-join-button:active {
+	position:relative;
+	top:1px;
 }

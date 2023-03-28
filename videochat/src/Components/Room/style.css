@@ -56,62 +56,6 @@
     font-family: 'Arvo';
 }
 
-@keyframes back-appear {
-    0% {
-        height: 100vh;
-        width: 100vw;
-    }
-    75% {
-        height: 100vh;
-        width: 100vw;
-    }
-    100% {
-        background-color: rgba(39, 37, 37, 0);
-    }
-}
-
-.back-wrap {
-    z-index: 99,8;
-    background-color: #272525;
-    animation-name: back-appear;
-    animation-duration: 2s;
-    animation-timing-function: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.intro-screen {
-    position: absolute;
-    overflow: hidden;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    display: flex;
-    justify-content: center;
-    top: 0%;
-    z-index: 99;
-    background-color: #272525;
-    width: 100%;
-    height: 50vh;
-}
-
-.dell-opacity {
-    opacity: 0;
-}
-
-.join-button-opacity {
-    margin-top: 66vh;
-    width: 1px;
-    height: 1px;
-    -webkit-border-radius: 100px;
-    -moz-border-radius: 100px;
-    border-radius: 100px;
-    transition: 1s;
-    opacity: 0;
-}
-
-
-
 .join-button {
     margin-top: 66vh;
     width: 250px;
