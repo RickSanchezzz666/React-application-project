@@ -11,6 +11,7 @@ import camera from './imgs/camera.png';
 import cameraOff from './imgs/camera-off.png';
 import WebFont from 'webfontloader';
 import { Link } from 'react-router-dom';
+import { videoSwitch, audioSwitch } from "../Redirect";
 
 
 function layout(clientsNumber = 1) {
@@ -63,6 +64,13 @@ function Room () {
     const audioButton = document.getElementById('off-audio-button');
 
     const leaveButton = document.getElementById('room-call-leave')
+
+    if(videoSwitch === false) {
+        turnOffVideo();
+    }
+    if(audioSwitch === false) {
+        turnOffAudio();
+    }
     
     
     function turnOffVideo() {
