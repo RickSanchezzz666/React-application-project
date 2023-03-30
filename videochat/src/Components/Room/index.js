@@ -11,6 +11,8 @@ import camera from './imgs/camera.png';
 import cameraOff from './imgs/camera-off.png';
 import WebFont from 'webfontloader';
 import { Link } from 'react-router-dom';
+import { videoSwitch, audioSwitch } from "../Redirect";
+export {redirectAvailability};
 
 let redirectAvailability = true;
 
@@ -71,7 +73,7 @@ function Room () {
         setTimeout(() => {
             navigate(redirectPath)
             redirectAvailability = false;
-        }, 1666);
+        }, 0);
     }
 
 
@@ -80,12 +82,12 @@ function Room () {
 
     const leaveButton = document.getElementById('room-call-leave')
 
-    /*if(videoSwitch === false) {
+    if(videoSwitch === false) {
         turnOffVideo();
     }
     if(audioSwitch === false) {
         turnOffAudio();
-    }*/
+    }
     
     
     function turnOffVideo() {
@@ -128,13 +130,11 @@ function Room () {
         }
     }
 
-    turnOffVideo();
-
     console.log(clients);
 
     return (
 
-        <div id="main-component" className="room-wrapper" style={{
+        <div className="room-wrapper" style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',

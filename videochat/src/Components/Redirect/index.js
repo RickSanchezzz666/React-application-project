@@ -11,7 +11,10 @@ import useWebRTC, { LOCAL_VIDEO, userStream } from "../../hooks/useWebRTC";
 import { Link } from "react-router-dom";
 import WebFont from 'webfontloader';
 import { useEffect } from "react";
+export {videoSwitch, audioSwitch}
 
+let videoSwitch = true;
+let audioSwitch = true;
 
 function Redirect() {
     function layout(clientsNumber = 1) {
@@ -55,9 +58,6 @@ function Redirect() {
     const audioButton = document.getElementById('redirect-off-audio-button');
 
     const leaveButton = document.getElementById('room-call-leave')
-
-    let videoSwitch = true;
-    let audioSwitch = true;
 
     let pathName = window.location.pathname;
     let pathNameSlice = pathName.slice(10, 46);
