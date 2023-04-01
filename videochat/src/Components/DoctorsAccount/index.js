@@ -2,9 +2,12 @@ import './style.css';
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {socket} from "../../Socket";
+import Header from '../Header/Header'
 import {v4} from 'uuid';
 import ACTIONS from "../../Socket/actions";
 import axios from "axios";
+import docIcon from '../../images/Icon_profile.png'
+import WebFont from 'webfontloader';
 
 const getUsers = async (token) => {
   try {
@@ -35,6 +38,14 @@ const DoctorsAccount = () => {
     })
 }, [])
 
+  useEffect(() => {
+      WebFont.load({
+        google: {
+          families: ['Arvo']
+        }
+      });
+     }, []);
+
   const handleGetUsers = () => {
     const token = localStorage.getItem("token");
     getUsers(token).then((data) => setUsers(data));
@@ -46,12 +57,42 @@ const DoctorsAccount = () => {
   };
 
   return (
-    <div>
-      <div className="phoneCall">
-          <img src="/images/call.png" alt="" className="call" />
-          <div className="cyrcleAboutUs1"></div>
-          <div className="cyrcleAboutUs2"></div>
+    <div className='doctor-component-wrapper'>
+      <Header />
+      <div className="backgroundHelloDoctor">
+        <div className='grid-1'>
+          <div className='grid-avatar'>
+            <div className="porfileSpace">
+              <img className="iconProfile" src={docIcon}></img>
+            </div>
+          </div>
+          <div className='grid-text'>
+            <span className="profileText">Name</span>
+            <span className="profileText text-11">Last name</span>
+          </div>
         </div>
+        <div className='grid-2'>
+          <div className="sectionDoctor">
+          <div className="startMeetingDoctor">
+          <button className='startMeetingButtonDoctor' onClick={() => {
+                navigate(`/room/${v4()}`)
+            }}>Start meeting</button>
+          </div>
+          <div className="clientBase">Client Base</div>
+
+          <div className="clientBazeArea">
+            <span className="textClientBase">Name</span>
+            <span className="textClientBase">Last name</span>
+            <div className="textAreaClientBaze"></div>
+          </div>
+        
+      </div>
+    </div>
+        </div>
+    </div>
+
+
+    /*<div>
         <div ref={rootNode}>
             <h1>Available Rooms</h1>
             <ul>
@@ -121,7 +162,7 @@ const DoctorsAccount = () => {
             </tr>
         </tfoot>
       </table>
-    </div>
+    </div>*/
   );
 };
 
