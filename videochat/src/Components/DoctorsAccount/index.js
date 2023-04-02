@@ -6,8 +6,11 @@ import Header from '../Header/Header'
 import {v4} from 'uuid';
 import ACTIONS from "../../Socket/actions";
 import axios from "axios";
-import docIcon from '../../images/Icon_profile.png'
 import WebFont from 'webfontloader';
+
+let name = "Slavik";
+let surname = "Petrenko";
+let docIcon  = "https://i.ibb.co/HFbBrvn/Icon-profile.png";
 
 const getUsers = async (token) => {
   try {
@@ -26,8 +29,8 @@ const getUsers = async (token) => {
 
 const DoctorsAccount = () => {
   const [users, setUsers] = useState([]);
-  const navigate = useNavigate();
   const [rooms, updateRooms] = useState([]);
+  const navigate = useNavigate();
   const rootNode = useRef();
 
   useEffect(() => {
@@ -67,8 +70,8 @@ const DoctorsAccount = () => {
             </div>
           </div>
           <div className='grid-text'>
-            <span className="profileText">Name</span>
-            <span className="profileText text-11">Last name</span>
+            <span className="profileText">{name}</span>
+            <span className="profileText text-11">{surname}</span>
           </div>
         </div>
         <div className='grid-2'>

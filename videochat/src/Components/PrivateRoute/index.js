@@ -16,6 +16,7 @@ const PrivateRoute = ({ children }) => {
       })
       .then((res) => {
         if (res.status === 200) {
+          const { name, surname } = res.data;
           setAuth(true);
         }
       })
