@@ -2,22 +2,23 @@ import React, { useState } from 'react';
 import './style.css';
 import axios from 'axios';
 import Header from '../Header/Header'
-import Footer from '../Footer/Footer'
 
 function ContactForm() {
   
   const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [birthday, setBirthday] = useState('');
   const [surname, setSurname] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [birthday, setBirthday] = useState('');
   const [complains, setComplains] = useState('');
 
   const handleCreate = () => {
     const data = {
       contact_information: {
         name,
-        email,
         surname,
+        email,
+        phone,
       },
       location: {
       },
@@ -64,7 +65,7 @@ function ContactForm() {
           </div>
           <div className="application-form-number">
           <label className="contact-text-input" htmlFor="Number">Phone Number</label>
-            <input type="text" id="Number" className="contact-page-input" />
+            <input type="text" id="Number" className="contact-page-input" value={phone} onChange={(event) => setPhone(event.target.value)} />
           </div>
           <div className="application-form-complains">
             <div><label className="contact-text-input-complains" htmlFor="complains">Complains</label></div>

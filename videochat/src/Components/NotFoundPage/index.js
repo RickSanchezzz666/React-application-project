@@ -1,6 +1,9 @@
 import React from "react";
 import './style.css';
+import AOS from 'aos';
 import { useNavigate } from "react-router";
+
+AOS.init();
 
 function NotFound() {
     const history = useNavigate();

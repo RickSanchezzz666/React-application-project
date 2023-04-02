@@ -3,7 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');                              // Парсер тіла POST API запитів
 const Mongo = require('./src/setup/mongoose');
 const LoginAPI = require('./src/api/docs.api');                         // Авторизація лікарів
-const { Clients } = require('./src/models/clients');                    // База клієнтів
+const ContactFormAPI = require('./src/api/contact-form.api');                   // База клієнтів
 const authMiddleware = require('./src/middlewares/auth.middleware');    // Middleware
 const socket = require('./src/Socket');
 const ACTIONS = require('./src/Socket/actions');
@@ -29,28 +29,12 @@ const setup = async () => {
     authMiddleware(app);
 
     app.use(LoginAPI.router);
-
-    app.post("/api/contact-form", async (req, res) => {
-        const { contact_information: { name, surname, email, phone }, location: { address, city, country, zipcode }, patient_info: { birthday, overall, blood_type} } = req.body;
-
-        const client = new Clients({
-            contact_information: { name, surname, email, phone }, location: { address, city, country, zipcode }, patient_info: { birthday, overall, blood_type}
-        });
-
-        try {
-            await client.save();
-            return res.status(200).send('SUCCCCCCCCCCCEEEESSSSSSSSSSSSSSSSS!!!!!!!!!');
-        } catch (err) {
-            console.error(err.toString());
-            res.status(400).send('Oy shit, something went wrong');
-        }
-    });
+    app.use(ContactFormAPI.router);
 
     app.use(express.static('build'));
     app.get('*', (req, res) => {
         res.sendFile(path.join(__dirname, "./build/index.html"))
     })
-
 };
   
 setup();

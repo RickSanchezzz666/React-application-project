@@ -62,4 +62,8 @@ router.get("/api/clients", passport.authenticate('jwt', { session: false }), asy
     return res.status(200).send(clients);
 });
 
+router.get("/api/gatekeeper", passport.authenticate('jwt', { session: false }), async (req, res) => {
+    return res.status(200).send();
+});
+
 module.exports = { router };
