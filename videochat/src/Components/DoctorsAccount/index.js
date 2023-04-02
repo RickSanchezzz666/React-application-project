@@ -50,7 +50,7 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
     getUsers(token).then((data) => setUsers(data));
   };
 
-  const handleLogout = () => {
+  const setLogout = () => {
     localStorage.removeItem("token");
     navigate("/doctor/login");
   };
@@ -68,6 +68,8 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
           <div className='grid-text'>
             <span className="profileText">{name}</span>
             <span className="profileText text-11">{surname}</span>
+            <button onClick={setLogout}>Logout</button>
+            <button onClick={() => {navigate('/doctor/login')}}>Return without logout</button>
           </div>
         </div>
         <div className='grid-2'>
