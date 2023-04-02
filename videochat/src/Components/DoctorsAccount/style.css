@@ -92,6 +92,14 @@ table.clientsList tfoot .links a{
   height: 90px;
   border-radius: 100px;
   background-color: white;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -moz-user-drag: none;
+  -webkit-user-drag: none;
+  -ms-user-drag: none;
+  pointer-events: none;
 }
 
 .porfileSpace {
@@ -186,7 +194,7 @@ table.clientsList tfoot .links a{
   border: 1px;
   border-color: #4486AB;
   width: 290px;
-height: 71px;
+  height: 71px;
   font-size: 25px;
   font-family: 'Arvo';
 }

@@ -8,10 +8,6 @@ import ACTIONS from "../../Socket/actions";
 import axios from "axios";
 import WebFont from 'webfontloader';
 
-let name = "Slavik";
-let surname = "Petrenko";
-let docIcon  = "https://i.ibb.co/HFbBrvn/Icon-profile.png";
-
 const getUsers = async (token) => {
   try {
     const res = await axios.get("/api/clients", {
@@ -27,7 +23,7 @@ const getUsers = async (token) => {
   }
 };
 
-const DoctorsAccount = () => {
+const DoctorsAccount = ({ name, surname, profilePic }) => {
   const [users, setUsers] = useState([]);
   const [rooms, updateRooms] = useState([]);
   const navigate = useNavigate();
@@ -66,7 +62,7 @@ const DoctorsAccount = () => {
         <div className='grid-1'>
           <div className='grid-avatar'>
             <div className="porfileSpace">
-              <img className="iconProfile" src={docIcon}></img>
+              <img className="iconProfile" src={profilePic}></img>
             </div>
           </div>
           <div className='grid-text'>
