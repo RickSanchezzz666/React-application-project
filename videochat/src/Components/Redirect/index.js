@@ -48,6 +48,7 @@ function Redirect() {
             families: ['Arvo']
           }
         });
+        document.title = "Redirect... | MedDoc";
        }, []);
 
     const {id: roomID} = useParams();

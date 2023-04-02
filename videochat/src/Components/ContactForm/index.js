@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './style.css';
 import axios from 'axios';
 import Header from '../Header/Header'
 
 function ContactForm() {
+
+  useEffect(() => {
+    document.title = "Contact Form | MedDoc";
+   }, []);
   
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');

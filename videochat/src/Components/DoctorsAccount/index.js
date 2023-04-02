@@ -43,6 +43,7 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
           families: ['Arvo']
         }
       });
+      document.title = "Dashboard | MedDoc";
      }, []);
 
   const handleGetUsers = () => {

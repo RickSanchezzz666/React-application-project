@@ -25,6 +25,7 @@ function Content() {
           families: ['Bree Serif']
         }
       });
+      document.title = "MedDoc";
      }, []);
 
      const { ref, inView} = useInView({triggerOnce: true});

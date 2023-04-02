@@ -55,6 +55,7 @@ function Room () {
             families: ['Arvo']
           }
         });
+        document.title = "Room | MedDoc";
        }, []);
 
 
