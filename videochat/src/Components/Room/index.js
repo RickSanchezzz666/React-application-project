@@ -70,12 +70,12 @@ function Room () {
     let redirectPath = `/redirect/${pathNameSlice}`;
 
 
-    if(redirectAvailability === true) {
+    /*if(redirectAvailability === true) {
         setTimeout(() => {
-            navigate(redirectPath)
+            navigate(redirectPath);
             redirectAvailability = false;
         }, 0);
-    }
+    }*/
 
 
     const videoButton = document.getElementById('off-video-button');
