@@ -214,12 +214,10 @@ table.clientsList tfoot .links a{
   width: 92.5%;
   height: 55vh;
   background-color: #D9D9D9;
-
-
 }
 
 
-.textAreaClientBaze {
+.tableAreaClientBaze {
   position: relative;
   width: 97%;
   height: 87.5%;
@@ -229,7 +227,7 @@ table.clientsList tfoot .links a{
   margin-bottom: 15px;
   background-color: white;
   font-family: 'Arvo';
-
+  overflow: scroll;
 }
 
 .client {

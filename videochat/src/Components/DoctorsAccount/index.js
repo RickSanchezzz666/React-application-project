@@ -85,7 +85,19 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
           <div className="clientBazeArea">
             <span className="textClientBase">Name</span>
             <span className="textClientBase">Last name</span>
-            <div className="textAreaClientBaze"></div>
+            <button id='getusers' onClick={handleGetUsers}>Get Users</button><br/>
+            <div className="tableAreaClientBaze">
+            <table class="clientsList">
+              <tbody>
+                {users.map((user) => (
+                  <tr key={user._id}>
+                    <td>{user.contact_information.name}</td>
+                    <td>{user.contact_information.surname}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            </div>
           </div>
         
       </div>
@@ -114,7 +126,6 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
 
       <span className='alerter'>! Check validity of your token !</span><br/><br/>
       <button id='getusers' onClick={handleGetUsers}>Get Users</button><br/>
-      <button onClick={handleLogout}>Logout</button>
       <table class="clientsList">
         <thead>
           <tr>

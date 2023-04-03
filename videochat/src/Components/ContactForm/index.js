@@ -6,7 +6,7 @@ import Header from '../Header/Header'
 function ContactForm() {
 
   useEffect(() => {
-    document.title = "Contact Form | MedDoc";
+    document.title = "Contact | MedDoc";
    }, []);
   
   const [name, setName] = useState('');
