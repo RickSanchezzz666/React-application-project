@@ -15,7 +15,6 @@ import { videoSwitch, audioSwitch } from "../Redirect";
 export {redirectAvailability};
 
 let redirectAvailability = true;
-let redirectCompleted = false;
 
 function layout(clientsNumber = 1) {
     const pairs = Array.from({length: clientsNumber}).reduce((acc, next, index, arr) => {
@@ -64,9 +63,9 @@ function Room () {
     const {clients, provideMediaRef} = useWebRTC(roomID);
     const videoLayout = layout(clients.length);
 
-    let clientsLength = clients.length;
+    /*let clientsLength = clients.length;
 
-    /*if(clientsLength - 1 === 0 || clientsLength - 1 === -1) {
+    if(clientsLength - 1 === 0 || clientsLength - 1 === -1) {
         redirectCompleted = true;
         if(redirectCompleted === true) {
             redirectAvailability = false;
@@ -84,15 +83,12 @@ function Room () {
     let pathNameSlice = pathName.slice(6, 42);
     let redirectPath = `/redirect/${pathNameSlice}`;
 
-        if(redirectCompleted === false) {
-            if(redirectAvailability === true) {
-                setTimeout(() => {
-                    navigate(redirectPath);
-                    redirectAvailability = false;
-                    redirectCompleted = true;
-                }, 0);
-            }
-        }
+    if(redirectAvailability === true) {
+        setTimeout(() => {
+            navigate(redirectPath);
+            redirectAvailability = false;
+        }, 0);
+    }
 
     const videoButton = document.getElementById('off-video-button');
     const audioButton = document.getElementById('off-audio-button');
