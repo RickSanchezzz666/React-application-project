@@ -46,6 +46,18 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
       document.title = "Dashboard | MedDoc";
      }, []);
 
+  function makeCut(length) {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    let counter = 0;
+    while (counter < length) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      counter += 1;
+    }
+    return result;
+}
+
   const handleGetUsers = () => {
     const token = localStorage.getItem("token");
     getUsers(token).then((data) => setUsers(data));
@@ -77,7 +89,7 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
           <div className="sectionDoctor">
           <div className="startMeetingDoctor">
           <button className='startMeetingButtonDoctor' onClick={() => {
-                navigate(`/room/${v4()}`)
+                navigate(`/room/${makeCut(6)}`)
             }}>Start meeting</button>
           </div>
           <div className="clientBase">Client Base</div>

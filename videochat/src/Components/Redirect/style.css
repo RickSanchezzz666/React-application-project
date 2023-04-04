@@ -16,6 +16,8 @@
     display: flex;
     justify-self: center;
     align-self: center;
+    width: 100%;
+    height: 500px;
 }
 
 .redirect-link {
@@ -56,6 +58,7 @@
     height: 60px;
     display: grid;
     justify-self: center;
+    z-index: 99;
     margin-top: 25px;
     -webkit-user-drag: none;
     -khtml-user-drag: none;

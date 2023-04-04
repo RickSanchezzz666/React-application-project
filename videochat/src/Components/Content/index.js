@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import './style.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -13,6 +13,7 @@ import doctorImage4 from '../../images/vuyko_at_the_end.png';
 import phone from '../../images/call.png'
 import WebFont from 'webfontloader';
 import { useInView } from "react-intersection-observer";
+import { useNavigate } from "react-router";
 
 function Content() {
     AOS.init({
@@ -28,7 +29,16 @@ function Content() {
       document.title = "MedDoc";
      }, []);
 
+     const navigate = useNavigate();
+
      const { ref, inView} = useInView({triggerOnce: true});
+
+     const [callCode, setCallCode] = useState('');
+
+     function joinCallCode() {
+      let callCodePath = `/room/${callCode}`;
+      navigate(callCodePath);
+     }
 
     return (
     <div className="about-us-component">
@@ -42,8 +52,8 @@ function Content() {
             </div>
           </div>
           <div className="container-1-input">
-            <input type="text" className="meeting-input" />
-            <input type="button" value="Join meeting" className="meeting-join-button" />  
+            <input type="text" id="container-1-call-code" className="meeting-input" onChange={(event) => setCallCode(event.target.value)} />
+            <button className="meeting-join-button" onClick={joinCallCode}>Join meeting</button>  
           </div>
         </div>
         <div className="container-1-doctor-img">

@@ -94,6 +94,7 @@
     background-color: #3389D8;
     border-radius: 5px;
     position: relative;
+    cursor: pointer;
 }
 
 .container-1-doctor-img {
