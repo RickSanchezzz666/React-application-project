@@ -9,7 +9,7 @@ function NotFoundRoom() {
     const history = useNavigate();
 
     return (
-        <div className="NotFoundPage">
+        <div className="NotFoundRoom">
             <h1 className="main-text" data-aos="fade-right" data-aos-delay="100">Error 404</h1>
             <h2 className="sub-text" data-aos="fade-left" data-aos-delay="200">Room not Found : (</h2>
             <button onClick={() => {
