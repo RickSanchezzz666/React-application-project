@@ -94,6 +94,7 @@
     -moz-border-radius: 100px 100px 100px 100px;
     -webkit-border-radius: 100px 100px 100px 100px;
     background-color: #CDA4EE;
+    cursor: pointer;
 }
 
 #room-call-leave {

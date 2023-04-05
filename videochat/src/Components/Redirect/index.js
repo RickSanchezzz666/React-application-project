@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import './style.css'
 import camera from '../Room/imgs/camera.png';
 import cameraOff from '../Room/imgs/camera-off.png';
@@ -26,9 +26,6 @@ function Redirect() {
         document.title = "Redirecting... | MedDoc";
        }, []);
 
-    const videoButton = document.getElementById('redirect-off-video-button');
-    const audioButton = document.getElementById('redirect-off-audio-button');
-
     const leaveButton = document.getElementById('room-call-leave')
 
     let pathName = window.location.pathname;
@@ -36,13 +33,17 @@ function Redirect() {
     let redirectPath = `/room/${pathNameSlice}`;
 
     function redirectTurnOffVideo() {
-        if(videoButton) {
+        const videoButton = document.getElementById('redirect-off-video-button');
+        const videoSource = document.getElementById("redirect-video-source")
+        if(videoButton && videoSource) {
             if (videoSwitch === true) {
                 videoButton.className = 'room-button video-button-off';
+                videoSource.className = 'redirect-video-source redirect-video-source-off'
                 videoButton.innerHTML = `<img src=${cameraOff} alt="Camera Off">`;
                 videoSwitch = false;
             } else {
                 videoButton.className = 'room-button video-button-on';
+                videoSource.className = 'redirect-video-source'
                 videoButton.innerHTML = `<img src=${camera} alt="Camera On">`;
                 videoSwitch = true;
             }
@@ -51,6 +52,7 @@ function Redirect() {
 
 
     function redirectTurnOffAudio() {
+        const audioButton = document.getElementById('redirect-off-audio-button');
         if(audioButton) {
             if (audioSwitch === true) {
                 audioButton.className = 'room-button video-button-off';
@@ -63,6 +65,8 @@ function Redirect() {
             }
         }
     }
+
+    
 
     function callLeave() {
         if(leaveButton) {
@@ -79,9 +83,11 @@ function Redirect() {
                 <img className="room-logo" src={logo}></img>
                 <span className="room-logo-name">MedDoc</span>
             </div>
-            <Webcam className="redirect-video-source"
+            <div className="redirect-header-text">Ready to Join?</div>
+            <Webcam className="redirect-video-source" id="redirect-video-source"
                 height={720}
                 width={1280}
+                audio={false}
             />
             <div className="redirect-button-wrapper">
                     <button onClick={redirectTurnOffAudio} className="room-button audio-button-on" id="redirect-off-audio-button">

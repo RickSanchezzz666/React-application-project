@@ -5,6 +5,15 @@
     grid-template-rows: 5fr 1fr;
 }
 
+.redirect-header-text {
+    display: flex;
+    justify-self: center;
+    margin-top: 50px;
+    font-size: 30px;
+    position: absolute;
+    font-family: 'Arvo';
+}
+
 .redirect-button-wrapper img {
     z-index: 99.8;
     height: 32.5px;
@@ -18,6 +27,10 @@
     align-self: center;
     width: 100%;
     height: 500px;
+}
+
+.redirect-video-source-off {
+    display: none;
 }
 
 .redirect-link {
