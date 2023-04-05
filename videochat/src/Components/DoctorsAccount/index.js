@@ -3,7 +3,6 @@ import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {socket} from "../../Socket";
 import Header from '../Header/Header'
-import {v4} from 'uuid';
 import ACTIONS from "../../Socket/actions";
 import axios from "axios";
 import WebFont from 'webfontloader';
@@ -58,6 +57,10 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
     return result;
 }
 
+  function startMeeting() {
+    const abc = 1;
+  }
+
   const handleGetUsers = () => {
     const token = localStorage.getItem("token");
     getUsers(token).then((data) => setUsers(data));
@@ -65,7 +68,7 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
 
   const setLogout = () => {
     localStorage.removeItem("token");
-    navigate("/doctor/login");
+    navigate("/login");
   };
 
   return (
@@ -82,15 +85,13 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
             <span className="profileText">{name}</span>
             <span className="profileText text-11">{surname}</span>
             <button onClick={setLogout}>Logout</button>
-            <button onClick={() => {navigate('/doctor/login')}}>Return without logout</button>
+            <button onClick={() => {navigate('/login')}}>Return without logout</button>
           </div>
         </div>
         <div className='grid-2'>
           <div className="sectionDoctor">
           <div className="startMeetingDoctor">
-          <button className='startMeetingButtonDoctor' onClick={() => {
-                navigate(`/room/${makeCut(6)}`)
-            }}>Start meeting</button>
+          <button className='startMeetingButtonDoctor' onClick={startMeeting}>Start meeting</button>
           </div>
           <div className="clientBase">Client Base</div>
 
