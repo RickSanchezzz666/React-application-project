@@ -19,6 +19,7 @@ function App() {
         <Route path='/contact' element={<ContactForm />} />
         <Route path='/login' element={<SignInPage />} />
         <Route path='/account' element={<PrivateRoute />} />
+        <Route path='/room-not-found' element={<NotFoundRoom />} />
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
