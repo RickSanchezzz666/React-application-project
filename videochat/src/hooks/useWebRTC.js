@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { socket } from "../Socket";
 import ACTIONS from "../Socket/actions";
 import useStateWithCallback from './useStateWithCallback';
-import {redirectAvailability} from '../Components/Room/index'
+import {redirectAvailability} from '../Components/RedirectingPage'
 
 export const LOCAL_VIDEO = 'LOCAL_VIDEO';
 export let userStream = 'userStream';

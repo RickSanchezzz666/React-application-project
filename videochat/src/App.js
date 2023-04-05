@@ -8,6 +8,7 @@ import SignInPage from './Components/SignInPage';
 import DoctorsAccount from './Components/DoctorsAccount';
 import PrivateRoute from './Components/PrivateRoute';
 import RedirectPage from './Components/Redirect';
+import RedirectingPage from './Components/RedirectingPage';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Content />} />
         <Route path='/room/:id' element={<Room />} />
+        <Route path='/redirecting/:id' element={<RedirectingPage />}  />
         <Route path='/redirect/:id' element={<RedirectPage />} />
         <Route path='/contact' element={<ContactForm />} />
         <Route path='/doctor/login' element={<SignInPage />} />

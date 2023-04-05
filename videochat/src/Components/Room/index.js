@@ -12,9 +12,6 @@ import cameraOff from './imgs/camera-off.png';
 import WebFont from 'webfontloader';
 import { Link } from 'react-router-dom';
 import { videoSwitch, audioSwitch } from "../Redirect";
-export {redirectAvailability};
-
-let redirectAvailability = true;
 
 function layout(clientsNumber = 1) {
     const pairs = Array.from({length: clientsNumber}).reduce((acc, next, index, arr) => {
@@ -62,33 +59,6 @@ function Room () {
     const {id: roomID} = useParams();
     const {clients, provideMediaRef} = useWebRTC(roomID);
     const videoLayout = layout(clients.length);
-
-    /*let clientsLength = clients.length;
-
-    if(clientsLength - 1 === 0 || clientsLength - 1 === -1) {
-        redirectCompleted = true;
-        if(redirectCompleted === true) {
-            redirectAvailability = false;
-        }
-    } else {
-        redirectCompleted = false;
-        if(redirectCompleted === false) {
-            redirectAvailability = true;
-        }
-    }*/
-
-    const navigate = useNavigate();
-
-    let pathName = window.location.pathname;
-    let pathNameSlice = pathName.slice(6, 42);
-    let redirectPath = `/redirect/${pathNameSlice}`;
-
-    if(redirectAvailability === true) {
-        setTimeout(() => {
-            navigate(redirectPath);
-            redirectAvailability = false;
-        }, 0);
-    }
 
     const videoButton = document.getElementById('off-video-button');
     const audioButton = document.getElementById('off-audio-button');
