@@ -75,53 +75,48 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
     <div className='doctor-component-wrapper'>
       <Header />
         <div className="doctor-account-component-wrapper">
-          <div className='grid-1'>
-            <div className='grid-avatar'>
-              <div className="porfileSpace">
-                <img className="iconProfile" src={profilePic}></img>
+          <div className='doctor-account-component-grid-1'>
+            <div className='doctor-account-component-grid-1-avatar'>
+              <div className="doctor-account-component-grid-1-space">
+                <img className="doctor-account-component-grid-1-icon" src={profilePic}></img>
               </div>
             </div>
-            <div className='grid-text'>
-              <span className="profileText">{name}</span>
-              <span className="profileText text-11">{surname}</span>
+            <div className='doctor-account-component-grid-text'>
+              <span className="doctor-account-component-grid-profile-text">{name}</span>
+              <span className="doctor-account-component-grid-profile-text doctor-account-component-grid-profile-text-2">{surname}</span>
               <button onClick={setLogout}>Logout</button>
               <button onClick={() => {navigate('/doctor/login')}}>Return without logout</button>
             </div>
           </div>
-          <div className='grid-text'>
-            <span className="profileText">{name}</span>
-            <span className="profileText text-11">{surname}</span>
-            <button onClick={setLogout}>Logout</button>
-            <button onClick={() => {navigate('/login')}}>Return without logout</button>
-          </div>
-        </div>
-        <div className='grid-2'>
-          <div className="sectionDoctor">
-          <div className="startMeetingDoctor">
-          <button className='startMeetingButtonDoctor' onClick={startMeeting}>Start meeting</button>
-          </div>
-          <div className="clientBase">Client Base</div>
+          <div className='doctor-account-component-grid-2'>
+            <div className="doctor-account-component-grid-2-section">
+            <div className="doctor-account-component-grid-2-start-meeting">
+              <button className='doctor-account-component-grid-2-start-meeting-button' onClick={startMeeting}>Start meeting</button>
+            </div>
+            
+            <div className="doctor-account-component-client-base">Client Base</div>
 
-            <div className="clientBazeArea">
-                <span className="textClientBase">Name</span>
-                <span className="textClientBase">Last name</span>
-                <button id='getusers' onClick={handleGetUsers}>Get Users</button><br/>
-              <div className="tableAreaClientBaze">
-                <table class="clientsList">
-                  <tbody>
-                    {users.map((user) => (
-                      <tr key={user._id}>
-                        <td>{user.contact_information.name}</td>
-                        <td>{user.contact_information.surname}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+            <div className="doctor-account-component-client-base-area">
+                  <span className="doctor-account-component-client-base-text">Name</span>
+                  <span className="doctor-account-component-client-base-text">Last name</span>
+                  <button id='doctor-get-user' onClick={handleGetUsers}>Get Users</button><br/>
+                <div className="doctor-account-component-client-base-table">
+                  <table class="doctor-account-component-client-base-list">
+                    <tbody>
+                      {users.map((user) => (
+                        <tr key={user._id}>
+                          <td>{user.contact_information.name}</td>
+                          <td>{user.contact_information.surname}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+    </div>
 
 
     /*<div>
