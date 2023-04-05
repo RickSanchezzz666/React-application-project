@@ -8,7 +8,7 @@ const RoomExistVerify = ({ children }) => {
 
   useEffect(() => {
     let pathName = window.location.pathname;
-    let roomId = pathName.slice(13, 42);
+    let roomId = pathName.slice(6, 42);
     if (roomId) {
       axios.get('/api/room-verify', {
         params: {

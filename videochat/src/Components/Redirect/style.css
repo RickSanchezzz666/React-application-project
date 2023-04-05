@@ -20,14 +20,6 @@
     height: 500px;
 }
 
-.redirect-link {
-    color: white;
-    text-decoration: none;
-    width: 165px;
-    height: 60px;
-    border-radius: 50px;
-}
-
 .redirect-button-wrapper {
     position: relative;
     display: grid;
