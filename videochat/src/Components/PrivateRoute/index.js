@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom';
 import axios from 'axios';
 import DoctorsAccount from '../DoctorsAccount';
 import ContactForm from '../ContactForm';
+export { authExport };
 
 const PrivateRoute = () => {
   const [auth, setAuth] = useState(false);

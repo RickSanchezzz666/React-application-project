@@ -58,8 +58,8 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
 }
 
   function startMeeting() {
-    const abc = 1;
-  }
+    
+  };
 
   const handleGetUsers = () => {
     const token = localStorage.getItem("token");
@@ -88,12 +88,6 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
               <button onClick={() => {navigate('/doctor/login')}}>Return without logout</button>
             </div>
           </div>
-          <div className='grid-text'>
-            <span className="profileText">{name}</span>
-            <span className="profileText text-11">{surname}</span>
-            <button onClick={setLogout}>Logout</button>
-            <button onClick={() => {navigate('/login')}}>Return without logout</button>
-          </div>
         </div>
         <div className='grid-2'>
           <div className="sectionDoctor">
@@ -101,7 +95,6 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
           <button className='startMeetingButtonDoctor' onClick={startMeeting}>Start meeting</button>
           </div>
           <div className="clientBase">Client Base</div>
-
             <div className="clientBazeArea">
                 <span className="textClientBase">Name</span>
                 <span className="textClientBase">Last name</span>
