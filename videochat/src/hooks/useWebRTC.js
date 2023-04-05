@@ -3,7 +3,6 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { socket } from "../Socket";
 import ACTIONS from "../Socket/actions";
 import useStateWithCallback from './useStateWithCallback';
-import {redirectAvailability} from '../Components/RedirectingPage'
 
 export const LOCAL_VIDEO = 'LOCAL_VIDEO';
 export let userStream = 'userStream';
@@ -141,14 +140,6 @@ function useWebRTC(roomID) {
         startCapture()
         .then(() => socket.emit(ACTIONS.JOIN, {room: roomID}))
         .catch(e => console.error('Error getting userMedia:', e))
-
-        if(redirectAvailability === false) {
-            return () => {
-                localMediaStream.current.getTracks().forEach(track => track.stop());
-                
-                socket.emit(ACTIONS.LEAVE);
-            }
-        }
     }, [roomID])
 
     const provideMediaRef = useCallback((id, node) => {

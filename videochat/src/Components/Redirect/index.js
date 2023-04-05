@@ -8,7 +8,7 @@ import phone from '../Room/imgs/phone-call.png';
 import logo from '../Room/imgs/logo_blue.png';
 import { Link } from "react-router-dom";
 import WebFont from 'webfontloader';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Webcam from "react-webcam";
 export {videoSwitch, audioSwitch}
 
@@ -16,7 +16,9 @@ export {videoSwitch, audioSwitch}
 let videoSwitch = true;
 let audioSwitch = true;
 
-function Redirect() {
+const Redirect = ({ children }) => {
+    const [redirected, setIsRedirected] = useState(false);
+
     useEffect(() => {
         WebFont.load({
           google: {
@@ -27,10 +29,6 @@ function Redirect() {
        }, []);
 
     const leaveButton = document.getElementById('room-call-leave')
-
-    let pathName = window.location.pathname;
-    let pathNameSlice = pathName.slice(10, 46);
-    let redirectPath = `/room/${pathNameSlice}`;
 
     function redirectTurnOffVideo() {
         const videoButton = document.getElementById('redirect-off-video-button');
@@ -76,8 +74,14 @@ function Redirect() {
         }
     }
 
+    function joinMeeting() {
+        setIsRedirected(true);
+        console.log(redirected);
+    }
 
-    return(
+    return redirected ? (
+        children
+    ) : (
         <div className="redirect-component">
             <div className="header-logo-room">
                 <img className="room-logo" src={logo}></img>
@@ -102,11 +106,7 @@ function Redirect() {
                         </button>
                     </Link>
             </div>
-            <div className="redirect-join-button" id="redirect-join-button">
-                <Link className="redirect-link" to={redirectPath}>
-                    Join Meeting
-                </Link>
-            </div>
+            <button onClick={joinMeeting} className="redirect-join-button" id="redirect-join-button">Join Meeting</button>
         </div>
     )
 }

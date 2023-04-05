@@ -36,7 +36,7 @@ function Content() {
      const [callCode, setCallCode] = useState('');
 
      function joinCallCode() {
-      let callCodePath = `/redirecting/${callCode}`;
+      let callCodePath = `/room/${callCode}`;
       navigate(callCodePath);
      }
 
