@@ -71,50 +71,49 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
   return (
     <div className='doctor-component-wrapper'>
       <Header />
-      <div className="backgroundHelloDoctor">
-        <div className='grid-1'>
-          <div className='grid-avatar'>
-            <div className="porfileSpace">
-              <img className="iconProfile" src={profilePic}></img>
+        <div className="doctor-account-component-wrapper">
+          <div className='grid-1'>
+            <div className='grid-avatar'>
+              <div className="porfileSpace">
+                <img className="iconProfile" src={profilePic}></img>
+              </div>
+            </div>
+            <div className='grid-text'>
+              <span className="profileText">{name}</span>
+              <span className="profileText text-11">{surname}</span>
+              <button onClick={setLogout}>Logout</button>
+              <button onClick={() => {navigate('/doctor/login')}}>Return without logout</button>
             </div>
           </div>
-          <div className='grid-text'>
-            <span className="profileText">{name}</span>
-            <span className="profileText text-11">{surname}</span>
-            <button onClick={setLogout}>Logout</button>
-            <button onClick={() => {navigate('/doctor/login')}}>Return without logout</button>
-          </div>
-        </div>
-        <div className='grid-2'>
+          <div className='grid-2'>
           <div className="sectionDoctor">
-          <div className="startMeetingDoctor">
-          <button className='startMeetingButtonDoctor' onClick={() => {
-                navigate(`/room/${makeCut(6)}`)
-            }}>Start meeting</button>
-          </div>
-          <div className="clientBase">Client Base</div>
+            <div className="startMeetingDoctor">
+              <button className='startMeetingButtonDoctor' onClick={() => {
+                  navigate(`/room/${makeCut(6)}`)
+                }}>Start meeting</button>
+            </div>
+            <div className="clientBase">Client Base</div>
 
-          <div className="clientBazeArea">
-            <span className="textClientBase">Name</span>
-            <span className="textClientBase">Last name</span>
-            <button id='getusers' onClick={handleGetUsers}>Get Users</button><br/>
-            <div className="tableAreaClientBaze">
-            <table class="clientsList">
-              <tbody>
-                {users.map((user) => (
-                  <tr key={user._id}>
-                    <td>{user.contact_information.name}</td>
-                    <td>{user.contact_information.surname}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <div className="clientBazeArea">
+                <span className="textClientBase">Name</span>
+                <span className="textClientBase">Last name</span>
+                <button id='getusers' onClick={handleGetUsers}>Get Users</button><br/>
+              <div className="tableAreaClientBaze">
+                <table class="clientsList">
+                  <tbody>
+                    {users.map((user) => (
+                      <tr key={user._id}>
+                        <td>{user.contact_information.name}</td>
+                        <td>{user.contact_information.surname}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
-        
-      </div>
-    </div>
         </div>
+      </div>
     </div>
 
 
