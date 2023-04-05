@@ -3,15 +3,17 @@ import { Navigate } from 'react-router-dom';
 import axios from 'axios';
 import DoctorsAccount from '../DoctorsAccount';
 import ContactForm from '../ContactForm';
-export { authExport };
+export { auth };
+
+const [auth, setAuth] = useState(false);
 
 const PrivateRoute = () => {
-  const [auth, setAuth] = useState(false);
   const [isTokenValidated, setIsTokenValidated] = useState(false);
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [profilePic, setProfilePic] = useState("");
   const [userRole, setUserRole] = useState("");
+
 
   useEffect(() => {
     let token = localStorage.getItem("token");
