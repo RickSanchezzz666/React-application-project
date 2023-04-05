@@ -63,8 +63,6 @@ const Redirect = ({ children }) => {
         }
     }
 
-    
-
     function callLeave() {
         if(leaveButton) {
             setTimeout(() => {

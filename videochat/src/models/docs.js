@@ -5,7 +5,8 @@ const schema = new Schema({
     password: { type: String, required: true },
     name: { type: String, default: '' },
     surname: { type: String, default: '' },
-    profile_pic: { type: String, default: '' }
+    profile_pic: { type: String, default: '' },
+    userRole: { type: String }
 });
 
 const Docs = new model('docs', schema)

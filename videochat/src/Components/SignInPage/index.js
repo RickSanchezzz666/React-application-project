@@ -19,7 +19,7 @@ const SignInPage = () => {
       const response = await axios.post('/api/login', { username, password });
       const { token } = response.data;
       localStorage.setItem('token', token);
-      navigate('/doctor/account');
+      navigate('/account');
     } catch (error) {
       console.error(error);
       return alert('Something went wrong.');
@@ -39,7 +39,7 @@ const SignInPage = () => {
              <div className="sing-in-login-button-wrapper">
               <button className="sing-in-login-button" type="submit">Sign In</button>
              </div>
-             <Link to='/doctor/account'><button type="submit">Manual Redirect</button></Link>
+             <Link to='/account'><button type="submit">Manual Redirect</button></Link>
          </form>
      </div>
    </div>

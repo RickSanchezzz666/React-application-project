@@ -63,8 +63,8 @@ router.get("/api/clients", passport.authenticate('jwt', { session: false }), asy
 });
 
 router.get("/api/gatekeeper", passport.authenticate('jwt', { session: false }), async (req, res) => {
-    const { name, surname, profile_pic } = req.user;
-    return res.status(200).json({ name, surname, profile_pic });
+    const { name, surname, profile_pic, userRole } = req.user;
+    return res.status(200).json({ name, surname, profile_pic, userRole });
 });
 
 module.exports = { router };

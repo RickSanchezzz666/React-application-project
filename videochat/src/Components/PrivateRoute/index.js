@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import axios from 'axios';
+import DoctorsAccount from '../DoctorsAccount';
+import ContactForm from '../ContactForm';
 
-const PrivateRoute = ({ children }) => {
+const PrivateRoute = () => {
   const [auth, setAuth] = useState(false);
   const [isTokenValidated, setIsTokenValidated] = useState(false);
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [profilePic, setProfilePic] = useState("");
+  const [userRole, setUserRole] = useState("");
 
   useEffect(() => {
     let token = localStorage.getItem("token");
@@ -19,10 +22,11 @@ const PrivateRoute = ({ children }) => {
       })
       .then((res) => {
         if (res.status === 200) {
-          const { name, surname, profile_pic } = res.data;
+          const { name, surname, profile_pic, userRole } = res.data;
           setName(name);
           setSurname(surname);
           setProfilePic(profile_pic);
+          setUserRole(userRole);
           setAuth(true);
         }
       })
@@ -37,10 +41,16 @@ const PrivateRoute = ({ children }) => {
 
   if (!isTokenValidated) return <div />;
 
-  return auth ? (
-    React.cloneElement(children, { name, surname, profilePic })
+  if (userRole === "user") return auth ? (
+    React.cloneElement(<ContactForm/>, { name, surname, profilePic })
   ) : (
-    <Navigate to="/doctor/login" replace />
+    <Navigate to="/login" replace />
+  );
+
+  if (userRole === "doctor") return auth ? (
+    React.cloneElement(<DoctorsAccount/>, { name, surname, profilePic })
+  ) : (
+    <Navigate to="/login" replace />
   );
 };
 

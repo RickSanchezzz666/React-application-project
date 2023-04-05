@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useNavigate, useParams } from "react-router";
+import { useParams } from "react-router";
 import useWebRTC, { LOCAL_VIDEO, userStream } from "../../hooks/useWebRTC";
 import './style.css';
 import logo from './imgs/logo_blue.png';
@@ -72,7 +72,6 @@ function Room () {
         turnOffAudio();
     }
     
-    
     function turnOffVideo() {
         if(videoButton) {
             const videoTrack = userStream.getVideoTracks()[0];
@@ -87,7 +86,6 @@ function Room () {
             }
         }
     }
-
 
     function turnOffAudio() {
         if(audioButton) {

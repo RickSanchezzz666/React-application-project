@@ -3,7 +3,6 @@ import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {socket} from "../../Socket";
 import Header from '../Header/Header'
-import {v4} from 'uuid';
 import ACTIONS from "../../Socket/actions";
 import axios from "axios";
 import WebFont from 'webfontloader';
@@ -58,6 +57,10 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
     return result;
 }
 
+  function startMeeting() {
+    const abc = 1;
+  }
+
   const handleGetUsers = () => {
     const token = localStorage.getItem("token");
     getUsers(token).then((data) => setUsers(data));
@@ -65,7 +68,7 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
 
   const setLogout = () => {
     localStorage.removeItem("token");
-    navigate("/doctor/login");
+    navigate("/login");
   };
 
   return (
@@ -85,6 +88,7 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
               <button onClick={() => {navigate('/doctor/login')}}>Return without logout</button>
             </div>
           </div>
+<<<<<<< HEAD
           <div className='grid-2'>
           <div className="sectionDoctor">
             <div className="startMeetingDoctor">
@@ -93,6 +97,21 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
                 }}>Start meeting</button>
             </div>
             <div className="clientBase">Client Base</div>
+=======
+          <div className='grid-text'>
+            <span className="profileText">{name}</span>
+            <span className="profileText text-11">{surname}</span>
+            <button onClick={setLogout}>Logout</button>
+            <button onClick={() => {navigate('/login')}}>Return without logout</button>
+          </div>
+        </div>
+        <div className='grid-2'>
+          <div className="sectionDoctor">
+          <div className="startMeetingDoctor">
+          <button className='startMeetingButtonDoctor' onClick={startMeeting}>Start meeting</button>
+          </div>
+          <div className="clientBase">Client Base</div>
+>>>>>>> d3aa1845368f5a510bd60aedf6a1caf31dd0a686
 
             <div className="clientBazeArea">
                 <span className="textClientBase">Name</span>
