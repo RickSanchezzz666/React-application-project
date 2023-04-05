@@ -7,6 +7,7 @@ import ContactForm from './Components/ContactForm';
 import SignInPage from './Components/SignInPage';
 import DoctorsAccount from './Components/DoctorsAccount';
 import PrivateRoute from './Components/PrivateRoute';
+import RoomExistVerify from './Components/Room/RoomAcess/RoomExistValidation'
 import RedirectPage from './Components/Redirect';
 import RedirectingPage from './Components/RedirectingPage';
 
@@ -16,7 +17,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Content />} />
         <Route path='/room/:id' element={<Room />} />
-        <Route path='/redirecting/:id' element={<RedirectingPage />}  />
+        <Route path='/redirecting/:id' element={<RoomExistVerify><RedirectingPage /></RoomExistVerify>}  />
         <Route path='/redirect/:id' element={<RedirectPage />} />
         <Route path='/contact' element={<ContactForm />} />
         <Route path='/doctor/login' element={<SignInPage />} />

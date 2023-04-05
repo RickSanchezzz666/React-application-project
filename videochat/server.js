@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');                              // Па�
 const Mongo = require('./src/setup/mongoose');
 const LoginAPI = require('./src/api/docs.api');                         // Авторизація лікарів
 const ContactFormAPI = require('./src/api/contact-form.api');                   // База клієнтів
+const RoomExistVerify = require('./src/api/rooms.api');
 const authMiddleware = require('./src/middlewares/auth.middleware');    // Middleware
 const socket = require('./src/Socket');
 const ACTIONS = require('./src/Socket/actions');
@@ -30,6 +31,7 @@ const setup = async () => {
 
     app.use(LoginAPI.router);
     app.use(ContactFormAPI.router);
+    app.use(RoomExistVerify.router)
 
     app.use(express.static('build'));
     app.get('*', (req, res) => {
