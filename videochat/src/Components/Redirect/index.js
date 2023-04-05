@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import './style.css'
 import camera from '../Room/imgs/camera.png';
 import cameraOff from '../Room/imgs/camera-off.png';
@@ -8,7 +8,6 @@ import phone from '../Room/imgs/phone-call.png';
 import logo from '../Room/imgs/logo_blue.png';
 import { Link } from "react-router-dom";
 import WebFont from 'webfontloader';
-import { useEffect, useState } from "react";
 import Webcam from "react-webcam";
 export {videoSwitch, audioSwitch}
 
