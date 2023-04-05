@@ -5,13 +5,13 @@ import { useNavigate } from "react-router";
 
 AOS.init();
 
-function NotFound() {
+function NotFoundRoom() {
     const history = useNavigate();
 
     return (
         <div className="NotFoundPage">
             <h1 className="main-text" data-aos="fade-right" data-aos-delay="100">Error 404</h1>
-            <h2 className="sub-text" data-aos="fade-left" data-aos-delay="200">Page not Found : (</h2>
+            <h2 className="sub-text" data-aos="fade-left" data-aos-delay="200">Room not Found : (</h2>
             <button onClick={() => {
                 history('/');
             }} className="back-button">Go to mainpage</button>
@@ -19,4 +19,4 @@ function NotFound() {
     )
 }
 
-export default NotFound;
+export default NotFoundRoom;

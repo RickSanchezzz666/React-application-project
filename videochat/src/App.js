@@ -2,7 +2,8 @@ import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Content from './Components/Content';
 import Room from './Components/Room';
-import NotFoundPage from './Components/NotFoundPage';
+import NotFoundPage from './Components/NotFoundPage/notFoundPage';
+import NotFoundRoom from './Components/NotFoundPage/notFoundRoom';
 import ContactForm from './Components/ContactForm';
 import SignInPage from './Components/SignInPage';
 import DoctorsAccount from './Components/DoctorsAccount';
@@ -19,6 +20,7 @@ function App() {
         <Route path='/contact' element={<ContactForm />} />
         <Route path='/doctor/login' element={<SignInPage />} />
         <Route path='/doctor/account' element={<PrivateRoute><DoctorsAccount /></PrivateRoute>} />
+        <Route path='/room-not-found' element={<NotFoundRoom />} />
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>

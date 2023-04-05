@@ -34,7 +34,7 @@ const RoomExistVerify = ({ children }) => {
   return verify ? (
     children
   ) : (
-    <Navigate to="/page-not-found" replace />
+    <Navigate to="/room-not-found" replace />
   );
 };
 
