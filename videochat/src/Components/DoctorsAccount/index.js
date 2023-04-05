@@ -88,16 +88,6 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
               <button onClick={() => {navigate('/doctor/login')}}>Return without logout</button>
             </div>
           </div>
-<<<<<<< HEAD
-          <div className='grid-2'>
-          <div className="sectionDoctor">
-            <div className="startMeetingDoctor">
-              <button className='startMeetingButtonDoctor' onClick={() => {
-                  navigate(`/room/${makeCut(6)}`)
-                }}>Start meeting</button>
-            </div>
-            <div className="clientBase">Client Base</div>
-=======
           <div className='grid-text'>
             <span className="profileText">{name}</span>
             <span className="profileText text-11">{surname}</span>
@@ -111,7 +101,6 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
           <button className='startMeetingButtonDoctor' onClick={startMeeting}>Start meeting</button>
           </div>
           <div className="clientBase">Client Base</div>
->>>>>>> d3aa1845368f5a510bd60aedf6a1caf31dd0a686
 
             <div className="clientBazeArea">
                 <span className="textClientBase">Name</span>
@@ -133,7 +122,6 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
           </div>
         </div>
       </div>
-    </div>
 
 
     /*<div>
