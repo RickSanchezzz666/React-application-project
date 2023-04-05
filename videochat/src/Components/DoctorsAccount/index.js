@@ -85,7 +85,7 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
               <span className="doctor-account-component-grid-profile-text">{name}</span>
               <span className="doctor-account-component-grid-profile-text doctor-account-component-grid-profile-text-2">{surname}</span>
               <button onClick={setLogout}>Logout</button>
-              <button onClick={() => {navigate('/doctor/login')}}>Return without logout</button>
+              <button onClick={() => {navigate('/login')}}>Return without logout</button>
             </div>
           </div>
           <div className='doctor-account-component-grid-2'>

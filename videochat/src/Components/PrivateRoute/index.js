@@ -3,11 +3,9 @@ import { Navigate } from 'react-router-dom';
 import axios from 'axios';
 import DoctorsAccount from '../DoctorsAccount';
 import ContactForm from '../ContactForm';
-export { auth };
-
-const [auth, setAuth] = useState(false);
 
 const PrivateRoute = () => {
+  const [auth, setAuth] = useState(false);
   const [isTokenValidated, setIsTokenValidated] = useState(false);
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
@@ -44,16 +42,18 @@ const PrivateRoute = () => {
 
   if (!isTokenValidated) return <div />;
 
-  if (userRole === "user") return auth ? (
-    React.cloneElement(<ContactForm/>, { name, surname, profilePic })
-  ) : (
-    <Navigate to="/login" replace />
-  );
-
-  if (userRole === "doctor") return auth ? (
-    React.cloneElement(<DoctorsAccount/>, { name, surname, profilePic })
-  ) : (
-    <Navigate to="/login" replace />
+  return (
+    <>
+      {userRole === 'user' && auth && (
+        <ContactForm />
+      )}
+      {userRole === 'doctor' && auth && (
+        <DoctorsAccount {...{ name, surname, profilePic }} />
+      )}
+      {!auth && (
+        <Navigate to="/login" replace />
+      )}
+    </>
   );
 };
 
