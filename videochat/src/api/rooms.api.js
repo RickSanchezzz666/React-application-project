@@ -35,4 +35,33 @@ router.get("/api/room-verify", async (req, res) => {
  }
 });
 
+router.get('/api/password-verify', async (req, res) => {
+  try {
+    const { roomId, password } = req.query;
+  if (!roomId) {
+   return res.status(400).send({message: 'Parameter roomId is required'});
+  }
+  if (!password) {
+    return res.status(400).send({message: 'Parameter password is required'});
+   }
+
+  const room_ident = await RoomsModel.findOne({ roomId });
+
+  const password_ident = await RoomsModel.findOne({ password });
+
+  if (!room_ident) {
+    return res.status(400).send();
+  }
+  if (!password_ident) {
+    return res.status(400).send();
+  }
+  res.status(200).send();
+  } catch (error) {
+    console.error(error);
+    res.status(500).send();
+  }
+});
+
+
+
 module.exports = { router };

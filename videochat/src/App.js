@@ -9,6 +9,7 @@ import SignInPage from './Components/SignInPage';
 import PrivateRoute from './Components/PrivateRoute';
 import RoomExistVerify from './Components/Room/RoomAcess/RoomExistValidation'
 import RedirectPage from './Components/Redirect';
+import RedirectingPage from './Components/RedirectingPage';
 import { MyProvider } from './Components/GlobalContext';
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Content />} />
-        <Route path='/room/:id' element={<RoomExistVerify><RedirectPage><Room /></RedirectPage></RoomExistVerify>} />
+        <Route path='/room/:id' element={<RoomExistVerify><RedirectingPage><RedirectPage><Room /></RedirectPage></RedirectingPage></RoomExistVerify>} />
         <Route path='/contact' element={<ContactForm />} />
         <Route path='/login' element={<SignInPage />} />
         <Route path='/account' element={<PrivateRoute />} />
