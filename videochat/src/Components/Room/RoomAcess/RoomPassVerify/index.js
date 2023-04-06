@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import './style.css'
-import { Navigate } from 'react-router-dom';
 import axios from 'axios';
 import WebFont from 'webfontloader';
 import { useEffect } from "react";
@@ -24,7 +23,7 @@ const RedirectingPage = ({ children }) => {
 
     function redirectToCall() {
         if (callPass) {
-            axios.get('/api/password-verify', {
+            axios.get('/api/room-pass-verify', {
               params: {
                 roomId: roomId,
                 password: callPass
@@ -42,7 +41,7 @@ const RedirectingPage = ({ children }) => {
     }
 
     return verify ? (
-        React.cloneElement({children})
+        children
     ) : (
     <div className="password-redirecting-page">
         <div className="password-redirecting-page-input-wrapper">
