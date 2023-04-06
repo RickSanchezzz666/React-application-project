@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import './style.css'
 import camera from '../Room/imgs/camera.png';
 import cameraOff from '../Room/imgs/camera-off.png';
@@ -26,7 +26,7 @@ const Redirect = ({ children }) => {
         document.title = "Redirecting... | MedDoc";
        }, []);
 
-    const leaveButton = document.getElementById('room-call-leave')
+    const leaveButton = useRef();
 
     function redirectTurnOffVideo() {
         const videoButton = document.getElementById('redirect-off-video-button');
@@ -96,7 +96,7 @@ const Redirect = ({ children }) => {
                         <img src={camera}></img>
                     </button>
                     <Link className="room-button-text" to='/'>
-                        <button onClick={callLeave} className="room-button" id="room-call-leave">
+                        <button onClick={callLeave} ref={leaveButton} className="room-button" id="room-call-leave">
                             <img src={phone}></img>
                         </button>
                     </Link>
