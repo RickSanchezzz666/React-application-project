@@ -9,14 +9,13 @@ import logo from '../Room/imgs/logo_blue.png';
 import { Link } from "react-router-dom";
 import WebFont from 'webfontloader';
 import Webcam from "react-webcam";
-export {videoSwitch, audioSwitch}
+/*export {videoSwitch, audioSwitch}*/
 
-
-let videoSwitch = true;
-let audioSwitch = true;
 
 const Redirect = ({ children }) => {
     const [redirected, setIsRedirected] = useState(false);
+    const [audioSwitch, setAudioSwitch] = useState(true);
+    const [videoSwitch, setVideoSwitch] = useState(true);
 
     useEffect(() => {
         WebFont.load({
@@ -37,12 +36,12 @@ const Redirect = ({ children }) => {
                 videoButton.className = 'room-button video-button-off';
                 videoSource.className = 'redirect-video-source redirect-video-source-off'
                 videoButton.innerHTML = `<img src=${cameraOff} alt="Camera Off">`;
-                videoSwitch = false;
+                setVideoSwitch(false);
             } else {
                 videoButton.className = 'room-button video-button-on';
                 videoSource.className = 'redirect-video-source'
                 videoButton.innerHTML = `<img src=${camera} alt="Camera On">`;
-                videoSwitch = true;
+                setVideoSwitch(true);
             }
         }
     }
@@ -54,11 +53,11 @@ const Redirect = ({ children }) => {
             if (audioSwitch === true) {
                 audioButton.className = 'room-button video-button-off';
                 audioButton.innerHTML = `<img src=${microphoneOff} alt="Microphone Off">`
-                audioSwitch = false;
+                setAudioSwitch(false);
             } else {
                 audioButton.className = 'room-button video-button-on';
                 audioButton.innerHTML = `<img src=${microphone} alt="Microphone On">`
-                audioSwitch = true;
+                setAudioSwitch(true);
             }
         }
     }
@@ -73,11 +72,10 @@ const Redirect = ({ children }) => {
 
     function joinMeeting() {
         setIsRedirected(true);
-        console.log(redirected);
     }
 
     return redirected ? (
-        children
+        React.cloneElement(children, { videoSwitch, audioSwitch })
     ) : (
         <div className="redirect-component">
             <div className="header-logo-room">

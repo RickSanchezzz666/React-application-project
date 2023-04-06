@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useParams } from "react-router";
 import useWebRTC, { LOCAL_VIDEO, userStream } from "../../hooks/useWebRTC";
 import './style.css';
@@ -11,7 +11,8 @@ import camera from './imgs/camera.png';
 import cameraOff from './imgs/camera-off.png';
 import WebFont from 'webfontloader';
 import { Link } from 'react-router-dom';
-import { videoSwitch, audioSwitch } from "../Redirect";
+/*import { videoSwitch, audioSwitch } from "../Redirect";*/
+
 
 function layout(clientsNumber = 1) {
     const pairs = Array.from({length: clientsNumber}).reduce((acc, next, index, arr) => {
@@ -45,7 +46,7 @@ function layout(clientsNumber = 1) {
 
 
 
-function Room () {
+function Room ({audioSwitch, videoSwitch}) {
     useEffect(() => {
         WebFont.load({
           google: {
@@ -60,10 +61,13 @@ function Room () {
     const {clients, provideMediaRef} = useWebRTC(roomID);
     const videoLayout = layout(clients.length);
 
+    
+
     const videoButton = document.getElementById('off-video-button');
     const audioButton = document.getElementById('off-audio-button');
 
-    const leaveButton = document.getElementById('room-call-leave')
+    const leaveButtonRef = useRef();
+
 
     if(videoSwitch === false) {
         turnOffVideo();
@@ -103,7 +107,7 @@ function Room () {
     }
 
     function callLeave() {
-        if(leaveButton) {
+        if(leaveButtonRef) {
             userStream.getTracks().forEach(track => track.stop());
                 setTimeout(() => {
                     window.location.reload()
@@ -157,7 +161,7 @@ function Room () {
                         <img src={camera}></img>
                     </button>
                     <Link className="room-button-text" to='/'>
-                        <button onClick={callLeave} className="room-button" id="room-call-leave">
+                        <button onClick={callLeave} ref={leaveButtonRef} className="room-button" id="room-call-leave">
                             <img src={phone}></img>
                         </button>
                     </Link>

@@ -4,6 +4,7 @@ import axios from 'axios';
 import DoctorsAccount from '../DoctorsAccount';
 import ContactForm from '../ContactForm';
 
+
 const PrivateRoute = () => {
   const [auth, setAuth] = useState(false);
   const [isTokenValidated, setIsTokenValidated] = useState(false);

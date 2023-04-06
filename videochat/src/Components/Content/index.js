@@ -39,6 +39,7 @@ function Content() {
       let callCodePath = `/room/${callCode}`;
       navigate(callCodePath);
      }
+     
 
     return (
     <div className="about-us-component">

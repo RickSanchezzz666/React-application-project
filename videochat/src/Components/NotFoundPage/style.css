@@ -35,7 +35,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(132deg, #222222, #3434f6);
+    background: linear-gradient(132deg, #222222, #5f5fe1);
     background-size: 400% 400%;
     -webkit-animation: UnicoreAnimator 5s ease infinite;
     -moz-animation: UnicoreAnimator 5s ease infinite;
