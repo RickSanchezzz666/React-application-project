@@ -9,9 +9,11 @@ import SignInPage from './Components/SignInPage';
 import PrivateRoute from './Components/PrivateRoute';
 import RoomExistVerify from './Components/Room/RoomAcess/RoomExistValidation'
 import RedirectPage from './Components/Redirect';
+import { MyProvider } from './Components/GlobalContext';
 
 function App() {
   return (
+  <MyProvider>
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Content />} />
@@ -23,6 +25,8 @@ function App() {
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
+  </MyProvider>
+    
   );
 }
 

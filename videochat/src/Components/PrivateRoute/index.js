@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Navigate } from 'react-router-dom';
 import axios from 'axios';
 import DoctorsAccount from '../DoctorsAccount';
 import ContactForm from '../ContactForm';
+import { MyContext } from '../GlobalContext';
 
 
 const PrivateRoute = () => {
-  const [auth, setAuth] = useState(false);
+  const [globalAuth, setGlobalAuth] = useContext(MyContext);
   const [isTokenValidated, setIsTokenValidated] = useState(false);
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
@@ -29,11 +30,11 @@ const PrivateRoute = () => {
           setSurname(surname);
           setProfilePic(profile_pic);
           setUserRole(userRole);
-          setAuth(true);
+          setGlobalAuth(true);
         }
       })
       .catch((err) => {
-        setAuth(false);
+        setGlobalAuth(false);
       })
       .then(() => setIsTokenValidated(true));
     } else {
@@ -45,13 +46,13 @@ const PrivateRoute = () => {
 
   return (
     <>
-      {userRole === 'user' && auth && (
+      {userRole === 'user' && globalAuth && (
         <ContactForm />
       )}
-      {userRole === 'doctor' && auth && (
+      {userRole === 'doctor' && globalAuth && (
         <DoctorsAccount {...{ name, surname, profilePic }} />
       )}
-      {!auth && (
+      {!globalAuth && (
         <Navigate to="/login" replace />
       )}
     </>
