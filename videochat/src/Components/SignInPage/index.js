@@ -1,13 +1,10 @@
 import './style.css';
-import React, { useState, useEffect, useContext } from 'react';
-import { Link, useNavigate, Navigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import Header from '../SignInHeader/Header';
-import { MyContext } from '../GlobalContext';
 
 const SignInPage = () => {
-  const [globalAuth, setGlobalAuth] = useContext(MyContext);
-  const [authVerify, setAuthVerify] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -28,17 +25,6 @@ const SignInPage = () => {
       return alert('Something went wrong.');
     }
   };
-
-if(globalAuth === false) {
-  setAuthVerify(false)
-}
-else {
-  setAuthVerify(true)
-}
-
- <Navigate to="/room-not-found" replace />
-
-  
 
   return (
      <div className="sign-in-container">
