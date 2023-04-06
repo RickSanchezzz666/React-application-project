@@ -181,7 +181,7 @@ table.doctor-account-component-client-base-list tfoot .links a{
   margin-bottom: 15px;
   background-color: white;
   font-family: 'Arvo';
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 .doctor-account-component-client-base-text {

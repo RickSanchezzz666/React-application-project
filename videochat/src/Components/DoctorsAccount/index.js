@@ -25,8 +25,8 @@ const getUsers = async (token) => {
 const DoctorsAccount = ({ name, surname, profilePic }) => {
   const [users, setUsers] = useState([]);
   const [rooms, updateRooms] = useState([]);
-  const navigate = useNavigate();
   const rootNode = useRef();
+  const navigate = useNavigate();
 
   useEffect(() => {
     socket.on(ACTIONS.SHARE_ROOMS, ({rooms = []} = {}) => {
@@ -46,19 +46,38 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
      }, []);
 
   function makeCut(length) {
-    let result = '';
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    const charactersLength = characters.length;
-    let counter = 0;
-    while (counter < length) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-      counter += 1;
-    }
-    return result;
-}
+      let result = '';
+      const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      const charactersLength = characters.length;
+      let counter = 0;
+      while (counter < length) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        counter += 1;
+      }
+      return result;
+  }
 
-  function startMeeting() {
-    
+  async function startMeeting(name, surname) {
+    const id = makeCut(6);
+    const password = makeCut(10);
+    const token = localStorage.getItem("token");
+    try {
+      const res = await axios.post("/api/create-room", {
+        roomId: id,
+        password: password,
+        startTime: Date.now(),
+        createdBy: name,
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return res.data;
+    } catch (error) {
+      console.error(error);
+      alert("Something went wrong, see console");
+      return [];
+    }
   };
 
   const handleGetUsers = () => {
