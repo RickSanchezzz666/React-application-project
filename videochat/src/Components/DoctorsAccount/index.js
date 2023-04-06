@@ -1,11 +1,12 @@
 import './style.css';
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import {socket} from "../../Socket";
 import Header from '../Header/Header'
 import ACTIONS from "../../Socket/actions";
 import axios from "axios";
 import WebFont from 'webfontloader';
+import { MyContext } from '../GlobalContext';
 
 const getUsers = async (token) => {
   try {
@@ -25,6 +26,7 @@ const getUsers = async (token) => {
 const DoctorsAccount = ({ name, surname, profilePic }) => {
   const [users, setUsers] = useState([]);
   const [rooms, updateRooms] = useState([]);
+  const [globalAuth, setGlobalAuth] = useContext(MyContext);
   const rootNode = useRef();
   const navigate = useNavigate();
 
@@ -87,7 +89,8 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
 
   const setLogout = () => {
     localStorage.removeItem("token");
-    navigate("/login");
+    setGlobalAuth(false)
+    navigate("/");
   };
 
   return (

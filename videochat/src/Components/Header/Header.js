@@ -1,13 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "./Header.css";
 import WebFont from 'webfontloader';
 import logo from '../../images/logo_white.png'
 import { Link } from "react-router-dom";
 import * as Scroll from 'react-scroll';
+import { MyContext } from '../GlobalContext';
 
 const Header = () => {
-  const [authMarker, setAuthMarker] = useState(false);
-  const [authLink, setAuthLink] = useState('');
+  const [globalAuth, setGlobalAuth] = useContext(MyContext);
+
+  let authMarker = 'Sign in';
+
+  let authMarkerPath = '/login';
+
+  if(globalAuth === true) {
+    authMarker = 'Profile'
+    authMarkerPath = '/account'
+  }
+  else {
+    authMarker = 'Sign in'
+    authMarkerPath = '/login'
+  }
 
   useEffect(() => {
     WebFont.load({
@@ -23,6 +36,7 @@ const Header = () => {
     scroll.scrollTo(1588);
    }
 
+
   return (
     <header className="header">
         <div className="header-logo-wrapper">
@@ -33,7 +47,7 @@ const Header = () => {
         <div className="header-links">
           <Link to='/contact' className="header-router"><span className="header-links-text">Contact</span></Link>
           <Link to='/' onClick={ScrollToAboutUs} className="header-router"><span className="header-links-text">About us</span></Link>
-          <Link to='/login'><button className="header-sign-button">{authMarker}</button></Link>
+          <Link to={authMarkerPath}><button className="header-sign-button">{authMarker}</button></Link>
         </div>
     </header>
     
