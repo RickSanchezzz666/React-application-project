@@ -4,7 +4,7 @@ const passport = require('passport');
 
 const router = Router();
 
-router.post("/api/create-room", passport.authenticate('jwt', {session: false}), async (req, res) => {
+router.post("/api/create-new-room", passport.authenticate('jwt', {session: false}), async (req, res) => {
   const { roomId, password, startTime, createdBy } = req.body;
 
   const meeting = new RoomsModel({ roomId, password, startTime, createdBy });

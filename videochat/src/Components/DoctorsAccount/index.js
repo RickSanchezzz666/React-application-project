@@ -59,21 +59,24 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
       return result;
   }
 
-  async function startMeeting(name, surname) {
-    const id = makeCut(6);
-    const password = makeCut(10);
+  async function startMeeting() {
+    const id = makeCut(5);
+    const password = makeCut(5);
     const token = localStorage.getItem("token");
     try {
-      const res = await axios.post("/api/create-room", {
+      const res = await axios.post("/api/create-new-room", {
         roomId: id,
         password: password,
         startTime: Date.now(),
-        createdBy: name,
+        createdBy: `${name} ${surname}`
       }, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
+      console.log(`roomId: ${id}`);
+      console.log(`roomPassword: ${password}`);
+      navigate(`/room/${id}`)
       return res.data;
     } catch (error) {
       console.error(error);
