@@ -4,7 +4,7 @@ import WebFont from 'webfontloader';
 import logo from '../../images/logo_white.png'
 import { Link } from "react-router-dom";
 import * as Scroll from 'react-scroll';
-import { MyContext } from '../GlobalContext';
+import { MyContext } from '../GlobalAuth';
 
 const Header = () => {
   const [globalAuth, setGlobalAuth] = useContext(MyContext);

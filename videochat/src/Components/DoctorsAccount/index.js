@@ -6,7 +6,8 @@ import Header from '../Header/Header'
 import ACTIONS from "../../Socket/actions";
 import axios from "axios";
 import WebFont from 'webfontloader';
-import { MyContext } from '../GlobalContext';
+import { MyContext } from '../GlobalAuth';
+import { MyContextDoc } from '../GlobalDoc';
 
 const getUsers = async (token) => {
   try {
@@ -27,6 +28,7 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
   const [users, setUsers] = useState([]);
   const [rooms, updateRooms] = useState([]);
   const [globalAuth, setGlobalAuth] = useContext(MyContext);
+  const [doctorRoomCreate, setDoctorRoomCreate] = useContext(MyContextDoc);
   const rootNode = useRef();
   const navigate = useNavigate();
 
@@ -63,6 +65,7 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
     const id = makeCut(5);
     const password = makeCut(5);
     const token = localStorage.getItem("token");
+    setDoctorRoomCreate(true);
     try {
       const res = await axios.post("/api/create-new-room", {
         roomId: id,

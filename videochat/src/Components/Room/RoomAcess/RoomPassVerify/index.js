@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import './style.css'
 import axios from 'axios';
 import WebFont from 'webfontloader';
-import { useEffect } from "react";
+import { MyContextDoc } from '../../../GlobalDoc';
 
-const RedirectingPage = ({ children }) => {
+const RoomPassVerify = ({ children }) => {
     const [verify, setVerify] = useState(false);
     const [callPass, setCallPass] = useState('');
+    const [doctorRoomCreate, setDoctorRoomCreate] = useContext(MyContextDoc);
 
     useEffect(() => {
         WebFont.load({
@@ -39,8 +40,10 @@ const RedirectingPage = ({ children }) => {
             })
         }
     }
-
-    return verify ? (
+    
+    return doctorRoomCreate ? (
+      children
+    ) : verify ? (
         children
     ) : (
     <div className="password-redirecting-page">
@@ -53,4 +56,4 @@ const RedirectingPage = ({ children }) => {
     )
 }
 
-export default RedirectingPage;
+export default RoomPassVerify;

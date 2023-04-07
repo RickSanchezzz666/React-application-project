@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import './style.css'
 import camera from '../Room/imgs/camera.png';
 import cameraOff from '../Room/imgs/camera-off.png';
@@ -9,6 +9,7 @@ import logo from '../Room/imgs/logo_blue.png';
 import { Link } from "react-router-dom";
 import WebFont from 'webfontloader';
 import Webcam from "react-webcam";
+import { MyContextDoc } from '../GlobalDoc';
 /*export {videoSwitch, audioSwitch}*/
 
 
@@ -16,6 +17,7 @@ const Redirect = ({ children }) => {
     const [redirected, setIsRedirected] = useState(false);
     const [audioSwitch, setAudioSwitch] = useState(true);
     const [videoSwitch, setVideoSwitch] = useState(true);
+    const [doctorRoomCreate, setDoctorRoomCreate] = useContext(MyContextDoc);
 
     useEffect(() => {
         WebFont.load({
@@ -73,8 +75,10 @@ const Redirect = ({ children }) => {
     function joinMeeting() {
         setIsRedirected(true);
     }
-
-    return redirected ? (
+    
+    return doctorRoomCreate ? (
+        children
+      ) : redirected ? (
         React.cloneElement(children, { videoSwitch, audioSwitch })
     ) : (
         <div className="redirect-component">

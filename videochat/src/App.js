@@ -10,30 +10,33 @@ import PrivateRoute from './Components/PrivateRoute';
 import RoomExistVerify from './Components/Room/RoomAcess/RoomExistValidation';
 import RoomPassVerify from './Components/Room/RoomAcess/RoomPassVerify';
 import RedirectPage from './Components/Redirect';
-import { MyProvider } from './Components/GlobalContext';
+import { MyProvider } from './Components/GlobalAuth';
+import { MyProviderDoc } from './Components/GlobalDoc';
 
 function App() {
   return (
     <MyProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<Content />} />
-          <Route path='/room/:id' element={
-            <RoomExistVerify>
-              <RoomPassVerify>
-                <RedirectPage>
-                  <Room />
-                </RedirectPage>
-              </RoomPassVerify>
-            </RoomExistVerify>
-          } />
-          <Route path='/contact' element={<ContactForm />} />
-          <Route path='/login' element={<SignInPage />} />
-          <Route path='/account' element={<PrivateRoute />} />
-          <Route path='/room-not-found' element={<NotFoundRoom />} />
-          <Route path='*' element={<NotFoundPage />} />
-        </Routes>
-      </BrowserRouter>
+      <MyProviderDoc>
+        <BrowserRouter>
+          <Routes>
+            <Route path='/' element={<Content />} />
+            <Route path='/room/:id' element={
+              <RoomExistVerify>
+                <RoomPassVerify>
+                  <RedirectPage>
+                    <Room />
+                  </RedirectPage>
+                </RoomPassVerify>
+              </RoomExistVerify>
+            } />
+            <Route path='/contact' element={<ContactForm />} />
+            <Route path='/login' element={<SignInPage />} />
+            <Route path='/account' element={<PrivateRoute />} />
+            <Route path='/room-not-found' element={<NotFoundRoom />} />
+            <Route path='*' element={<NotFoundPage />} />
+          </Routes>
+        </BrowserRouter>
+      </MyProviderDoc>
     </MyProvider>
 
   );

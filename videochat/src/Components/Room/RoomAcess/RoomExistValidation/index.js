@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Navigate } from 'react-router-dom';
 import axios from 'axios';
+import { MyContextDoc } from '../../../GlobalDoc';
 
 const RoomExistVerify = ({ children }) => {
   const [verify, setVerify] = useState(false);
   const [isIdValidated, setIsIdValidated] = useState(false);
+  const [doctorRoomCreate, setDoctorRoomCreate] = useContext(MyContextDoc);
 
   useEffect(() => {
     let pathName = window.location.pathname;
@@ -31,7 +33,9 @@ const RoomExistVerify = ({ children }) => {
 
   if (!isIdValidated) return <div />;
 
-  return verify ? (
+  return doctorRoomCreate ? (
+    children
+  ) : verify ? (
     children
   ) : (
     <Navigate to="/room-not-found" replace />
