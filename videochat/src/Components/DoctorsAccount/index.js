@@ -7,6 +7,10 @@ import ACTIONS from "../../Socket/actions";
 import axios from "axios";
 import WebFont from 'webfontloader';
 import { MyContext } from '../GlobalContex';
+export {id, password};
+
+let id = '';
+let password = '';
 
 const getUsers = async (token) => {
   try {
@@ -73,8 +77,8 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
   }
 
   async function startMeeting() {
-    const id = roomIdGenerator(7);
-    const password = passwordGenerator(5);
+    id = roomIdGenerator(7);
+    password = passwordGenerator(5);
     const token = localStorage.getItem("token");
     setDoctorRoomCreate(true);
     try {
@@ -88,8 +92,6 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(`roomId: ${id}`);
-      console.log(`roomPassword: ${password}`);
       navigate(`/room/${id}`)
       return res.data;
     } catch (error) {

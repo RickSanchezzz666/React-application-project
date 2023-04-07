@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useContext, useState } from "react";
 import { useParams } from "react-router";
 import useWebRTC, { LOCAL_VIDEO, userStream } from "../../hooks/useWebRTC";
 import './style.css';
@@ -10,11 +10,15 @@ import settings from './imgs/setting.png';
 import camera from './imgs/camera.png';
 import cameraOff from './imgs/camera-off.png';
 import WebFont from 'webfontloader';
+import { MyContext } from "../GlobalContex";
+import Modal from 'react-modal';
 import { Link } from 'react-router-dom';
+import { id, password } from '../DoctorsAccount'
 
+Modal.setAppElement(document.getElementById('room-main-page-wrapper'));
 
 function layout(clientsNumber = 1) {
-    const pairs = Array.from({length: clientsNumber}).reduce((acc, next, index, arr) => {
+    const pairs = Array.from({ length: clientsNumber }).reduce((acc, next, index, arr) => {
         if (index % 2 === 0) {
             acc.push(arr.slice(index, index + 2))
         }
@@ -27,7 +31,7 @@ function layout(clientsNumber = 1) {
     if (rowsNumber === 3) {
         height = `${60 / rowsNumber}%`
     }
-   
+
     return pairs.map((row, index, arr) => {
         if (index === arr.length - 1 && row.length === 1) {
             return [{
@@ -45,36 +49,51 @@ function layout(clientsNumber = 1) {
 
 
 
-function Room ({audioSwitch, videoSwitch}) {
+function Room({ audioSwitch, videoSwitch }) {
     useEffect(() => {
         WebFont.load({
-          google: {
-            families: ['Arvo']
-          }
+            google: {
+                families: ['Arvo']
+            }
         });
         document.title = "Room | MedDoc";
-       }, []);
+    }, []);
 
+    const [modalIsOpen, setIsOpen] = useState(false);
+    const [modalAppear, setModalAppear] = useState(true);
+    const [doctorRoomCreate, setDoctorRoomCreate] = useContext(MyContext);
 
-    const {id: roomID} = useParams();
-    const {clients, provideMediaRef} = useWebRTC(roomID);
-    const videoLayout = layout(clients.length);   
+    const { id: roomID } = useParams();
+    const { clients, provideMediaRef } = useWebRTC(roomID);
+    const videoLayout = layout(clients.length);
 
     const videoButtonRef = useRef();
     const audioButtonRef = useRef();
 
     const leaveButtonRef = useRef();
 
+    if (modalAppear === true) {
+        if (doctorRoomCreate === true) {
+            setTimeout(() => {
+                setIsOpen(true)
+                setModalAppear(false);
+            }, 1000);
+        }
+    }
 
-    if(videoSwitch === false) {
+    function closeModal() {
+        setIsOpen(false);
+    }
+
+    if (videoSwitch === false) {
         turnOffVideo();
     }
-    if(audioSwitch === false) {
+    if (audioSwitch === false) {
         turnOffAudio();
     }
-    
+
     function turnOffVideo() {
-        if(videoButtonRef.current) {
+        if (videoButtonRef.current) {
             const videoTrack = userStream.getVideoTracks()[0];
             if (videoTrack.enabled) {
                 videoTrack.enabled = false;
@@ -89,7 +108,7 @@ function Room ({audioSwitch, videoSwitch}) {
     }
 
     function turnOffAudio() {
-        if(audioButtonRef.current) {
+        if (audioButtonRef.current) {
             const audioTrack = userStream.getAudioTracks()[0];
             if (audioTrack.enabled) {
                 audioTrack.enabled = false;
@@ -104,11 +123,11 @@ function Room ({audioSwitch, videoSwitch}) {
     }
 
     function callLeave() {
-        if(leaveButtonRef) {
+        if (leaveButtonRef) {
             userStream.getTracks().forEach(track => track.stop());
-                setTimeout(() => {
-                    window.location.reload()
-                }, 0);
+            setTimeout(() => {
+                window.location.reload()
+            }, 0);
         }
     }
 
@@ -116,7 +135,7 @@ function Room ({audioSwitch, videoSwitch}) {
 
     return (
 
-        <div className="room-wrapper" style={{
+        <div id="room-main-page-wrapper" className="room-wrapper" style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -124,7 +143,19 @@ function Room ({audioSwitch, videoSwitch}) {
             height: '100vh',
             width: '100vw',
         }}>
-            
+
+            <Modal
+                className={"room-modal-window-wrapper"}
+                isOpen={modalIsOpen}
+                onRequestClose={closeModal}
+                contentLabel="Room ID and Password"
+            >
+                <h2>Room ID and Password</h2>
+                <div className="room-modal-window-info">Room ID is: <span className="room-modal-window-info-text">{id}</span><br>
+                </br>Room password is: <span className="room-modal-window-info-text">{password}</span></div>
+                <button className="room-modal-window-button" onClick={closeModal}>Close</button>
+            </Modal>
+
             <div className="header-logo-room">
                 <img className="room-logo" src={logo}></img>
                 <span className="room-logo-name">MedDoc</span>
@@ -132,7 +163,7 @@ function Room ({audioSwitch, videoSwitch}) {
             {clients.map((clientID, index) => {
                 return (
                     <div className="video-source" key={clientID} style={videoLayout[index]}>
-                        <video 
+                        <video
                             width='100%'
                             height='100%'
                             ref={instance => {
