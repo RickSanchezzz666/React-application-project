@@ -11,7 +11,6 @@ import camera from './imgs/camera.png';
 import cameraOff from './imgs/camera-off.png';
 import WebFont from 'webfontloader';
 import { Link } from 'react-router-dom';
-/*import { videoSwitch, audioSwitch } from "../Redirect";*/
 
 
 function layout(clientsNumber = 1) {

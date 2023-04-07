@@ -10,7 +10,6 @@ import doctorImage1 from '../../images/vuyko_left.png';
 import doctorImage2 from '../../images/vuyko_centr.png';
 import doctorImage3 from '../../images/vuyko_right.png';
 import doctorImage4 from '../../images/vuyko_at_the_end.png';
-import phone from '../../images/call.png'
 import WebFont from 'webfontloader';
 import { useInView } from "react-intersection-observer";
 import { useNavigate } from "react-router";
