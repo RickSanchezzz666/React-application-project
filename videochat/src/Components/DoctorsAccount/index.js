@@ -49,9 +49,9 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
       document.title = "Dashboard | MedDoc";
      }, []);
 
-  function makeCut(length) {
+  function roomIdGenerator(length) {
       let result = '';
-      const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      const characters = 'ABCDEFGHJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
       const charactersLength = characters.length;
       let counter = 0;
       while (counter < length) {
@@ -61,9 +61,21 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
       return result;
   }
 
+  function passwordGenerator(length) {
+    let result = '';
+    const characters = 'ABCDEFGHJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    let counter = 0;
+    while (counter < length) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      counter += 1;
+    }
+    return result;
+  }
+
   async function startMeeting() {
-    const id = makeCut(5);
-    const password = makeCut(5);
+    const id = roomIdGenerator(7);
+    const password = passwordGenerator(5);
     const token = localStorage.getItem("token");
     setDoctorRoomCreate(true);
     try {
