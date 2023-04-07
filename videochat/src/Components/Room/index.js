@@ -59,12 +59,10 @@ function Room ({audioSwitch, videoSwitch}) {
 
     const {id: roomID} = useParams();
     const {clients, provideMediaRef} = useWebRTC(roomID);
-    const videoLayout = layout(clients.length);
+    const videoLayout = layout(clients.length);   
 
-    
-
-    const videoButton = document.getElementById('off-video-button');
-    const audioButton = document.getElementById('off-audio-button');
+    const videoButtonRef = useRef();
+    const audioButtonRef = useRef();
 
     const leaveButtonRef = useRef();
 
@@ -77,31 +75,31 @@ function Room ({audioSwitch, videoSwitch}) {
     }
     
     function turnOffVideo() {
-        if(videoButton) {
+        if(videoButtonRef.current) {
             const videoTrack = userStream.getVideoTracks()[0];
             if (videoTrack.enabled) {
                 videoTrack.enabled = false;
-                videoButton.className = 'room-button video-button-off';
-                videoButton.innerHTML = `<img src=${cameraOff} alt="Camera Off">`;
+                videoButtonRef.current.className = 'room-button video-button-off';
+                videoButtonRef.current.innerHTML = `<img src=${cameraOff} alt="Camera Off">`;
             } else {
                 videoTrack.enabled = true;
-                videoButton.className = 'room-button video-button-on';
-                videoButton.innerHTML = `<img src=${camera} alt="Camera On">`;
+                videoButtonRef.current.className = 'room-button video-button-on';
+                videoButtonRef.current.innerHTML = `<img src=${camera} alt="Camera On">`;
             }
         }
     }
 
     function turnOffAudio() {
-        if(audioButton) {
+        if(audioButtonRef.current) {
             const audioTrack = userStream.getAudioTracks()[0];
             if (audioTrack.enabled) {
                 audioTrack.enabled = false;
-                audioButton.className = 'room-button video-button-off';
-                audioButton.innerHTML = `<img src=${microphoneOff} alt="Microphone Off">`
+                audioButtonRef.current.className = 'room-button video-button-off';
+                audioButtonRef.current.innerHTML = `<img src=${microphoneOff} alt="Microphone Off">`
             } else {
                 audioTrack.enabled = true;
-                audioButton.className = 'room-button video-button-on';
-                audioButton.innerHTML = `<img src=${microphone} alt="Microphone On">`
+                audioButtonRef.current.className = 'room-button video-button-on';
+                audioButtonRef.current.innerHTML = `<img src=${microphone} alt="Microphone On">`
             }
         }
     }
@@ -154,10 +152,10 @@ function Room ({audioSwitch, videoSwitch}) {
                     <button className="room-button" id="room-settings">
                         <img src={settings}></img>
                     </button>
-                    <button onClick={turnOffAudio} className="room-button audio-button-on" id="off-audio-button">
+                    <button ref={audioButtonRef} onClick={turnOffAudio} className="room-button audio-button-on" id="off-audio-button">
                         <img src={microphone}></img>
                     </button>
-                    <button onClick={turnOffVideo} className="room-button video-button-on" id="off-video-button">
+                    <button ref={videoButtonRef} onClick={turnOffVideo} className="room-button video-button-on" id="off-video-button">
                         <img src={camera}></img>
                     </button>
                     <Link className="room-button-text" to='/'>

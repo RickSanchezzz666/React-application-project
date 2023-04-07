@@ -14,20 +14,28 @@ import { MyProvider } from './Components/GlobalContext';
 
 function App() {
   return (
-  <MyProvider>
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Content />} />
-        <Route path='/room/:id' element={<RoomExistVerify><RoomPassVerify><RedirectPage><Room /></RedirectPage></RoomPassVerify></RoomExistVerify>} />
-        <Route path='/contact' element={<ContactForm />} />
-        <Route path='/login' element={<SignInPage />} />
-        <Route path='/account' element={<PrivateRoute />} />
-        <Route path='/room-not-found' element={<NotFoundRoom />} />
-        <Route path='*' element={<NotFoundPage />} />
-      </Routes>
-    </BrowserRouter>
-  </MyProvider>
-    
+    <MyProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Content />} />
+          <Route path='/room/:id' element={
+            <RoomExistVerify>
+              <RoomPassVerify>
+                <RedirectPage>
+                  <Room />
+                </RedirectPage>
+              </RoomPassVerify>
+            </RoomExistVerify>
+          } />
+          <Route path='/contact' element={<ContactForm />} />
+          <Route path='/login' element={<SignInPage />} />
+          <Route path='/account' element={<PrivateRoute />} />
+          <Route path='/room-not-found' element={<NotFoundRoom />} />
+          <Route path='*' element={<NotFoundPage />} />
+        </Routes>
+      </BrowserRouter>
+    </MyProvider>
+
   );
 }
 
