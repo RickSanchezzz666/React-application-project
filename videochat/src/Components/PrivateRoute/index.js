@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom';
 import axios from 'axios';
 import DoctorsAccount from '../DoctorsAccount';
 import ContactForm from '../ContactForm';
-import { MyContext } from '../GlobalAuth';
+import { MyContext } from '../GlobalContex';
 
 
 const PrivateRoute = () => {

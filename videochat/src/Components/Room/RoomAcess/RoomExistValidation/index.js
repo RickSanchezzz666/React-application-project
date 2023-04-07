@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Navigate } from 'react-router-dom';
 import axios from 'axios';
-import { MyContextDoc } from '../../../GlobalDoc';
+import { MyContext } from '../../../GlobalContex';
 
 const RoomExistVerify = ({ children }) => {
   const [verify, setVerify] = useState(false);
   const [isIdValidated, setIsIdValidated] = useState(false);
-  const [doctorRoomCreate, setDoctorRoomCreate] = useContext(MyContextDoc);
+  const [doctorRoomCreate, setDoctorRoomCreate] = useContext(MyContext);
 
   useEffect(() => {
     let pathName = window.location.pathname;

@@ -6,8 +6,7 @@ import Header from '../Header/Header'
 import ACTIONS from "../../Socket/actions";
 import axios from "axios";
 import WebFont from 'webfontloader';
-import { MyContext } from '../GlobalAuth';
-import { MyContextDoc } from '../GlobalDoc';
+import { MyContext } from '../GlobalContex';
 
 const getUsers = async (token) => {
   try {
@@ -28,7 +27,7 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
   const [users, setUsers] = useState([]);
   const [rooms, updateRooms] = useState([]);
   const [globalAuth, setGlobalAuth] = useContext(MyContext);
-  const [doctorRoomCreate, setDoctorRoomCreate] = useContext(MyContextDoc);
+  const [doctorRoomCreate, setDoctorRoomCreate] = useContext(MyContext);
   const rootNode = useRef();
   const navigate = useNavigate();
 

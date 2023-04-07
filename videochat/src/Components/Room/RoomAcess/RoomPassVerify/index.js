@@ -2,12 +2,12 @@ import React, { useState, useEffect, useContext } from "react";
 import './style.css'
 import axios from 'axios';
 import WebFont from 'webfontloader';
-import { MyContextDoc } from '../../../GlobalDoc';
+import { MyContext } from '../../../GlobalContex';
 
 const RoomPassVerify = ({ children }) => {
     const [verify, setVerify] = useState(false);
     const [callPass, setCallPass] = useState('');
-    const [doctorRoomCreate, setDoctorRoomCreate] = useContext(MyContextDoc);
+    const [doctorRoomCreate, setDoctorRoomCreate] = useContext(MyContext);
 
     useEffect(() => {
         WebFont.load({

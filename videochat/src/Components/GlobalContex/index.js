@@ -5,9 +5,10 @@ const MyContext = React.createContext();
 
 const MyProvider = ({ children }) => {
   const [globalAuth, setGlobalAuth] = useState(false);
+  const [doctorRoomCreate, setDoctorRoomCreate] = useState(false);
 
   return (
-    <MyContext.Provider value={[globalAuth, setGlobalAuth]}>
+    <MyContext.Provider value={[globalAuth, setGlobalAuth, doctorRoomCreate, setDoctorRoomCreate]}>
       {children}
     </MyContext.Provider>
   )

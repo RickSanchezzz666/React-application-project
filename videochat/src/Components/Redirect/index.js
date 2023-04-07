@@ -9,14 +9,14 @@ import logo from '../Room/imgs/logo_blue.png';
 import { Link } from "react-router-dom";
 import WebFont from 'webfontloader';
 import Webcam from "react-webcam";
-import { MyContextDoc } from '../GlobalDoc';
+import { MyContext } from '../GlobalContex';
 
 
 const Redirect = ({ children }) => {
     const [redirected, setIsRedirected] = useState(false);
     const [audioSwitch, setAudioSwitch] = useState(true);
     const [videoSwitch, setVideoSwitch] = useState(true);
-    const [doctorRoomCreate, setDoctorRoomCreate] = useContext(MyContextDoc);
+    const [doctorRoomCreate, setDoctorRoomCreate] = useContext(MyContext);
 
     useEffect(() => {
         WebFont.load({
