@@ -1,6 +1,6 @@
 import './style.css';
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import Header from '../SignInHeader/Header';
 
@@ -39,7 +39,6 @@ const SignInPage = () => {
              <div className="sing-in-login-button-wrapper">
               <button className="sing-in-login-button" type="submit">Sign In</button>
              </div>
-             <Link to='/account'><button type="submit">Manual Redirect</button></Link>
          </form>
      </div>
    </div>

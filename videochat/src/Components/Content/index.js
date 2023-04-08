@@ -38,6 +38,9 @@ function Content() {
      const [callCode, setCallCode] = useState('');
 
      function joinCallCode() {
+      if(callCode === '') {
+        return;
+      }
       if(doctorRoomCreate === true){
         setDoctorRoomCreate(false);
       }
