@@ -20,22 +20,22 @@ const Redirect = ({ children }) => {
 
     useEffect(() => {
         WebFont.load({
-          google: {
-            families: ['Arvo']
-          }
+            google: {
+                families: ['Arvo']
+            }
         });
         document.title = "Redirecting... | MedDoc";
-       }, []);
+    }, []);
 
     const leaveButton = useRef();
 
     const videoButton = useRef();
     const audioButton = useRef();
-    
+
     const videoSource = useRef()
 
     function redirectTurnOffVideo() {
-        if(videoButton.current && videoSource.current) {
+        if (videoButton.current && videoSource.current) {
             if (videoSwitch === true) {
                 videoButton.current.className = 'room-button video-button-off';
                 videoSource.current.className = 'redirect-video-source redirect-video-source-off'
@@ -52,7 +52,7 @@ const Redirect = ({ children }) => {
 
 
     function redirectTurnOffAudio() {
-        if(audioButton.current) {
+        if (audioButton.current) {
             if (audioSwitch === true) {
                 audioButton.current.className = 'room-button video-button-off';
                 audioButton.current.innerHTML = `<img src=${microphoneOff} alt="Microphone Off">`
@@ -66,7 +66,7 @@ const Redirect = ({ children }) => {
     }
 
     function callLeave() {
-        if(leaveButton) {
+        if (leaveButton) {
             setTimeout(() => {
                 window.location.reload()
             }, 0);
@@ -79,13 +79,13 @@ const Redirect = ({ children }) => {
 
     return doctorRoomCreate ? (
         children
-      ) : redirected ? (
+    ) : redirected ? (
         React.cloneElement(children, { videoSwitch, audioSwitch })
     ) : (
         <div className="redirect-component">
             <div className="header-logo-room">
-                <img className="room-logo" src={logo}></img>
-                <span className="room-logo-name">MedDoc</span>
+                <Link to='/' className="header-router"><img className="room-logo" src={logo} /></Link>
+                <Link to='/' className="header-router"><span className="room-logo-name">MedDoc</span></Link>
             </div>
             <div className="redirect-header-text">Ready to Join?</div>
             <Webcam ref={videoSource} className="redirect-video-source" id="redirect-video-source"
@@ -94,17 +94,17 @@ const Redirect = ({ children }) => {
                 audio={false}
             />
             <div className="redirect-button-wrapper">
-                    <button onClick={redirectTurnOffAudio} ref={audioButton} className="room-button audio-button-on" id="redirect-off-audio-button">
-                        <img src={microphone}></img>
+                <button onClick={redirectTurnOffAudio} ref={audioButton} className="room-button audio-button-on" id="redirect-off-audio-button">
+                    <img src={microphone}></img>
+                </button>
+                <button onClick={redirectTurnOffVideo} ref={videoButton} className="room-button video-button-on" id="redirect-off-video-button">
+                    <img src={camera}></img>
+                </button>
+                <Link className="room-button-text" to='/'>
+                    <button onClick={callLeave} ref={leaveButton} className="room-button" id="room-call-leave">
+                        <img src={phone}></img>
                     </button>
-                    <button onClick={redirectTurnOffVideo} ref={videoButton} className="room-button video-button-on" id="redirect-off-video-button">
-                        <img src={camera}></img>
-                    </button>
-                    <Link className="room-button-text" to='/'>
-                        <button onClick={callLeave} ref={leaveButton} className="room-button" id="room-call-leave">
-                            <img src={phone}></img>
-                        </button>
-                    </Link>
+                </Link>
             </div>
             <button onClick={joinMeeting} className="redirect-join-button" id="redirect-join-button">Join Meeting</button>
         </div>

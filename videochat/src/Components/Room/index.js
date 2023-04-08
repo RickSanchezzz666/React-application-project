@@ -157,8 +157,8 @@ function Room({ audioSwitch, videoSwitch }) {
             </Modal>
 
             <div className="header-logo-room">
-                <img className="room-logo" src={logo}></img>
-                <span className="room-logo-name">MedDoc</span>
+                <Link to='/' className="header-router"><img className="room-logo" src={logo} /></Link>
+                <Link to='/' className="header-router"><span className="room-logo-name">MedDoc</span></Link>
             </div>
             {clients.map((clientID, index) => {
                 return (

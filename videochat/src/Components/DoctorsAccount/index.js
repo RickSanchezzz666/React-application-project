@@ -30,7 +30,6 @@ const getUsers = async (token) => {
 const DoctorsAccount = ({ name, surname, profilePic }) => {
   const [users, setUsers] = useState([]);
   const [rooms, updateRooms] = useState([]);
-  const [globalAuth, setGlobalAuth] = useContext(MyContext);
   const [doctorRoomCreate, setDoctorRoomCreate] = useContext(MyContext);
   const rootNode = useRef();
   const navigate = useNavigate();
@@ -77,7 +76,7 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
   }
 
   async function startMeeting() {
-    id = roomIdGenerator(7);
+    id = roomIdGenerator(6);
     password = passwordGenerator(5);
     const token = localStorage.getItem("token");
     setDoctorRoomCreate(true);
@@ -108,7 +107,6 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
 
   const setLogout = () => {
     localStorage.removeItem("token");
-    setGlobalAuth(false)
     navigate("/");
   };
 

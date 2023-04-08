@@ -158,6 +158,17 @@
     -webkit-box-shadow: 8px 12px 16px -4px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 8px 12px 16px -4px rgba(0, 0, 0, 0.75);
     box-shadow: 8px 12px 16px -4px rgba(0, 0, 0, 0.75);
+    animation-name: modal-appear;
+    animation-duration: 1.2s;
+}
+
+@keyframes modal-appear {
+    0% {
+        margin-top: -35vh;
+    }
+    100% {
+        margin-top: 35vh;
+    }
 }
 
 .room-modal-window-info-text {

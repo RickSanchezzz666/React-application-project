@@ -2,8 +2,8 @@
     height: 100vh;
     width: 100%;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 }
 
 .password-redirecting-page-input-wrapper {
@@ -31,4 +31,31 @@
 
 .password-redirecting-page-text-color {
     color: red;
+}
+
+.password-logo-wrapper {
+    display: grid;
+    align-self: start;
+    grid-template-columns: 1fr 2.5fr;
+    align-items: center;
+}
+
+.password-logo {
+    margin: 10px;
+    z-index: 100;
+    height: 55px;
+    width: 55px;
+    margin-bottom: 5px;
+}
+
+.password-logo-name {
+    z-index: 85;
+    color: #001148;
+    font-size: 33px;
+    font-family: 'Arvo';
+}
+
+.password-router {
+    text-decoration: none;
+    color: white;
 }
