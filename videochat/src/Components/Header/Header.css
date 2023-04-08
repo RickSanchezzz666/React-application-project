@@ -1,5 +1,5 @@
 /*------------------------------------------------------*/
-                /*Main Header Component*/
+/*Main Header Component*/
 
 .header {
     display: flex;
@@ -13,7 +13,7 @@
 }
 
 /*------------------------------------------------------*/
-                /*Header Logo*/
+/*Header Logo*/
 
 .header-logo-wrapper {
     display: grid;
@@ -43,7 +43,7 @@
 }
 
 /*------------------------------------------------------*/
-                /*Header Links*/
+/*Header Links*/
 
 .header-links {
     justify-content: space-between;
@@ -69,9 +69,9 @@
     text-decoration: none;
     cursor: pointer;
     border: 0px;
-    -webkit-box-shadow: 0px 6px 6px -1px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 6px 6px -1px rgba(0,0,0,0.75);
-    box-shadow: 0px 6px 6px -1px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 0px 6px 6px -1px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 6px 6px -1px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 6px 6px -1px rgba(0, 0, 0, 0.75);
     transition: 0.5s;
 }
 
@@ -80,11 +80,11 @@
 }
 
 .header-sign-button:hover {
-    transition: 0.5s;
-    -webkit-box-shadow: 0px 4px 6px -1px rgba(0,0,0,0.75);
--moz-box-shadow: 0px 4px 6px -1px rgba(0,0,0,0.75);
-box-shadow: 0px 4px 6px -1px rgba(0,0,0,0.75);
-transform: scale(0.97);
+    transition: 0.25s;
+    -webkit-box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.75);
+    transform: scale(0.97);
 }
 
 .header-sign-button:active {

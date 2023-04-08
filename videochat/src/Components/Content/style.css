@@ -1,5 +1,5 @@
 /*------------------------------------------------------*/
-                /*Main About Us Component*/
+/*Main About Us Component*/
 
 .about-us-component {
     width: 100%;
@@ -10,7 +10,7 @@
 }
 
 /*------------------------------------------------------*/
-                /*About Us Component 1*/
+/*About Us Component 1*/
 
 .about-us-container-1 {
     max-width: 1525px;
@@ -90,12 +90,26 @@
     width: 150px;
     height: 40px;
     color: white;
+    font-size: 15px;
     border: 0px;
     background-color: #3389D8;
     border-radius: 5px;
     position: relative;
     cursor: pointer;
     font-family: 'Arvo';
+    -webkit-box-shadow: 0px 3px 5px 1px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 3px 5px 1px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 3px 5px 1px rgba(0, 0, 0, 0.75);
+    transition: 0.5s;
+}
+
+.meeting-join-button:hover {
+    transition: 0.25s;
+    -webkit-box-shadow: 0px 1px 5px -1px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 1px 5px -1px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 1px 5px -1px rgba(0, 0, 0, 0.75);
+    filter: brightness(0.9);
+    transform: scale(0.97);
 }
 
 .container-1-doctor-img {
@@ -109,7 +123,7 @@
 }
 
 /*------------------------------------------------------*/
-                /*About Us Component 2*/
+/*About Us Component 2*/
 
 .about-us-container-2 {
     max-width: 1525px;
@@ -223,7 +237,7 @@
 }
 
 /*------------------------------------------------------*/
-                /*About Us Component 3*/
+/*About Us Component 3*/
 
 .about-us-container-3 {
     display: grid;
@@ -356,7 +370,7 @@
 }
 
 /*------------------------------------------------------*/
-                /*About Us Component 4*/
+/*About Us Component 4*/
 
 .about-us-container-4 {
     max-width: 1525px;
@@ -431,7 +445,7 @@
     font-style: normal;
     font-weight: 600;
     font-size: 30px;
-    line-height: 27.5px;  
+    line-height: 27.5px;
     color: #034265;
 }
 
@@ -439,7 +453,7 @@
     grid-area: 3 / 4 / 6 / 7;
 }
 
-.container-4-image{
+.container-4-image {
     position: relative;
     width: 650px;
     bottom: 95px;

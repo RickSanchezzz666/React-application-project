@@ -32,18 +32,17 @@ const Redirect = ({ children }) => {
     const videoButton = useRef();
     const audioButton = useRef();
 
-    const videoSource = useRef()
-
     function redirectTurnOffVideo() {
-        if (videoButton.current && videoSource.current) {
+        const videoSource = document.getElementById('redirect-video-source')
+        if (videoButton.current && videoSource) {
             if (videoSwitch === true) {
                 videoButton.current.className = 'room-button video-button-off';
-                videoSource.current.className = 'redirect-video-source redirect-video-source-off'
+                videoSource.className = 'redirect-video-source redirect-video-source-off'
                 videoButton.current.innerHTML = `<img src=${cameraOff} alt="Camera Off">`;
                 setVideoSwitch(false);
             } else {
                 videoButton.current.className = 'room-button video-button-on';
-                videoSource.current.className = 'redirect-video-source'
+                videoSource.className = 'redirect-video-source'
                 videoButton.current.innerHTML = `<img src=${camera} alt="Camera On">`;
                 setVideoSwitch(true);
             }
@@ -88,7 +87,7 @@ const Redirect = ({ children }) => {
                 <Link to='/' className="header-router"><span className="room-logo-name">MedDoc</span></Link>
             </div>
             <div className="redirect-header-text">Ready to Join?</div>
-            <Webcam ref={videoSource} className="redirect-video-source" id="redirect-video-source"
+            <Webcam className="redirect-video-source" id="redirect-video-source"
                 height={720}
                 width={1280}
                 audio={false}

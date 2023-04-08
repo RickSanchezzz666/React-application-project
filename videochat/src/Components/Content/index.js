@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import './style.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -13,6 +13,7 @@ import doctorImage4 from '../../images/vuyko_at_the_end.png';
 import WebFont from 'webfontloader';
 import { useInView } from "react-intersection-observer";
 import { useNavigate } from "react-router";
+import { MyContext } from '../GlobalContex';
 
 function Content() {
     AOS.init({
@@ -28,6 +29,8 @@ function Content() {
       document.title = "MedDoc";
      }, []);
 
+     const [doctorRoomCreate, setDoctorRoomCreate] = useContext(MyContext);
+
      const navigate = useNavigate();
 
      const { ref, inView} = useInView({triggerOnce: true});
@@ -35,6 +38,9 @@ function Content() {
      const [callCode, setCallCode] = useState('');
 
      function joinCallCode() {
+      if(doctorRoomCreate === true){
+        setDoctorRoomCreate(false);
+      }
       let callCodePath = `/room/${callCode}`;
       navigate(callCodePath);
      }
