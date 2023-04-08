@@ -2,9 +2,8 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');                              // Парсер тіла POST API запитів
 const Mongo = require('./src/setup/mongoose');
-const LoginAPI = require('./src/api/docs.api');                         // Авторизація лікарів
-const ContactFormAPI = require('./src/api/contact-form.api');                   // База клієнтів
-const RoomExistVerify = require('./src/api/rooms.api');
+const AcessAPI = require('./src/api/users.api');                         // Авторизація користувачів
+const RoomsAPI = require('./src/api/rooms.api');
 const authMiddleware = require('./src/middlewares/auth.middleware');    // Middleware
 const socket = require('./src/Socket');
 const ACTIONS = require('./src/Socket/actions');
@@ -29,9 +28,8 @@ const setup = async () => {
 
     authMiddleware(app);
 
-    app.use(LoginAPI.router);
-    app.use(ContactFormAPI.router);
-    app.use(RoomExistVerify.router)
+    app.use(AcessAPI.router);
+    app.use(RoomsAPI.router)
 
     app.use(express.static('build'));
     app.get('*', (req, res) => {

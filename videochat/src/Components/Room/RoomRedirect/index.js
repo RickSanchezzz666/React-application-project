@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import './style.css'
-import camera from '../Room/imgs/camera.png';
-import cameraOff from '../Room/imgs/camera-off.png';
-import microphone from '../Room/imgs/microphone.png';
-import microphoneOff from '../Room/imgs/microphone-off.png';
-import phone from '../Room/imgs/phone-call.png';
-import logo from '../Room/imgs/logo_blue.png';
+import camera from '../imgs/camera.png';
+import cameraOff from '../imgs/camera-off.png';
+import microphone from '../imgs/microphone.png';
+import microphoneOff from '../imgs/microphone-off.png';
+import phone from '../imgs/phone-call.png';
+import logo from '../imgs/logo_blue.png';
 import { Link } from "react-router-dom";
 import WebFont from 'webfontloader';
 import Webcam from "react-webcam";
-import { MyContext } from '../GlobalContex';
+import { MyContext } from '../../GlobalContex';
 
 
 const Redirect = ({ children }) => {

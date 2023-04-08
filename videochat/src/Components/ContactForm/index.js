@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './style.css';
-import axios from 'axios';
 import Header from '../Header/Header'
 
 function ContactForm() {
@@ -31,16 +30,6 @@ function ContactForm() {
         overall: complains,
       },
     };
-
-    axios.post('/api/contact-form', data)
-      .then(response => {
-        console.log(response.data);
-        return alert(response.data);
-      })
-      .catch(error => {
-        console.error(error);
-        return alert(error);
-      });
   };
 
   return (
@@ -76,7 +65,7 @@ function ContactForm() {
             <div><textarea className="contact-page-input-complains" id="complains" value={complains} onChange={(event) => setComplains(event.target.value)}></textarea></div>
           </div>
           <div className="application-form-create">
-              <input className="application-form-create-button" type="button" value="Create" onClick={handleCreate} />
+              <input disabled className="application-form-create-button" type="button" value="Create" onClick={handleCreate} />
           </div>
         </div>
         </div>

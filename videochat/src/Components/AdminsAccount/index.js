@@ -6,6 +6,7 @@ import Header from '../Header/Header'
 import ACTIONS from "../../Socket/actions";
 import axios from "axios";
 import WebFont from 'webfontloader';
+import Modal from 'react-modal';
 import { MyContext } from '../GlobalContex';
 export { id, password };
 
@@ -123,6 +124,7 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
             <div className='doctor-account-component-grid-text'>
               <span className="doctor-account-component-grid-profile-text">{name}</span>
               <span className="doctor-account-component-grid-profile-text doctor-account-component-grid-profile-text-2">{surname}</span>
+              <span className="doctor-account-component-grid-profile-text" style={{ color: "red", marginTop: "20px" }}>Admin</span>
               <button onClick={setLogout}>Logout</button>
               <button onClick={() => {navigate('/')}}>W/no logout</button>
             </div>
@@ -131,6 +133,9 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
             <div className="doctor-account-component-grid-2-section">
             <div className="doctor-account-component-grid-2-start-meeting">
               <button className='doctor-account-component-grid-2-start-meeting-button' onClick={startMeeting}>Start meeting</button>
+            </div>
+            <div className="doctor-account-component-grid-2-create-user">
+              <button id='create-new-user-button' className='doctor-account-component-grid-2-start-meeting-button' >Create a new user</button>
             </div>
             
             <div className="doctor-account-component-client-base">Client Base</div>

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Navigate } from 'react-router-dom';
 import axios from 'axios';
 import DoctorsAccount from '../DoctorsAccount';
-import ContactForm from '../ContactForm';
+import AdminsAccount from '../AdminsAccount';
 import { MyContext } from '../GlobalContex';
 
 
@@ -12,7 +12,7 @@ const PrivateRoute = () => {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [profilePic, setProfilePic] = useState("");
-  const [userRole, setUserRole] = useState("");
+  const [accessLevel, setaccessLevel] = useState("");
 
 
   useEffect(() => {
@@ -25,11 +25,11 @@ const PrivateRoute = () => {
       })
       .then((res) => {
         if (res.status === 200) {
-          const { name, surname, profile_pic, userRole } = res.data;
+          const { name, surname, profile_pic, access_level } = res.data;
           setName(name);
           setSurname(surname);
           setProfilePic(profile_pic);
-          setUserRole(userRole);
+          setaccessLevel(access_level);
           setGlobalAuth(true);
         }
       })
@@ -46,11 +46,14 @@ const PrivateRoute = () => {
 
   return (
     <>
-      {userRole === 'user' && globalAuth && (
-        <ContactForm />
-      )}
-      {userRole === 'doctor' && globalAuth && (
+      {accessLevel === 20 && globalAuth && (
         <DoctorsAccount {...{ name, surname, profilePic }} />
+      )}
+      {accessLevel === 25 && globalAuth && (
+        <DoctorsAccount {...{ name, surname, profilePic }} />
+      )}
+      {accessLevel === 30 && globalAuth && (
+        <AdminsAccount {...{ name, surname, profilePic }} />
       )}
       {!globalAuth && (
         <Navigate to="/login" replace />
