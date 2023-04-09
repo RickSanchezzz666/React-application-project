@@ -108,6 +108,85 @@
     animation-duration: 1.2s;
 }
 
+.admin-new-user-modal-window-wrapper {
+    display: grid;
+    justify-content: center;
+    font-family: 'Arvo';
+    text-align: center;
+    margin-top: 20vh;
+    margin-bottom: 10vh;
+    margin-left: 65vh;
+    border: 1px solid black;
+    border-radius: 40px;
+    width: 600px;
+    padding: 20px 0;
+    background-color: white;
+    align-items: center;
+    -webkit-box-shadow: 8px 12px 16px -4px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 8px 12px 16px -4px rgba(0, 0, 0, 0.75);
+    box-shadow: 8px 12px 16px -4px rgba(0, 0, 0, 0.75);
+    animation-name: modal-appear;
+    animation-duration: 1.2s;
+}
+
+.admin-new-user-modal-window-input {
+  background-color: #EFF2F7;
+  border-radius: 20px;
+  border: none;
+  padding: 10px;
+  margin: 10px;
+  font-size: 16px;
+  color: #1A202C;
+}
+
+.admin-new-user-modal-window-input:focus {
+  outline: none;
+}
+
+.admin-new-user-modal-window-date-picker {
+  background-color: #EFF2F7;
+  border-radius: 20px;
+  border: none;
+  padding: 10px;
+  margin: 10px;
+  font-size: 16px;
+  color: #1A202C;
+}
+
+.admin-new-user-modal-window-date-picker:focus {
+  outline: none;
+}
+
+.admin-new-user-modal-window-select {
+  background-color: #EFF2F7;
+  border-radius: 20px;
+  border: none;
+  padding: 10px;
+  margin: 10px;
+  font-size: 16px;
+  color: #1A202C;
+}
+
+.admin-new-user-modal-window-select:focus {
+  outline: none;
+}
+
+.admin-new-user-modal-window-submit-button {
+  background-color: #4A5568;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.admin-new-user-modal-window-submit-button:hover {
+  background-color: #2D3748;
+}
+
 @keyframes modal-appear {
     0% {
         margin-top: -35vh;
@@ -169,7 +248,6 @@
     box-shadow: none;
     transform: translateY(0);
 }
-
 
 .admin-rooms-modal-window-info-text {
     font-weight: bold;

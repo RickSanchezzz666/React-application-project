@@ -52,7 +52,7 @@ router.post("/api/login", async (req, res) => {
 });
 
 router.get("/api/users", passport.authenticate('jwt', { session: false }), async (req, res) => {
-    const { email, phone, name, surname, access_level, createdBy, creationTime, birthday, address, city, country, zipcode, blood_type } = req.query;
+    const { email, phone, name, surname, gender, access_level, createdBy, creationTime, birthday, address, city, country, zipcode, blood_type } = req.query;
     const dbQuery = {
         user_info: {},
         location_info: {},
@@ -70,6 +70,9 @@ router.get("/api/users", passport.authenticate('jwt', { session: false }), async
         }
         if (surname) {
             dbQuery.user_info.surname = surname;
+        }
+        if (gender) {
+            dbQuery.user_info.gender = gender;
         }
         if (access_level) {
             dbQuery.user_info.access_level = access_level;
@@ -117,8 +120,8 @@ router.get("/api/gatekeeper", passport.authenticate('jwt', { session: false }), 
 
 router.post("/api/create-new-user", passport.authenticate('jwt', { session: false }), async (req, res) => {
     if (req.user.user_info.access_level === 30) {
-        const { user_info: { email, phone, name, surname, login, password, profile_pic, access_level, createdBy, creationTime, birthday }, location_info: { address, city, country, zipcode }, patient_info: { overall, blood_type } } = req.body;
-        const newUser = new Users({ user_info: { email, phone, name, surname, login, password, profile_pic, access_level, createdBy, creationTime, birthday }, location_info: { address, city, country, zipcode }, patient_info: { overall, blood_type } });
+        const { user_info: { email, phone, name, surname, login, password, profile_pic, access_level, createdBy, creationTime, birthday, gender }, location_info: { address, city, country, zipcode }, patient_info: { overall, blood_type } } = req.body;
+        const newUser = new Users({ user_info: { email, phone, name, surname, login, password, profile_pic, access_level, createdBy, creationTime, birthday, gender }, location_info: { address, city, country, zipcode }, patient_info: { overall, blood_type } });
         try {
             await newUser.save();
             return res.status(200).send();
@@ -126,8 +129,8 @@ router.post("/api/create-new-user", passport.authenticate('jwt', { session: fals
             res.status(500).send({ message: 'Internal server error' });
         };
     } if (req.user.user_info.access_level === 25) {
-        const { user_info: { email, phone, name, surname, login, password, profile_pic, createdBy, creationTime, birthday }, location_info: { address, city, country, zipcode }, patient_info: { overall, blood_type } } = req.body;
-        const newUser = new Users({ user_info: { email, phone, name, surname, login, password, profile_pic, createdBy, creationTime, birthday }, location_info: { address, city, country, zipcode }, patient_info: { overall, blood_type } });
+        const { user_info: { email, phone, name, surname, login, password, profile_pic, createdBy, creationTime, birthday, gender }, location_info: { address, city, country, zipcode }, patient_info: { overall, blood_type } } = req.body;
+        const newUser = new Users({ user_info: { email, phone, name, surname, login, password, profile_pic, createdBy, creationTime, birthday, gender }, location_info: { address, city, country, zipcode }, patient_info: { overall, blood_type } });
         try {
             await newUser.save();
             return res.status(200).send();

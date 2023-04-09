@@ -18,7 +18,8 @@ Modal.setAppElement(document.getElementById('doctor-component-wrapper'));
 const AdminsAccount = ({ name, surname, profilePic }) => {
   const [showModal, setShowModal] = useState(false);
   const [users, setUsers] = useState([]);
-  const [modalIsOpen, setIsOpen] = useState(false);
+  const [modalRoomIsOpen, setModalRoomIsOpen] = useState(false);
+  const [modalNewUserIsOpen, setModalNewUserIsOpen] = useState(false);
   const [doctorRoomCreate, setDoctorRoomCreate] = useContext(MyContext);
 
   const [searchName, setSearchName] = useState();
@@ -27,6 +28,25 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
   const [searchCountry, setSearchCountry] = useState();
   const [searchCity, setSearchCity] = useState();
   const [searchBloodType, setSearchBloodType] = useState();
+
+  const [newEmail, setNewEmail] = useState("");
+  const [newPhone, setNewPhone] = useState("");
+  const [newName, setNewName] = useState("");
+  const [newSurname, setNewSurname] = useState("");
+  const [newLogin, setNewLogin] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [newProfilePic, setNewProfilePic] = useState("");
+  const [newCreatedBy, setNewCreatedBy] = useState(`${name} ${surname}`);
+  const [newCreationTime, setNewCreationTime] = useState(new Date());
+  const [newAccessLevel, setNewAccessLevel] = useState("20");
+  const [newBirthday, setNewBirthday] = useState("");
+  const [newGender, setNewGender] = useState("Male");
+  const [newAddress, setNewAddress] = useState("");
+  const [newCity, setNewCity] = useState("");
+  const [newCountry, setNewCountry] = useState("");
+  const [newZipcode, setNewZipcode] = useState("");
+  const [newOverall, setNewOverall] = useState("");
+  const [newBloodType, setNewBloodType] = useState("1");
 
   const navigate = useNavigate();
 
@@ -43,7 +63,8 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
   const roomsRef = useRef();
 
   function closeModal() {
-    setIsOpen(false);
+    setModalRoomIsOpen(false);
+    setModalNewUserIsOpen(false);
   }
 
   function roomIdGenerator(length) {
@@ -96,8 +117,18 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
   };
 
   async function openRoomsModal() {
-    setIsOpen(true)
+    setModalRoomIsOpen(true)
   }
+
+  async function openNewUserModal() {
+    setModalNewUserIsOpen(true)
+  }
+
+  const ModalNewUser = {
+    overlay: {
+      overflowY: 'auto',
+    },
+  };
 
   const getUsers = async (token) => {
     try {
@@ -127,6 +158,48 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
     getUsers(token).then((data) => setUsers(data));
   };
 
+  async function createUser() {
+    const token = localStorage.getItem("token");
+    try {
+      const res = await axios.post("/api/create-new-user", {
+        user_info: {
+          email: newEmail,
+          phone: newPhone,
+          name: newName,
+          surname: newSurname,
+          login: newLogin,
+          password: newPassword,
+          profile_pic: newProfilePic,
+          createdBy: newCreatedBy,
+          creationTime: newCreationTime,
+          access_level: newAccessLevel,
+          birthday: newBirthday,
+          gender: newGender
+        },
+        location_info: {
+          address: newAddress,
+          city: newCity,
+          country: newCountry,
+          zipcode: newZipcode
+        },
+        patient_info: {
+          overall: newOverall,
+          blood_type: newBloodType
+        }
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      });
+      alert('Success')
+      return res.data;
+    } catch (error) {
+      console.error(error);
+      alert("Something went wrong, see console");
+      return [];
+    }
+  };
+
   const setLogout = () => {
     localStorage.removeItem("token");
     navigate("/");
@@ -134,15 +207,6 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
 
   return (
     <div id='doctor-component-wrapper' className='doctor-component-wrapper'>
-      <Modal
-        className={"admin-account-modal-window-wrapper"}
-        isOpen={showModal}
-        onRequestClose={closeModal}
-        contentLabel="Create a new user"
-      >
-        <h2>Create a new user</h2>
-        
-      </Modal>
       <Header />
       <div className="doctor-account-component-wrapper">
         <div className='doctor-account-component-grid-1'>
@@ -163,7 +227,7 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
           <div className="doctor-account-component-grid-2-section">
             <div className='admin-account-component-grid-1'>
               <div className="admin-account-component-grid-2-create-user">
-                <button id='create-new-user-button' className='admin-account-component-grid-2-create-user-button'>Create a new user</button>
+                <button id='create-new-user-button' className='admin-account-component-grid-2-create-user-button' onClick={openNewUserModal}>Create a new user</button>
               </div>
               <div className="admin-account-component-grid-2-available-rooms">
                 <button id='show-available-rooms' className='admin-account-component-grid-2-available-rooms-button' ref={roomsRef} onClick={openRoomsModal}>Show available rooms</button>
@@ -175,7 +239,7 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
 
             <Modal
               className={"admin-rooms-modal-window-wrapper"}
-              isOpen={modalIsOpen}
+              isOpen={modalRoomIsOpen}
               onRequestClose={closeModal}
               contentLabel="Room ID and Password"
             >
@@ -183,6 +247,97 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
               <div className="admin-rooms-modal-window-info">Room ID: <span className="admin-rooms-modal-window-info-text">{id}</span>
                 Pass: <span className="admin-rooms-modal-window-info-text">{password}</span><button className='admin-rooms-modal-window-button'>Join</button></div>
               <button className="room-modal-window-button" onClick={closeModal}>Close</button>
+            </Modal>
+            <Modal
+              className={"admin-new-user-modal-window-wrapper"}
+              isOpen={modalNewUserIsOpen}
+              onRequestClose={closeModal}
+              contentLabel="Create a new user"
+              style={ModalNewUser}
+            >
+              <h2>Create a new user</h2>
+              <hr style={{ margin: '15px 0', opacity: '50%' }}/>
+              <div className="admin-new-user-modal-window-form">
+                <div className="admin-new-user-modal-window-input-wrapper">
+                  <label htmlFor="login">Login:</label>
+                  <input type="text" className="admin-new-user-modal-window-input" value={newLogin} onChange={(event) => setNewLogin(event.target.value)} />
+                </div>
+                <div className="admin-new-user-modal-window-input-wrapper">
+                  <label htmlFor="password">Password:</label>
+                  <input type="text" className="admin-new-user-modal-window-input" value={newPassword} onChange={(event) => setNewPassword(event.target.value)} />
+                </div>
+                <hr style={{ margin: '15px 0', opacity: '50%' }}/>
+                <div className="admin-new-user-modal-window-input-wrapper">
+                  <label htmlFor="email">Email:</label>
+                  <input type="email" className="admin-new-user-modal-window-input" value={newEmail} onChange={(event) => setNewEmail(event.target.value)} />
+                </div>
+                <div className="admin-new-user-modal-window-input-wrapper">
+                  <label htmlFor="phone">Phone:</label>
+                  <input type="tel" className="admin-new-user-modal-window-input" value={newPhone} onChange={(event) => setNewPhone(event.target.value)} />
+                </div>
+                <div className="admin-new-user-modal-window-input-wrapper">
+                  <label htmlFor="name">Name:</label>
+                  <input type="text" className="admin-new-user-modal-window-input" value={newName} onChange={(event) => setNewName(event.target.value)} />
+                </div>
+                <div className="admin-new-user-modal-window-input-wrapper">
+                  <label htmlFor="surname">Surname:</label>
+                  <input type="text" className="admin-new-user-modal-window-input" value={newSurname} onChange={(event) => setNewSurname(event.target.value)} />
+                </div>
+                <div className="admin-new-user-modal-window-input-wrapper">
+                  <label htmlFor="gender">Gender:</label>
+                  <select className="admin-new-user-modal-window-input" value={newGender} onChange={(event) => setNewGender(event.target.value)}>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                  </select>
+                </div>
+                <div className="admin-new-user-modal-window-input-wrapper">
+                  <label htmlFor="birthday">Birthday:</label>
+                  <input type="date" className="admin-new-user-modal-window-input" value={newBirthday} onChange={(event) => setNewBirthday(event.target.value)} />
+                </div>
+                <hr style={{ margin: '15px 0', opacity: '50%' }}/>
+                <div className="admin-new-user-modal-window-input-wrapper">
+                  <label htmlFor="address">Address:</label>
+                  <input type="text" className="admin-new-user-modal-window-input" value={newAddress} onChange={(event) => setNewAddress(event.target.value)} />
+                </div>
+                <div className="admin-new-user-modal-window-input-wrapper">
+                  <label htmlFor="city">City:</label>
+                  <input type="text" className="admin-new-user-modal-window-input" value={newCity} onChange={(event) => setNewCity(event.target.value)} />
+                </div>
+                <div className="admin-new-user-modal-window-input-wrapper">
+                  <label htmlFor="country">Country:</label>
+                  <input type="text" className="admin-new-user-modal-window-input" value={newCountry} onChange={(event) => setNewCountry(event.target.value)} />
+                </div>
+                <div className="admin-new-user-modal-window-input-wrapper">
+                  <label htmlFor="zipcode">Zipcode:</label>
+                  <input type="text" className="admin-new-user-modal-window-input" value={newZipcode} onChange={(event) => setNewZipcode(event.target.value)} />
+                </div>
+                <hr style={{ margin: '15px 0', opacity: '50%' }}/>
+                <div className="admin-new-user-modal-window-input-wrapper">
+                  <label htmlFor="overall">Overall:</label>
+                  <input type="text" className="admin-new-user-modal-window-input" value={newOverall} onChange={(event) => setNewOverall(event.target.value)} />
+                </div>
+                <div className="admin-new-user-modal-window-input-wrapper">
+                  <label htmlFor="Blood_type">Blood type:</label>
+                  <select className="admin-new-user-modal-window-input" value={newBloodType} onChange={(event) => setNewBloodType(event.target.value)}>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                  </select>
+                </div>
+                <hr style={{ margin: '15px 0', opacity: '50%' }}/>
+                <div className="admin-new-user-modal-window-input-wrapper">
+                  <label htmlFor="user_role">User Role:</label>
+                  <select className="admin-new-user-modal-window-input" value={newAccessLevel} onChange={(event) => setNewAccessLevel(event.target.value)}>
+                    <option value="20">User</option>
+                    <option value="25">Doctor</option>
+                  </select>
+                </div>
+                <div className="admin-new-user-modal-window-input-wrapper">
+                  <label htmlFor="profile_pic">Profile picture:</label>
+                  <input type="text" className="admin-new-user-modal-window-input" value={newProfilePic} onChange={(event) => setNewProfilePic(event.target.value)} />
+                </div>
+              </div>
+              <button className="room-modal-window-button" onClick={createUser}>Submit</button>
             </Modal>
 
             <div className="doctor-account-component-client-base">Client Base</div>

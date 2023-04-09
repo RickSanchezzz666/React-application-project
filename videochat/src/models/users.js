@@ -12,7 +12,8 @@ const schema = new Schema({
         access_level: { type: Number, default: '20' },
         createdBy: { type: String, default: 'SuperUser_console' },
         creationTime: { type: Date, default: '' },
-        birthday: { type: String, default: '' }
+        birthday: { type: String, default: '' },
+        gender: { type: String, default: '' }
     },
     location_info: { 
         address: { type: String, default: '' },
