@@ -36,32 +36,32 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    socket.on(ACTIONS.SHARE_ROOMS, ({rooms = []} = {}) => {
-        if (rootNode.current) {
-            updateRooms(rooms);
-        }
+    socket.on(ACTIONS.SHARE_ROOMS, ({ rooms = [] } = {}) => {
+      if (rootNode.current) {
+        updateRooms(rooms);
+      }
     })
-}, [])
+  }, [])
 
   useEffect(() => {
-      WebFont.load({
-        google: {
-          families: ['Arvo']
-        }
-      });
-      document.title = "Dashboard | MedDoc";
-     }, []);
+    WebFont.load({
+      google: {
+        families: ['Arvo']
+      }
+    });
+    document.title = "Dashboard | MedDoc";
+  }, []);
 
   function roomIdGenerator(length) {
-      let result = '';
-      const characters = 'ABCDEFGHJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
-      const charactersLength = characters.length;
-      let counter = 0;
-      while (counter < length) {
-        result += characters.charAt(Math.floor(Math.random() * charactersLength));
-        counter += 1;
-      }
-      return result;
+    let result = '';
+    const characters = 'ABCDEFGHJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+    const charactersLength = characters.length;
+    let counter = 0;
+    while (counter < length) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      counter += 1;
+    }
+    return result;
   }
 
   function passwordGenerator(length) {
@@ -114,56 +114,61 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
   return (
     <div className='doctor-component-wrapper'>
       <Header />
-        <div className="doctor-account-component-wrapper">
-          <div className='doctor-account-component-grid-1'>
-            <div className='doctor-account-component-grid-1-avatar'>
-              <div className="doctor-account-component-grid-1-space">
-                <img className="doctor-account-component-grid-1-icon" src={profilePic}></img>
-              </div>
-            </div>
-            <div className='doctor-account-component-grid-text'>
-              <span className="doctor-account-component-grid-profile-text">{name}</span>
-              <span className="doctor-account-component-grid-profile-text doctor-account-component-grid-profile-text-2">{surname}</span>
-              <span className="doctor-account-component-grid-profile-text" style={{ color: "red", marginTop: "20px" }}>Admin</span>
-              <button onClick={setLogout}>Logout</button>
-              <button onClick={() => {navigate('/')}}>W/no logout</button>
+      <div className="doctor-account-component-wrapper">
+        <div className='doctor-account-component-grid-1'>
+          <div className='doctor-account-component-grid-1-avatar'>
+            <div className="doctor-account-component-grid-1-space">
+              <img className="doctor-account-component-grid-1-icon" src={profilePic}></img>
             </div>
           </div>
-          <div className='doctor-account-component-grid-2'>
-            <div className="doctor-account-component-grid-2-section">
-            <div className="doctor-account-component-grid-2-start-meeting">
-              <button className='doctor-account-component-grid-2-start-meeting-button' onClick={startMeeting}>Start meeting</button>
+          <div className='doctor-account-component-grid-text'>
+            <span className="doctor-account-component-grid-profile-text">{name}</span>
+            <span className="doctor-account-component-grid-profile-text doctor-account-component-grid-profile-text-2">{surname}</span>
+            <span className="doctor-account-component-grid-profile-text" style={{ color: "red", marginTop: "20px" }}>Admin</span>
+            <button onClick={setLogout}>Logout</button>
+            <button onClick={() => { navigate('/') }}>W/no logout</button>
+          </div>
+        </div>
+        <div className='doctor-account-component-grid-2'>
+          <div className="doctor-account-component-grid-2-section">
+            <div className='admin-account-component-grid-1'>
+              <div className="admin-account-component-grid-2-create-user">
+                <button id='create-new-user-button' className='admin-account-component-grid-2-create-user-button'>Create a new user</button>
+              </div>
+              <div className="admin-account-component-grid-2-available-rooms">
+                <button id='show-available-rooms' className='admin-account-component-grid-2-available-rooms-button'>Show available rooms</button>
+              </div>
+              <div className="admin-account-component-grid-2-start-meeting">
+                <button className='admin-account-component-grid-2-start-meeting-button' onClick={startMeeting}>Start meeting</button>
+              </div>
             </div>
-            <div className="doctor-account-component-grid-2-create-user">
-              <button id='create-new-user-button' className='doctor-account-component-grid-2-start-meeting-button' >Create a new user</button>
-            </div>
-            
+
             <div className="doctor-account-component-client-base">Client Base</div>
 
             <div className="doctor-account-component-client-base-area">
-                  <button id='doctor-get-user' onClick={handleGetUsers}>Get Users</button><br/>
-                <div className="doctor-account-component-client-base-table">
-                  <table class="doctor-account-component-client-base-list">
-                    <thead>
-                      <tr>
-                        <th>Name</th>
-                        <th>Surname</th>
+              <button id='doctor-get-user' onClick={handleGetUsers}>Get Users</button><br />
+              <div className="doctor-account-component-client-base-table">
+                <table class="doctor-account-component-client-base-list">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Surname</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {users.map((user) => (
+                      <tr key={user._id}>
+                        <td>{user.user_info.name}</td>
+                        <td>{user.user_info.surname}</td>
                       </tr>
-                    </thead>
-                    <tbody>
-                      {users.map((user) => (
-                        <tr key={user._id}>
-                          <td>{user.user_info.name}</td>
-                          <td>{user.user_info.surname}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
         </div>
+      </div>
     </div>
 
 

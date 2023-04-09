@@ -1,0 +1,88 @@
+.admin-account-component-grid-1 {
+    justify-items: center;
+    margin-top: 100px;
+    margin-bottom: 50px;
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr;
+}
+
+.admin-account-component-grid-2-create-user-button {
+    cursor: pointer;
+    position: relative;
+    color: #2C2626;
+    background-color: #A4CFE7;
+    border-radius: 5px;
+    border: 1px;
+    border-color: #4486AB;
+    width: 290px;
+    height: 71px;
+    font-size: 25px;
+    font-family: 'Arvo';
+    transition: 0.5s;
+    -webkit-box-shadow: 0px 3px 5px 1px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 3px 5px 1px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 3px 5px 1px rgba(0, 0, 0, 0.75);
+}
+
+.admin-account-component-grid-2-create-user-button:hover {
+    transition: 0.25s;
+    -webkit-box-shadow: 0px 1px 5px -1px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 1px 5px -1px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 1px 5px -1px rgba(0, 0, 0, 0.75);
+    filter: brightness(0.9);
+    transform: scale(0.97);
+}
+
+.admin-account-component-grid-2-available-rooms-button {
+    cursor: pointer;
+    position: relative;
+    color: #2C2626;
+    background-color: #A4CFE7;
+    border-radius: 5px;
+    border: 1px;
+    border-color: #4486AB;
+    width: 290px;
+    height: 71px;
+    font-size: 25px;
+    font-family: 'Arvo';
+    transition: 0.5s;
+    -webkit-box-shadow: 0px 3px 5px 1px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 3px 5px 1px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 3px 5px 1px rgba(0, 0, 0, 0.75);
+}
+
+.admin-account-component-grid-2-available-rooms-button:hover {
+    transition: 0.25s;
+    -webkit-box-shadow: 0px 1px 5px -1px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 1px 5px -1px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 1px 5px -1px rgba(0, 0, 0, 0.75);
+    filter: brightness(0.9);
+    transform: scale(0.97);
+}
+
+.admin-account-component-grid-2-start-meeting-button {
+    cursor: pointer;
+    position: relative;
+    color: #2C2626;
+    background-color: #A4CFE7;
+    border-radius: 5px;
+    border: 1px;
+    border-color: #4486AB;
+    width: 290px;
+    height: 71px;
+    font-size: 25px;
+    font-family: 'Arvo';
+    transition: 0.5s;
+    -webkit-box-shadow: 0px 3px 5px 1px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 3px 5px 1px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 3px 5px 1px rgba(0, 0, 0, 0.75);
+}
+
+.admin-account-component-grid-2-start-meeting-button:hover {
+    transition: 0.25s;
+    -webkit-box-shadow: 0px 1px 5px -1px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 1px 5px -1px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 1px 5px -1px rgba(0, 0, 0, 0.75);
+    filter: brightness(0.9);
+    transform: scale(0.97);
+}
