@@ -13,6 +13,8 @@ export { id, password };
 let id = '';
 let password = '';
 
+Modal.setAppElement(document.getElementById('doctor-component-wrapper'));
+
 const getUsers = async (token) => {
   try {
     const res = await axios.get("/api/clients", {
@@ -28,7 +30,8 @@ const getUsers = async (token) => {
   }
 };
 
-const DoctorsAccount = ({ name, surname, profilePic }) => {
+const AdminsAccount = ({ name, surname, profilePic }) => {
+  const [showModal, setShowModal] = useState(false);
   const [users, setUsers] = useState([]);
   const [rooms, updateRooms] = useState([]);
   const [doctorRoomCreate, setDoctorRoomCreate] = useContext(MyContext);
@@ -41,7 +44,7 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
             updateRooms(rooms);
         }
     })
-}, [])
+  }, [])
 
   useEffect(() => {
       WebFont.load({
@@ -50,7 +53,7 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
         }
       });
       document.title = "Dashboard | MedDoc";
-     }, []);
+  }, []);
 
   function roomIdGenerator(length) {
       let result = '';
@@ -101,6 +104,14 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
     }
   };
 
+  function openModal() {
+    setShowModal(true);
+  };
+
+  function closeModal() {
+    setShowModal(false);
+  };
+
   const handleGetUsers = () => {
     const token = localStorage.getItem("token");
     getUsers(token).then((data) => setUsers(data));
@@ -112,7 +123,16 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
   };
 
   return (
-    <div className='doctor-component-wrapper'>
+    <div id='doctor-component-wrapper' className='doctor-component-wrapper'>
+      <Modal
+        className={"admin-account-modal-window-wrapper"}
+        isOpen={showModal}
+        onRequestClose={closeModal}
+        contentLabel="Create a new user"
+      >
+        <h2>Create a new user</h2>
+        
+      </Modal>
       <Header />
         <div className="doctor-account-component-wrapper">
           <div className='doctor-account-component-grid-1'>
@@ -135,7 +155,7 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
               <button className='doctor-account-component-grid-2-start-meeting-button' onClick={startMeeting}>Start meeting</button>
             </div>
             <div className="doctor-account-component-grid-2-create-user">
-              <button id='create-new-user-button' className='doctor-account-component-grid-2-start-meeting-button' >Create a new user</button>
+              <button className='doctor-account-component-grid-2-start-meeting-button' onClick={openModal}>Create a new user</button>
             </div>
             
             <div className="doctor-account-component-client-base">Client Base</div>
@@ -240,4 +260,4 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
   );
 };
 
-export default DoctorsAccount;
+export default AdminsAccount;

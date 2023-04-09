@@ -34,8 +34,8 @@ function App() {
           <Route path='/login' element={<SignInPage />} />
           <Route path='/account' element={<PrivateRoute />} />
           <Route path='/room-not-found' element={<NotFoundRoom />} />
-          <Route path='/backdoor-admin' element={<AdminsAccount />} />        {/* !!! */}
-          <Route path='/backdoor-doctor' element={<DoctorsAccount />} />      {/* !!! */}
+          <Route path='/backdoor-admin' element={<AdminsAccount {...{ name: 'Ivan', surname: 'Ivanov' }} />} />        {/* !!! */}
+          <Route path='/backdoor-doctor' element={<DoctorsAccount {...{ name: 'Ivan', surname: 'Ivanov' }} />} />      {/* !!! */}
           <Route path='*' element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>

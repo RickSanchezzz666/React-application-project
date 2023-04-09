@@ -1,19 +1,16 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import axios from 'axios';
 import DoctorsAccount from '../DoctorsAccount';
 import AdminsAccount from '../AdminsAccount';
-import { MyContext } from '../GlobalContex';
-
 
 const PrivateRoute = () => {
-  const [globalAuth, setGlobalAuth] = useContext(MyContext);
+  const [auth, setAuth] = useState(false);
   const [isTokenValidated, setIsTokenValidated] = useState(false);
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [profilePic, setProfilePic] = useState("");
   const [accessLevel, setaccessLevel] = useState("");
-
 
   useEffect(() => {
     let token = localStorage.getItem("token");
@@ -30,11 +27,11 @@ const PrivateRoute = () => {
           setSurname(surname);
           setProfilePic(profile_pic);
           setaccessLevel(access_level);
-          setGlobalAuth(true);
+          setAuth(true);
         }
       })
       .catch((err) => {
-        setGlobalAuth(false);
+        setAuth(false);
       })
       .then(() => setIsTokenValidated(true));
     } else {
@@ -46,16 +43,16 @@ const PrivateRoute = () => {
 
   return (
     <>
-      {accessLevel === 20 && globalAuth && (
+      {accessLevel === 20 && auth && (
         <DoctorsAccount {...{ name, surname, profilePic }} />
       )}
-      {accessLevel === 25 && globalAuth && (
+      {accessLevel === 25 && auth && (
         <DoctorsAccount {...{ name, surname, profilePic }} />
       )}
-      {accessLevel === 30 && globalAuth && (
+      {accessLevel === 30 && auth && (
         <AdminsAccount {...{ name, surname, profilePic }} />
       )}
-      {!globalAuth && (
+      {!auth && (
         <Navigate to="/login" replace />
       )}
     </>
