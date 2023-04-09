@@ -15,26 +15,18 @@ let password = '';
 
 Modal.setAppElement(document.getElementById('doctor-component-wrapper'));
 
-const getUsers = async (token) => {
-  try {
-    const res = await axios.get("/api/clients", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return res.data;
-  } catch (error) {
-    console.error(error);
-    alert("Something went wrong, see console");
-    return [];
-  }
-};
-
 const AdminsAccount = ({ name, surname, profilePic }) => {
   const [showModal, setShowModal] = useState(false);
   const [users, setUsers] = useState([]);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [doctorRoomCreate, setDoctorRoomCreate] = useContext(MyContext);
+
+  const [searchName, setSearchName] = useState();
+  const [searchSurname, setSearchSurname] = useState();
+  const [searchAccessLevel, setSearchAccessLevel] = useState();
+  const [searchCountry, setSearchCountry] = useState();
+  const [searchCity, setSearchCity] = useState();
+  const [searchBloodType, setSearchBloodType] = useState();
 
   const navigate = useNavigate();
 
@@ -45,6 +37,7 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
       }
     });
     document.title = "Dashboard | MedDoc";
+    handleGetUsers();
   }, []);
 
   const roomsRef = useRef();
@@ -105,6 +98,29 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
   async function openRoomsModal() {
     setIsOpen(true)
   }
+
+  const getUsers = async (token) => {
+    try {
+      const res = await axios.get("/api/users", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          name: searchName,
+          surname: searchSurname,
+          access_level: searchAccessLevel,
+          country: searchCountry,
+          city: searchCity,
+          blood_type: searchBloodType,
+        }
+      });
+      return res.data;
+    } catch (error) {
+      console.error(error);
+      alert("Something went wrong, see console");
+      return [];
+    }
+  };
 
   const handleGetUsers = () => {
     const token = localStorage.getItem("token");
@@ -172,13 +188,24 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
             <div className="doctor-account-component-client-base">Client Base</div>
 
             <div className="doctor-account-component-client-base-area">
-              <button id='doctor-get-user' onClick={handleGetUsers}>Get Users</button><br />
+              <input value={searchName} onChange={(event) => setSearchName(event.target.value)} style={{ width: '70px', marginRight: '10px' }} placeholder='Name'></input>
+              <input value={searchSurname} onChange={(event) => setSearchSurname(event.target.value)} style={{ width: '70px', marginRight: '10px' }} placeholder='Surname'></input>
+              <select value={searchAccessLevel} onChange={(event) => setSearchAccessLevel(event.target.value)} style={{ width: '70px', marginRight: '10px' }} name="Role">
+                <option value="20">User</option>
+                <option value="25">Doctor</option>
+                <option value="30">Admin</option>
+              </select>
+              <input value={searchCountry} onChange={(event) => setSearchCountry(event.target.value)} style={{ width: '70px', marginRight: '10px' }} placeholder='Country'></input>
+              <input value={searchCity} onChange={(event) => setSearchCity(event.target.value)} style={{ width: '70px', marginRight: '10px' }} placeholder='City'></input>
+              <input value={searchBloodType} onChange={(event) => setSearchBloodType(event.target.value)} style={{ width: '70px', marginRight: '10px' }} placeholder='Blood type'></input>
+              <button id='doctor-get-user' onClick={handleGetUsers}>Search</button><br />
               <div className="doctor-account-component-client-base-table">
                 <table class="doctor-account-component-client-base-list">
                   <thead>
                     <tr>
                       <th>Name</th>
                       <th>Surname</th>
+                      <th className='table_user_acess_level'>User role</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -186,6 +213,10 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
                       <tr key={user._id}>
                         <td>{user.user_info.name}</td>
                         <td>{user.user_info.surname}</td>
+                        <td>{user.user_info.access_level === 20 ? 'User' 
+                              : user.user_info.access_level === 25 ? 'Doctor'
+                              : user.user_info.access_level === 30 ? 'Admin'
+                              : user.user_info.access_level}</td>
                       </tr>
                     ))}
                   </tbody>

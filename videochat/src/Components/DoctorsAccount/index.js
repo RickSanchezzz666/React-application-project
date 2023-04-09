@@ -14,7 +14,7 @@ let password = '';
 
 const getUsers = async (token) => {
   try {
-    const res = await axios.get("/api/clients", {
+    const res = await axios.get("/api/users", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -40,6 +40,7 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
         }
       });
       document.title = "Dashboard | MedDoc";
+      handleGetUsers();
      }, []);
 
   function roomIdGenerator(length) {
