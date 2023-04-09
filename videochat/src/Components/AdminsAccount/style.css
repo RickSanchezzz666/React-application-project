@@ -88,17 +88,15 @@
 }
 
 .admin-rooms-modal-window-wrapper {
-    display: grid;
-    grid-template-rows: 2fr 2fr 2fr;
     justify-content: center;
     font-family: 'Arvo';
     text-align: center;
-    margin-top: 35vh;
+    margin-top: 15vh;
     margin-left: 80vh;
     border: 1px solid black;
     border-radius: 40px;
     width: 375px;
-    padding: 10px 0 10px 0;
+    padding: 20px 0;
     background-color: rgba(0, 0, 0, 0.125);
     align-items: center;
     -webkit-box-shadow: 8px 12px 16px -4px rgba(0, 0, 0, 0.75);
@@ -192,13 +190,16 @@
         margin-top: -35vh;
     }
     100% {
-        margin-top: 35vh;
+        margin-top: 15vh;
     }
 }
 
 .admin-rooms-modal-window-info {
     display: flex;
     align-items: center;
+    flex-direction: column;
+    overflow-y: scroll;
+    max-height: 450px;
 }
 
 .admin-rooms-modal-window-button {
@@ -217,7 +218,7 @@
     font-size: 15px;
     font-weight: 600;
     line-height: normal;
-    margin: 0;
+    margin-top: 5px;
     min-width: 0;
     outline: none;
     text-decoration: none;
@@ -250,8 +251,6 @@
 }
 
 .admin-rooms-modal-window-info-text {
-    font-weight: bold;
-    color: #d81414;
     padding-left: 3px;
     padding-right: 3px;
 }

@@ -16,8 +16,8 @@ let password = '';
 Modal.setAppElement(document.getElementById('doctor-component-wrapper'));
 
 const AdminsAccount = ({ name, surname, profilePic }) => {
-  const [showModal, setShowModal] = useState(false);
   const [users, setUsers] = useState([]);
+  const [rooms, setRooms] = useState([]);
   const [modalRoomIsOpen, setModalRoomIsOpen] = useState(false);
   const [modalNewUserIsOpen, setModalNewUserIsOpen] = useState(false);
   const [doctorRoomCreate, setDoctorRoomCreate] = useContext(MyContext);
@@ -153,9 +153,29 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
     }
   };
 
+  const getRooms = async (token) => {
+    try {
+      const res = await axios.get("/api/show-available-rooms", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      });
+      return res.data;
+    } catch (error) {
+      console.error(error);
+      alert("Something went wrong, see console");
+      return [];
+    }
+  };
+
   const handleGetUsers = () => {
     const token = localStorage.getItem("token");
     getUsers(token).then((data) => setUsers(data));
+  };
+
+  const handleGetRooms = () => {
+    const token = localStorage.getItem("token");
+    getRooms(token).then((data) => setRooms(data));
   };
 
   async function createUser() {
@@ -241,11 +261,21 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
               className={"admin-rooms-modal-window-wrapper"}
               isOpen={modalRoomIsOpen}
               onRequestClose={closeModal}
+              onAfterOpen={handleGetRooms}
               contentLabel="Room ID and Password"
             >
-              <h2>Available rooms</h2>
-              <div className="admin-rooms-modal-window-info">Room ID: <span className="admin-rooms-modal-window-info-text">{id}</span>
-                Pass: <span className="admin-rooms-modal-window-info-text">{password}</span><button className='admin-rooms-modal-window-button'>Join</button></div>
+              <h2>Active rooms</h2>
+              <div className="admin-rooms-modal-window-info">
+              {rooms.map((room) => (
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                  <hr style={{ margin: '10px 0 5px 0', height: '2px', width: '160px', color: 'black' }}/>
+                  <span className="admin-rooms-modal-window-info-text">Room Id: <span style={{ color: 'red', fontWeight: 'bold' }}>{room.roomId}</span></span>
+                  <span className="admin-rooms-modal-window-info-text">Pass: <span style={{ color: 'red', fontWeight: 'bold' }}>{room.password}</span></span>
+                  <span className="admin-rooms-modal-window-info-text">Owner: <span style={{ fontWeight: 'bold' }}>{room.createdBy}</span></span>
+                  <button className='admin-rooms-modal-window-button'>Join</button>
+                </div>
+              ))}
+              </div>
               <button className="room-modal-window-button" onClick={closeModal}>Close</button>
             </Modal>
             <Modal

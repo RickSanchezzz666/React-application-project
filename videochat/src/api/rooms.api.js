@@ -20,9 +20,9 @@ router.post("/api/create-new-room", passport.authenticate('jwt', {session: false
 });
 
 router.get("/api/show-available-rooms", passport.authenticate('jwt', {session: false}), async (req, res) => {
-  if (req.user.user_info.access_level === 25 || req.user.user_info.access_level === 30 ) {
+  if (req.user.user_info.access_level === 30 ) {
     try {
-      const meetings = await RoomsModel.find().sort({roomId}, {password});
+      const meetings = await RoomsModel.find();
       return res.status(200).send(meetings);
     } catch (err) {
       res.status(400).send();
