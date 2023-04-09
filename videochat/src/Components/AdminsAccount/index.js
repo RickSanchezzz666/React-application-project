@@ -30,18 +30,10 @@ const getUsers = async (token) => {
 
 const DoctorsAccount = ({ name, surname, profilePic }) => {
   const [users, setUsers] = useState([]);
-  const [rooms, updateRooms] = useState([]);
+  const [modalIsOpen, setIsOpen] = useState(false);
   const [doctorRoomCreate, setDoctorRoomCreate] = useContext(MyContext);
-  const rootNode = useRef();
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    socket.on(ACTIONS.SHARE_ROOMS, ({ rooms = [] } = {}) => {
-      if (rootNode.current) {
-        updateRooms(rooms);
-      }
-    })
-  }, [])
+  const navigate = useNavigate();
 
   useEffect(() => {
     WebFont.load({
@@ -51,6 +43,12 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
     });
     document.title = "Dashboard | MedDoc";
   }, []);
+
+  const roomsRef = useRef();
+
+  function closeModal() {
+    setIsOpen(false);
+  }
 
   function roomIdGenerator(length) {
     let result = '';
@@ -101,6 +99,10 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
     }
   };
 
+  async function openRoomsModal() {
+    setIsOpen(true)
+  }
+
   const handleGetUsers = () => {
     const token = localStorage.getItem("token");
     getUsers(token).then((data) => setUsers(data));
@@ -136,12 +138,24 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
                 <button id='create-new-user-button' className='admin-account-component-grid-2-create-user-button'>Create a new user</button>
               </div>
               <div className="admin-account-component-grid-2-available-rooms">
-                <button id='show-available-rooms' className='admin-account-component-grid-2-available-rooms-button'>Show available rooms</button>
+                <button id='show-available-rooms' className='admin-account-component-grid-2-available-rooms-button' ref={roomsRef} onClick={openRoomsModal}>Show available rooms</button>
               </div>
               <div className="admin-account-component-grid-2-start-meeting">
                 <button className='admin-account-component-grid-2-start-meeting-button' onClick={startMeeting}>Start meeting</button>
               </div>
             </div>
+
+            <Modal
+              className={"admin-rooms-modal-window-wrapper"}
+              isOpen={modalIsOpen}
+              onRequestClose={closeModal}
+              contentLabel="Room ID and Password"
+            >
+              <h2>Available rooms</h2>
+              <div className="admin-rooms-modal-window-info">Room ID: <span className="admin-rooms-modal-window-info-text">{id}</span>
+                Pass: <span className="admin-rooms-modal-window-info-text">{password}</span><button className='admin-rooms-modal-window-button'>Join</button></div>
+              <button className="room-modal-window-button" onClick={closeModal}>Close</button>
+            </Modal>
 
             <div className="doctor-account-component-client-base">Client Base</div>
 

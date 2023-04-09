@@ -29,18 +29,9 @@ const getUsers = async (token) => {
 
 const DoctorsAccount = ({ name, surname, profilePic }) => {
   const [users, setUsers] = useState([]);
-  const [rooms, updateRooms] = useState([]);
   const [doctorRoomCreate, setDoctorRoomCreate] = useContext(MyContext);
-  const rootNode = useRef();
+  
   const navigate = useNavigate();
-
-  useEffect(() => {
-    socket.on(ACTIONS.SHARE_ROOMS, ({rooms = []} = {}) => {
-        if (rootNode.current) {
-            updateRooms(rooms);
-        }
-    })
-}, [])
 
   useEffect(() => {
       WebFont.load({
