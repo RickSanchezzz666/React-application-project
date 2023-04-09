@@ -30,6 +30,7 @@ const getUsers = async (token) => {
 const DoctorsAccount = ({ name, surname, profilePic }) => {
   const [users, setUsers] = useState([]);
   const [doctorRoomCreate, setDoctorRoomCreate] = useContext(MyContext);
+  
   const navigate = useNavigate();
 
   useEffect(() => {

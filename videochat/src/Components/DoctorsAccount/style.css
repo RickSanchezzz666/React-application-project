@@ -187,6 +187,7 @@ table.doctor-account-component-client-base-list tfoot .links a {
   display: grid;
   justify-self: center;
   font-family: 'Arvo';
+  justify-content: center;
 }
 
 .doctor-account-component-client-base-area {

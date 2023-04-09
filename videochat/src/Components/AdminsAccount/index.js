@@ -33,38 +33,36 @@ const getUsers = async (token) => {
 const AdminsAccount = ({ name, surname, profilePic }) => {
   const [showModal, setShowModal] = useState(false);
   const [users, setUsers] = useState([]);
-  const [rooms, updateRooms] = useState([]);
+  const [modalIsOpen, setIsOpen] = useState(false);
   const [doctorRoomCreate, setDoctorRoomCreate] = useContext(MyContext);
-  const rootNode = useRef();
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    socket.on(ACTIONS.SHARE_ROOMS, ({rooms = []} = {}) => {
-        if (rootNode.current) {
-            updateRooms(rooms);
-        }
-    })
-  }, [])
-
-  useEffect(() => {
-      WebFont.load({
-        google: {
-          families: ['Arvo']
-        }
-      });
-      document.title = "Dashboard | MedDoc";
+    WebFont.load({
+      google: {
+        families: ['Arvo']
+      }
+    });
+    document.title = "Dashboard | MedDoc";
   }, []);
 
+  const roomsRef = useRef();
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
   function roomIdGenerator(length) {
-      let result = '';
-      const characters = 'ABCDEFGHJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
-      const charactersLength = characters.length;
-      let counter = 0;
-      while (counter < length) {
-        result += characters.charAt(Math.floor(Math.random() * charactersLength));
-        counter += 1;
-      }
-      return result;
+    let result = '';
+    const characters = 'ABCDEFGHJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+    const charactersLength = characters.length;
+    let counter = 0;
+    while (counter < length) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      counter += 1;
+    }
+    return result;
   }
 
   function passwordGenerator(length) {
@@ -104,13 +102,9 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
     }
   };
 
-  function openModal() {
-    setShowModal(true);
-  };
-
-  function closeModal() {
-    setShowModal(false);
-  };
+  async function openRoomsModal() {
+    setIsOpen(true)
+  }
 
   const handleGetUsers = () => {
     const token = localStorage.getItem("token");
@@ -134,56 +128,73 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
         
       </Modal>
       <Header />
-        <div className="doctor-account-component-wrapper">
-          <div className='doctor-account-component-grid-1'>
-            <div className='doctor-account-component-grid-1-avatar'>
-              <div className="doctor-account-component-grid-1-space">
-                <img className="doctor-account-component-grid-1-icon" src={profilePic}></img>
-              </div>
-            </div>
-            <div className='doctor-account-component-grid-text'>
-              <span className="doctor-account-component-grid-profile-text">{name}</span>
-              <span className="doctor-account-component-grid-profile-text doctor-account-component-grid-profile-text-2">{surname}</span>
-              <span className="doctor-account-component-grid-profile-text" style={{ color: "red", marginTop: "20px" }}>Admin</span>
-              <button onClick={setLogout}>Logout</button>
-              <button onClick={() => {navigate('/')}}>W/no logout</button>
+      <div className="doctor-account-component-wrapper">
+        <div className='doctor-account-component-grid-1'>
+          <div className='doctor-account-component-grid-1-avatar'>
+            <div className="doctor-account-component-grid-1-space">
+              <img className="doctor-account-component-grid-1-icon" src={profilePic}></img>
             </div>
           </div>
-          <div className='doctor-account-component-grid-2'>
-            <div className="doctor-account-component-grid-2-section">
-            <div className="doctor-account-component-grid-2-start-meeting">
-              <button className='doctor-account-component-grid-2-start-meeting-button' onClick={startMeeting}>Start meeting</button>
+          <div className='doctor-account-component-grid-text'>
+            <span className="doctor-account-component-grid-profile-text">{name}</span>
+            <span className="doctor-account-component-grid-profile-text doctor-account-component-grid-profile-text-2">{surname}</span>
+            <span className="doctor-account-component-grid-profile-text" style={{ color: "red", marginTop: "20px" }}>Admin</span>
+            <button onClick={setLogout}>Logout</button>
+            <button onClick={() => { navigate('/') }}>W/no logout</button>
+          </div>
+        </div>
+        <div className='doctor-account-component-grid-2'>
+          <div className="doctor-account-component-grid-2-section">
+            <div className='admin-account-component-grid-1'>
+              <div className="admin-account-component-grid-2-create-user">
+                <button id='create-new-user-button' className='admin-account-component-grid-2-create-user-button'>Create a new user</button>
+              </div>
+              <div className="admin-account-component-grid-2-available-rooms">
+                <button id='show-available-rooms' className='admin-account-component-grid-2-available-rooms-button' ref={roomsRef} onClick={openRoomsModal}>Show available rooms</button>
+              </div>
+              <div className="admin-account-component-grid-2-start-meeting">
+                <button className='admin-account-component-grid-2-start-meeting-button' onClick={startMeeting}>Start meeting</button>
+              </div>
             </div>
-            <div className="doctor-account-component-grid-2-create-user">
-              <button className='doctor-account-component-grid-2-start-meeting-button' onClick={openModal}>Create a new user</button>
-            </div>
-            
+
+            <Modal
+              className={"admin-rooms-modal-window-wrapper"}
+              isOpen={modalIsOpen}
+              onRequestClose={closeModal}
+              contentLabel="Room ID and Password"
+            >
+              <h2>Available rooms</h2>
+              <div className="admin-rooms-modal-window-info">Room ID: <span className="admin-rooms-modal-window-info-text">{id}</span>
+                Pass: <span className="admin-rooms-modal-window-info-text">{password}</span><button className='admin-rooms-modal-window-button'>Join</button></div>
+              <button className="room-modal-window-button" onClick={closeModal}>Close</button>
+            </Modal>
+
             <div className="doctor-account-component-client-base">Client Base</div>
 
             <div className="doctor-account-component-client-base-area">
-                  <button id='doctor-get-user' onClick={handleGetUsers}>Get Users</button><br/>
-                <div className="doctor-account-component-client-base-table">
-                  <table class="doctor-account-component-client-base-list">
-                    <thead>
-                      <tr>
-                        <th>Name</th>
-                        <th>Surname</th>
+              <button id='doctor-get-user' onClick={handleGetUsers}>Get Users</button><br />
+              <div className="doctor-account-component-client-base-table">
+                <table class="doctor-account-component-client-base-list">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Surname</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {users.map((user) => (
+                      <tr key={user._id}>
+                        <td>{user.user_info.name}</td>
+                        <td>{user.user_info.surname}</td>
                       </tr>
-                    </thead>
-                    <tbody>
-                      {users.map((user) => (
-                        <tr key={user._id}>
-                          <td>{user.user_info.name}</td>
-                          <td>{user.user_info.surname}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
         </div>
+      </div>
     </div>
 
 
