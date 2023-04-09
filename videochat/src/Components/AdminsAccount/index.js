@@ -35,7 +35,7 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
   const [newSurname, setNewSurname] = useState("");
   const [newLogin, setNewLogin] = useState("");
   const [newPassword, setNewPassword] = useState("");
-  const [newProfilePic, setNewProfilePic] = useState("");
+  const [newProfilePic, setNewProfilePic] = useState("https://i.ibb.co/HFbBrvn/Icon-profile.png");
   const [newCreatedBy, setNewCreatedBy] = useState(`${name} ${surname}`);
   const [newCreationTime, setNewCreationTime] = useState(new Date());
   const [newAccessLevel, setNewAccessLevel] = useState("20");
@@ -333,7 +333,7 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
                   </select>
                 </div>
                 <div className="admin-new-user-modal-window-input-wrapper">
-                  <label htmlFor="profile_pic">Profile picture:</label>
+                  <label htmlFor="profile_pic">Profile picture (direct link):</label>
                   <input type="text" className="admin-new-user-modal-window-input" value={newProfilePic} onChange={(event) => setNewProfilePic(event.target.value)} />
                 </div>
               </div>
