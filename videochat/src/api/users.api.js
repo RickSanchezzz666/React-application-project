@@ -54,54 +54,50 @@ router.post("/api/login", async (req, res) => {
 router.get("/api/users", passport.authenticate('jwt', { session: false }), async (req, res) => {
     const { email, phone, name, surname, gender, access_level, createdBy, creationTime, birthday, address, city, country, zipcode, blood_type } = req.query;
     const dbQuery = {
-        user_info: {},
-        location_info: {},
-        patient_info: {}
     };
     if (req.user.user_info.access_level === 30) {
         if (email) {
-            dbQuery.user_info.email = email;
+            dbQuery["user_info.email"] = email;
         }
         if (phone) {
-            dbQuery.user_info.phone = phone;
+            dbQuery["user_info.phone"] = phone;
         }
         if (name) {
-            dbQuery.user_info.name = name;
+            dbQuery["user_info.name"] = name;
         }
         if (surname) {
-            dbQuery.user_info.surname = surname;
+            dbQuery["user_info.surname"] = surname;
         }
         if (gender) {
-            dbQuery.user_info.gender = gender;
+            dbQuery["user_info.gender"] = gender;
         }
         if (access_level) {
-            dbQuery.user_info.access_level = access_level;
+            dbQuery["user_info.access_level"] = access_level;
         }
         if (createdBy) {
-            dbQuery.user_info.createdBy = createdBy;
+            dbQuery["user_info.createdBy"] = createdBy;
         }
         if (creationTime) {
-            dbQuery.user_info.creationTime = creationTime;
+            dbQuery["user_info.creationTime"] = creationTime;
         }
         if (birthday) {
-            dbQuery.user_info.birthday = birthday;
+            dbQuery["user_info.birthday"] = birthday;
         }
         if (address) {
-            dbQuery.location_info.address = { $regex: address, $options: 'i' };
+            dbQuery["location_info.address"] = { $regex: address, $options: 'i' };
         }
         if (city) {
-            dbQuery.location_info.city = city;
+            dbQuery["location_info.city"] = city;
         }
         if (country) {
-            dbQuery.location_info.country = country;
+            dbQuery["location_info.country"] = country;
         }
         if (zipcode) {
-            dbQuery.location_info.zipcode = zipcode;
+            dbQuery["location_info.zipcode"] = zipcode;
         }
         if (blood_type) {
-            dbQuery.patient_info.blood_type = blood_type;
+            dbQuery["patient_info.blood_type"] = blood_type;
         }
-
         const users = await Users.find(dbQuery);
         return res.status(200).send(users);
     };

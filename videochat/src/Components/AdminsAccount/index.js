@@ -269,9 +269,10 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
               {rooms.map((room) => (
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                   <hr style={{ margin: '10px 0 5px 0', height: '2px', width: '160px', color: 'black' }}/>
-                  <span className="admin-rooms-modal-window-info-text">Room Id: <span style={{ color: 'red', fontWeight: 'bold' }}>{room.roomId}</span></span>
-                  <span className="admin-rooms-modal-window-info-text">Pass: <span style={{ color: 'red', fontWeight: 'bold' }}>{room.password}</span></span>
-                  <span className="admin-rooms-modal-window-info-text">Owner: <span style={{ fontWeight: 'bold' }}>{room.createdBy}</span></span>
+                  <span className="admin-rooms-modal-window-info-text">Room Id: <span style={{ color: 'red', fontWeight: 'bold' }}>{room.roomId === '' ? 'N/A' : room.roomId}</span></span>
+                  <span className="admin-rooms-modal-window-info-text">Pass: <span style={{ color: 'red', fontWeight: 'bold' }}>{room.password === '' ? 'N/A' : room.password }</span></span>
+                  <span className="admin-rooms-modal-window-info-text">Owner: <span style={{ fontWeight: 'bold' }}>{room.createdBy === '' ? 'N/A' : room.createdBy }</span></span>
+                  <span className="admin-rooms-modal-window-info-text">Creation time: <span style={{ fontWeight: 'bold' }}>{room.startTime === null ? 'N/A' : room.startTime }</span></span>
                   <button className='admin-rooms-modal-window-button'>Join</button>
                 </div>
               ))}
@@ -376,6 +377,7 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
               <input value={searchName} onChange={(event) => setSearchName(event.target.value)} style={{ width: '70px', marginRight: '10px' }} placeholder='Name'></input>
               <input value={searchSurname} onChange={(event) => setSearchSurname(event.target.value)} style={{ width: '70px', marginRight: '10px' }} placeholder='Surname'></input>
               <select value={searchAccessLevel} onChange={(event) => setSearchAccessLevel(event.target.value)} style={{ width: '70px', marginRight: '10px' }} name="Role">
+                <option value=""></option>
                 <option value="20">User</option>
                 <option value="25">Doctor</option>
                 <option value="30">Admin</option>
