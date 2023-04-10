@@ -90,17 +90,14 @@ function Room({ audioSwitch, videoSwitch }) {
 
     const leaveButtonRef = useRef();
 
-    if(adminRoomCreate === false) {
-        if (modalAppear === true) {
-            if (doctorRoomCreate === true) {
-                setTimeout(() => {
-                    setIsOpen(true)
-                    setModalAppear(false);
-                }, 1000);
-            }
+    if (modalAppear === true) {
+        if (doctorRoomCreate === true) {
+            setTimeout(() => {
+                setIsOpen(true)
+                setModalAppear(false);
+            }, 1000);
         }
     }
-
     function closeModal() {
         setIsOpen(false);
     }

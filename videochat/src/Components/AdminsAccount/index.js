@@ -97,7 +97,6 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
     adminPassword = passwordGenerator(5);
     const token = localStorage.getItem("token");
     setDoctorRoomCreate(true);
-    setAdminRoomCreate(false)
     try {
       const res = await axios.post("/api/create-new-room", {
         roomId: adminId,
