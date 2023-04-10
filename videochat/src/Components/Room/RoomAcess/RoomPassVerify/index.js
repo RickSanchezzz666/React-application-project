@@ -10,6 +10,7 @@ const RoomPassVerify = ({ children }) => {
   const [verify, setVerify] = useState(false);
   const [callPass, setCallPass] = useState('');
   const [doctorRoomCreate, setDoctorRoomCreate] = useContext(MyContext);
+  const [adminRoomCreate, setAdminRoomCreate] = useContext(MyContext);
 
   useEffect(() => {
     WebFont.load({
@@ -43,7 +44,7 @@ const RoomPassVerify = ({ children }) => {
     }
   }
 
-  return doctorRoomCreate ? (
+  return (adminRoomCreate || doctorRoomCreate) ? (
     children
   ) : verify ? (
     children

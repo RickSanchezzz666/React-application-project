@@ -8,10 +8,10 @@ import axios from "axios";
 import WebFont from 'webfontloader';
 import Modal from 'react-modal';
 import { MyContext } from '../GlobalContex';
-export { id, password };
+export { adminId, adminPassword }
 
-let id = '';
-let password = '';
+let adminId = '';
+let adminPassword = '';
 
 Modal.setAppElement(document.getElementById('doctor-component-wrapper'));
 
@@ -21,6 +21,7 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
   const [modalRoomIsOpen, setModalRoomIsOpen] = useState(false);
   const [modalNewUserIsOpen, setModalNewUserIsOpen] = useState(false);
   const [doctorRoomCreate, setDoctorRoomCreate] = useContext(MyContext);
+  const [adminRoomCreate, setAdminRoomCreate] = useContext(MyContext);
 
   const [searchName, setSearchName] = useState();
   const [searchSurname, setSearchSurname] = useState();
@@ -92,14 +93,15 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
   }
 
   async function startMeeting() {
-    id = roomIdGenerator(6);
-    password = passwordGenerator(5);
+    adminId = roomIdGenerator(6);
+    adminPassword = passwordGenerator(5);
     const token = localStorage.getItem("token");
     setDoctorRoomCreate(true);
+    setAdminRoomCreate(false)
     try {
       const res = await axios.post("/api/create-new-room", {
-        roomId: id,
-        password: password,
+        roomId: adminId,
+        password: adminPassword,
         startTime: Date.now(),
         createdBy: `${name} ${surname}`
       }, {
@@ -107,7 +109,7 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      navigate(`/room/${id}`);
+      navigate(`/room/${adminId}`);
       return res.data;
     } catch (error) {
       console.error(error);
@@ -266,19 +268,23 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
             >
               <h2>Active rooms</h2>
               <div className="admin-rooms-modal-window-info">
-              {rooms.map((room) => (
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                  <hr style={{ margin: '10px 0 5px 0', height: '2px', width: '160px', color: 'black' }}/>
-                  <span className="admin-rooms-modal-window-info-text">Room Id: <span style={{ color: 'red', fontWeight: 'bold' }}>{room.roomId === '' ? 'N/A' : room.roomId}</span></span>
-                  <span className="admin-rooms-modal-window-info-text">Pass: <span style={{ color: 'red', fontWeight: 'bold' }}>{room.password === '' ? 'N/A' : room.password }</span></span>
-                  <span className="admin-rooms-modal-window-info-text">Owner: <span style={{ fontWeight: 'bold' }}>{room.createdBy === '' ? 'N/A' : room.createdBy }</span></span>
+                {rooms.map((room) => (
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                    <hr style={{ margin: '10px 0 5px 0', height: '2px', width: '160px', color: 'black' }} />
+                    <span className="admin-rooms-modal-window-info-text">Room Id: <span style={{ color: 'red', fontWeight: 'bold' }}>{room.roomId === '' ? 'N/A' : room.roomId}</span></span>
+                    <span className="admin-rooms-modal-window-info-text">Pass: <span style={{ color: 'red', fontWeight: 'bold' }}>{room.password === '' ? 'N/A' : room.password }</span></span>
+                    <span className="admin-rooms-modal-window-info-text">Owner: <span style={{ fontWeight: 'bold' }}>{room.createdBy === '' ? 'N/A' : room.createdBy }</span></span>
                   <span className="admin-rooms-modal-window-info-text">Creation time: <span style={{ fontWeight: 'bold' }}>{room.startTime === null ? 'N/A' : room.startTime }</span></span>
-                  <button className='admin-rooms-modal-window-button'>Join</button>
-                </div>
-              ))}
+                    <button onClick={() => {
+                      setAdminRoomCreate(true)
+                      navigate(`/room/${room.roomId}`)
+                    }} className='admin-rooms-modal-window-button'>Join</button>
+                  </div>
+                ))}
               </div>
               <button className="room-modal-window-button" onClick={closeModal}>Close</button>
             </Modal>
+
             <Modal
               className={"admin-new-user-modal-window-wrapper"}
               isOpen={modalNewUserIsOpen}
@@ -287,7 +293,7 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
               style={ModalNewUser}
             >
               <h2>Create a new user</h2>
-              <hr style={{ margin: '15px 0', opacity: '50%' }}/>
+              <hr style={{ margin: '15px 0', opacity: '50%' }} />
               <div className="admin-new-user-modal-window-form">
                 <div className="admin-new-user-modal-window-input-wrapper">
                   <label htmlFor="login">Login:</label>
@@ -297,7 +303,7 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
                   <label htmlFor="password">Password:</label>
                   <input type="text" className="admin-new-user-modal-window-input" value={newPassword} onChange={(event) => setNewPassword(event.target.value)} />
                 </div>
-                <hr style={{ margin: '15px 0', opacity: '50%' }}/>
+                <hr style={{ margin: '15px 0', opacity: '50%' }} />
                 <div className="admin-new-user-modal-window-input-wrapper">
                   <label htmlFor="email">Email:</label>
                   <input type="email" className="admin-new-user-modal-window-input" value={newEmail} onChange={(event) => setNewEmail(event.target.value)} />
@@ -325,7 +331,7 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
                   <label htmlFor="birthday">Birthday:</label>
                   <input type="date" className="admin-new-user-modal-window-input" value={newBirthday} onChange={(event) => setNewBirthday(event.target.value)} />
                 </div>
-                <hr style={{ margin: '15px 0', opacity: '50%' }}/>
+                <hr style={{ margin: '15px 0', opacity: '50%' }} />
                 <div className="admin-new-user-modal-window-input-wrapper">
                   <label htmlFor="address">Address:</label>
                   <input type="text" className="admin-new-user-modal-window-input" value={newAddress} onChange={(event) => setNewAddress(event.target.value)} />
@@ -342,7 +348,7 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
                   <label htmlFor="zipcode">Zipcode:</label>
                   <input type="text" className="admin-new-user-modal-window-input" value={newZipcode} onChange={(event) => setNewZipcode(event.target.value)} />
                 </div>
-                <hr style={{ margin: '15px 0', opacity: '50%' }}/>
+                <hr style={{ margin: '15px 0', opacity: '50%' }} />
                 <div className="admin-new-user-modal-window-input-wrapper">
                   <label htmlFor="overall">Overall:</label>
                   <input type="text" className="admin-new-user-modal-window-input" value={newOverall} onChange={(event) => setNewOverall(event.target.value)} />
@@ -355,7 +361,7 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
                     <option value="3">3</option>
                   </select>
                 </div>
-                <hr style={{ margin: '15px 0', opacity: '50%' }}/>
+                <hr style={{ margin: '15px 0', opacity: '50%' }} />
                 <div className="admin-new-user-modal-window-input-wrapper">
                   <label htmlFor="user_role">User Role:</label>
                   <select className="admin-new-user-modal-window-input" value={newAccessLevel} onChange={(event) => setNewAccessLevel(event.target.value)}>
@@ -400,9 +406,9 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
                       <tr key={user._id}>
                         <td>{user.user_info.name}</td>
                         <td>{user.user_info.surname}</td>
-                        <td>{user.user_info.access_level === 20 ? 'User' 
-                              : user.user_info.access_level === 25 ? 'Doctor'
-                              : user.user_info.access_level === 30 ? 'Admin'
+                        <td>{user.user_info.access_level === 20 ? 'User'
+                          : user.user_info.access_level === 25 ? 'Doctor'
+                            : user.user_info.access_level === 30 ? 'Admin'
                               : user.user_info.access_level}</td>
                       </tr>
                     ))}

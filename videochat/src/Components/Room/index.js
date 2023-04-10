@@ -14,6 +14,7 @@ import { MyContext } from "../GlobalContex";
 import Modal from 'react-modal';
 import { Link } from 'react-router-dom';
 import { id, password } from '../DoctorsAccount'
+import { adminId, adminPassword } from '../AdminsAccount'
 
 Modal.setAppElement(document.getElementById('room-main-page-wrapper'));
 
@@ -59,9 +60,26 @@ function Room({ audioSwitch, videoSwitch }) {
         document.title = "Room | MedDoc";
     }, []);
 
+    
+    let showRoomId;
+    let showPassword;
+
+    if(id === '') {
+        showRoomId = adminId;
+    } else {
+        showRoomId = id;
+    }
+    
+    if(password === '') {
+        showPassword = adminPassword;
+    } else {
+        showPassword = password;
+    }
+
     const [modalIsOpen, setIsOpen] = useState(false);
     const [modalAppear, setModalAppear] = useState(true);
     const [doctorRoomCreate, setDoctorRoomCreate] = useContext(MyContext);
+    const [adminRoomCreate, setAdminRoomCreate] = useContext(MyContext);
 
     const { id: roomID } = useParams();
     const { clients, provideMediaRef } = useWebRTC(roomID);
@@ -72,12 +90,14 @@ function Room({ audioSwitch, videoSwitch }) {
 
     const leaveButtonRef = useRef();
 
-    if (modalAppear === true) {
-        if (doctorRoomCreate === true) {
-            setTimeout(() => {
-                setIsOpen(true)
-                setModalAppear(false);
-            }, 1000);
+    if(adminRoomCreate === false) {
+        if (modalAppear === true) {
+            if (doctorRoomCreate === true) {
+                setTimeout(() => {
+                    setIsOpen(true)
+                    setModalAppear(false);
+                }, 1000);
+            }
         }
     }
 
@@ -151,8 +171,8 @@ function Room({ audioSwitch, videoSwitch }) {
                 contentLabel="Room ID and Password"
             >
                 <h2>Room ID and Password</h2>
-                <div className="room-modal-window-info">Room ID is: <span className="room-modal-window-info-text">{id}</span><br>
-                </br>Room password is: <span className="room-modal-window-info-text">{password}</span></div>
+                <div className="room-modal-window-info">Room ID is: <span className="room-modal-window-info-text">{showRoomId}</span><br>
+                </br>Room password is: <span className="room-modal-window-info-text">{showPassword}</span></div>
                 <button className="room-modal-window-button" onClick={closeModal}>Close</button>
             </Modal>
 
