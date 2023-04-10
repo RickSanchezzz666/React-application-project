@@ -32,6 +32,28 @@ router.get("/api/show-available-rooms", passport.authenticate('jwt', {session: f
   };
 });
 
+router.post("/api/delete-room", passport.authenticate('jwt', {session: false}), async (req, res) => {
+  if (req.user.user_info.access_level === 30 ) {
+    const { roomId } = req.body;
+    try {
+      if (!roomId ) {
+        return res.status(400).send({ message: 'RoomId and RoomPassword is required!' })
+      }
+      const room = await RoomsModel.findOneAndDelete(roomId);
+
+      if (!room) {
+        return res.status(400).send({ message: 'We not found any room' })
+      }
+
+      return res.status(200).send();
+    } catch (err) {
+      res.status(400).send();
+    };
+  } else {
+      return res.status(403).send('Your access level is not enough');
+  };
+});
+
 router.get("/api/room-verify", async (req, res) => {
  try {
   const { roomId } = req.query;

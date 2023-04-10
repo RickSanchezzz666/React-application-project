@@ -28,6 +28,7 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
   const [searchAccessLevel, setSearchAccessLevel] = useState();
   const [searchCountry, setSearchCountry] = useState();
   const [searchCity, setSearchCity] = useState();
+  const [searchAddress, setSearchAddress] = useState();
   const [searchBloodType, setSearchBloodType] = useState();
 
   const [newEmail, setNewEmail] = useState("");
@@ -143,6 +144,7 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
           access_level: searchAccessLevel,
           country: searchCountry,
           city: searchCity,
+          address: searchAddress,
           blood_type: searchBloodType,
         }
       });
@@ -177,6 +179,25 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
   const handleGetRooms = () => {
     const token = localStorage.getItem("token");
     getRooms(token).then((data) => setRooms(data));
+  };
+
+  async function handleDeleteRoom(roomId) {
+    const token = localStorage.getItem("token");
+    try {
+      const res = await axios.post("/api/delete-room", {
+        roomId
+      },  {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      });
+      alert('Success')
+      return res.status;
+    } catch (error) {
+      console.error(error);
+      alert("Something went wrong, see console");
+      return [];
+    }
   };
 
   async function createUser() {
@@ -278,6 +299,10 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
                       setAdminRoomCreate(true)
                       navigate(`/room/${room.roomId}`)
                     }} className='admin-rooms-modal-window-button'>Join</button>
+                    <button onClick={() => { 
+                      handleDeleteRoom(`${room.roomId}`)
+                      handleGetRooms()
+                      }} className='admin-rooms-modal-window-button'>Delete</button>
                   </div>
                 ))}
               </div>
@@ -355,9 +380,22 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
                 <div className="admin-new-user-modal-window-input-wrapper">
                   <label htmlFor="Blood_type">Blood type:</label>
                   <select className="admin-new-user-modal-window-input" value={newBloodType} onChange={(event) => setNewBloodType(event.target.value)}>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
+                    <optgroup label='Group I'>
+                      <option value="I-">I-</option>
+                      <option value="I+">I+</option>
+                    </optgroup>
+                    <optgroup label='Group II'>
+                      <option value="II-">II-</option>
+                      <option value="II+">II+</option>
+                    </optgroup>
+                    <optgroup label='Group III'>
+                      <option value="III-">III-</option>
+                      <option value="III+">III+</option>
+                    </optgroup>
+                    <optgroup label='Group IV'>
+                      <option value="IV-">IV-</option>
+                      <option value="IV+">IV+</option>
+                    </optgroup>
                   </select>
                 </div>
                 <hr style={{ margin: '15px 0', opacity: '50%' }} />
@@ -381,15 +419,34 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
             <div className="doctor-account-component-client-base-area">
               <input value={searchName} onChange={(event) => setSearchName(event.target.value)} style={{ width: '70px', marginRight: '10px' }} placeholder='Name'></input>
               <input value={searchSurname} onChange={(event) => setSearchSurname(event.target.value)} style={{ width: '70px', marginRight: '10px' }} placeholder='Surname'></input>
-              <select value={searchAccessLevel} onChange={(event) => setSearchAccessLevel(event.target.value)} style={{ width: '70px', marginRight: '10px' }} name="Role">
-                <option value=""></option>
+              <select value={searchAccessLevel} onChange={(event) => setSearchAccessLevel(event.target.value)} style={{ width: '90px', marginRight: '10px' }} name="Role">
+                <option style={{ fontStyle: 'italic' }} disabled selected>User role</option>
                 <option value="20">User</option>
                 <option value="25">Doctor</option>
                 <option value="30">Admin</option>
               </select>
               <input value={searchCountry} onChange={(event) => setSearchCountry(event.target.value)} style={{ width: '70px', marginRight: '10px' }} placeholder='Country'></input>
               <input value={searchCity} onChange={(event) => setSearchCity(event.target.value)} style={{ width: '70px', marginRight: '10px' }} placeholder='City'></input>
-              <input value={searchBloodType} onChange={(event) => setSearchBloodType(event.target.value)} style={{ width: '70px', marginRight: '10px' }} placeholder='Blood type'></input>
+              <input value={searchAddress} onChange={(event) => setSearchAddress(event.target.value)} style={{ width: '70px', marginRight: '10px' }} placeholder='Address'></input>
+              <select value={searchBloodType} onChange={(event) => setSearchBloodType(event.target.value)} style={{ width: '90px', marginRight: '10px' }} placeholder='Blood type'>
+                    <option style={{ fontStyle: 'italic' }} disabled selected>Blood type</option>
+                    <optgroup label='Group I'>
+                      <option value="I-">I-</option>
+                      <option value="I+">I+</option>
+                    </optgroup>
+                    <optgroup label='Group II'>
+                      <option value="II-">II-</option>
+                      <option value="II+">II+</option>
+                    </optgroup>
+                    <optgroup label='Group III'>
+                      <option value="III-">III-</option>
+                      <option value="III+">III+</option>
+                    </optgroup>
+                    <optgroup label='Group IV'>
+                      <option value="IV-">IV-</option>
+                      <option value="IV+">IV+</option>
+                    </optgroup>
+              </select>
               <button id='doctor-get-user' onClick={handleGetUsers}>Search</button><br />
               <div className="doctor-account-component-client-base-table">
                 <table class="doctor-account-component-client-base-list">

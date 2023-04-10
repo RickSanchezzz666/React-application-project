@@ -57,16 +57,16 @@ router.get("/api/users", passport.authenticate('jwt', { session: false }), async
     };
     if (req.user.user_info.access_level === 30) {
         if (email) {
-            dbQuery["user_info.email"] = email;
+            dbQuery["user_info.email"] = { $regex: email, $options: 'i' };
         }
         if (phone) {
-            dbQuery["user_info.phone"] = phone;
+            dbQuery["user_info.phone"] = { $regex: phone };
         }
         if (name) {
-            dbQuery["user_info.name"] = name;
+            dbQuery["user_info.name"] = { $regex: name, $options: 'i' };
         }
         if (surname) {
-            dbQuery["user_info.surname"] = surname;
+            dbQuery["user_info.surname"] = { $regex: surname, $options: 'i' };
         }
         if (gender) {
             dbQuery["user_info.gender"] = gender;
@@ -87,10 +87,10 @@ router.get("/api/users", passport.authenticate('jwt', { session: false }), async
             dbQuery["location_info.address"] = { $regex: address, $options: 'i' };
         }
         if (city) {
-            dbQuery["location_info.city"] = city;
+            dbQuery["location_info.city"] = { $regex: city, $options: 'i' };
         }
         if (country) {
-            dbQuery["location_info.country"] = country;
+            dbQuery["location_info.country"] = { $regex: country, $options: 'i' };
         }
         if (zipcode) {
             dbQuery["location_info.zipcode"] = zipcode;
