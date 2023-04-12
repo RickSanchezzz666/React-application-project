@@ -186,12 +186,11 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
     try {
       const res = await axios.post("/api/delete-room", {
         roomId
-      },  {
+      }, {
         headers: {
           Authorization: `Bearer ${token}`,
         }
       });
-      alert('Success')
       return res.status;
     } catch (error) {
       console.error(error);
@@ -292,17 +291,17 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                     <hr style={{ margin: '10px 0 5px 0', height: '2px', width: '160px', color: 'black' }} />
                     <span className="admin-rooms-modal-window-info-text">Room Id: <span style={{ color: 'red', fontWeight: 'bold' }}>{room.roomId === '' ? 'N/A' : room.roomId}</span></span>
-                    <span className="admin-rooms-modal-window-info-text">Pass: <span style={{ color: 'red', fontWeight: 'bold' }}>{room.password === '' ? 'N/A' : room.password }</span></span>
-                    <span className="admin-rooms-modal-window-info-text">Owner: <span style={{ fontWeight: 'bold' }}>{room.createdBy === '' ? 'N/A' : room.createdBy }</span></span>
-                  <span className="admin-rooms-modal-window-info-text">Creation time: <span style={{ fontWeight: 'bold' }}>{room.startTime === null ? 'N/A' : room.startTime }</span></span>
+                    <span className="admin-rooms-modal-window-info-text">Pass: <span style={{ color: 'red', fontWeight: 'bold' }}>{room.password === '' ? 'N/A' : room.password}</span></span>
+                    <span className="admin-rooms-modal-window-info-text">Owner: <span style={{ fontWeight: 'bold' }}>{room.createdBy === '' ? 'N/A' : room.createdBy}</span></span>
+                    <span className="admin-rooms-modal-window-info-text">Creation time: <span style={{ fontWeight: 'bold' }}>{room.startTime === null ? 'N/A' : room.startTime}</span></span>
                     <button onClick={() => {
                       setAdminRoomCreate(true)
                       navigate(`/room/${room.roomId}`)
                     }} className='admin-rooms-modal-window-button'>Join</button>
-                    <button onClick={() => { 
-                      handleDeleteRoom(`${room.roomId}`)
+                    <button onClick={async () => {
+                      await handleDeleteRoom(`${room.roomId}`)
                       handleGetRooms()
-                      }} className='admin-rooms-modal-window-button'>Delete</button>
+                    }} className='admin-rooms-modal-window-button'>Delete</button>
                   </div>
                 ))}
               </div>
@@ -420,7 +419,7 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
               <input value={searchName} onChange={(event) => setSearchName(event.target.value)} style={{ width: '70px', marginRight: '10px' }} placeholder='Name'></input>
               <input value={searchSurname} onChange={(event) => setSearchSurname(event.target.value)} style={{ width: '70px', marginRight: '10px' }} placeholder='Surname'></input>
               <select value={searchAccessLevel} onChange={(event) => setSearchAccessLevel(event.target.value)} style={{ width: '90px', marginRight: '10px' }} name="Role">
-                <option style={{ fontStyle: 'italic' }} disabled selected>User role</option>
+                <option style={{ fontStyle: 'italic' }} selected>User role</option>
                 <option value="20">User</option>
                 <option value="25">Doctor</option>
                 <option value="30">Admin</option>
@@ -429,23 +428,23 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
               <input value={searchCity} onChange={(event) => setSearchCity(event.target.value)} style={{ width: '70px', marginRight: '10px' }} placeholder='City'></input>
               <input value={searchAddress} onChange={(event) => setSearchAddress(event.target.value)} style={{ width: '70px', marginRight: '10px' }} placeholder='Address'></input>
               <select value={searchBloodType} onChange={(event) => setSearchBloodType(event.target.value)} style={{ width: '90px', marginRight: '10px' }} placeholder='Blood type'>
-                    <option style={{ fontStyle: 'italic' }} disabled selected>Blood type</option>
-                    <optgroup label='Group I'>
-                      <option value="I-">I-</option>
-                      <option value="I+">I+</option>
-                    </optgroup>
-                    <optgroup label='Group II'>
-                      <option value="II-">II-</option>
-                      <option value="II+">II+</option>
-                    </optgroup>
-                    <optgroup label='Group III'>
-                      <option value="III-">III-</option>
-                      <option value="III+">III+</option>
-                    </optgroup>
-                    <optgroup label='Group IV'>
-                      <option value="IV-">IV-</option>
-                      <option value="IV+">IV+</option>
-                    </optgroup>
+                <option style={{ fontStyle: 'italic' }} selected>Blood type</option>
+                <optgroup label='Group I'>
+                  <option value="I-">I-</option>
+                  <option value="I+">I+</option>
+                </optgroup>
+                <optgroup label='Group II'>
+                  <option value="II-">II-</option>
+                  <option value="II+">II+</option>
+                </optgroup>
+                <optgroup label='Group III'>
+                  <option value="III-">III-</option>
+                  <option value="III+">III+</option>
+                </optgroup>
+                <optgroup label='Group IV'>
+                  <option value="IV-">IV-</option>
+                  <option value="IV+">IV+</option>
+                </optgroup>
               </select>
               <button id='doctor-get-user' onClick={handleGetUsers}>Search</button><br />
               <div className="doctor-account-component-client-base-table">
@@ -476,78 +475,6 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
         </div>
       </div>
     </div>
-
-
-    /*<div>
-        <div ref={rootNode}>
-            <h1>Available Rooms</h1>
-            <ul>
-                {rooms.map(roomID => (
-                    <li key={roomID}>
-                        {roomID}
-                        <button onClick={() => {
-                            navigate(`/room/${roomID}`)
-                        }}>Join Room</button>
-                    </li>
-                ))}
-            </ul>
-            <button onClick={() => {
-                navigate(`/room/${v4()}`)
-            }}>Create new room</button><br/><br/><br/>
-        </div>
-
-      <span className='alerter'>! Check validity of your token !</span><br/><br/>
-      <button id='getusers' onClick={handleGetUsers}>Get Users</button><br/>
-      <table class="clientsList">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Address</th>
-            <th>City</th>
-            <th>Country</th>
-            <th>Zipcode</th>
-            <th>Birthday</th>
-            <th>Overall</th>
-            <th>Blood Type</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user) => (
-            <tr key={user._id}>
-              <td>{user.contact_information.name}</td>
-              <td>{user.contact_information.surname}</td>
-              <td>{user.contact_information.email}</td>
-              <td>{user.contact_information.phone}</td>
-              <td>{user.location.address}</td>
-              <td>{user.location.city}</td>
-              <td>{user.location.country}</td>
-              <td>{user.location.zipcode}</td>
-              <td>{user.patient_info.birthday}</td>
-              <td>{user.patient_info.overall}</td>
-              <td>{user.patient_info.blood_type}</td>
-            </tr>
-          ))}
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="10">
-                    <div class="links">
-                        <span style={{ color: "black", marginRight: "20px" }}>Buttons temporary INOP!</span>
-                        <a href="#">&laquo;</a>
-                        <a class="active" href="#">1</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#">4</a>
-                        <a href="#">&raquo;</a>
-                    </div>
-                </td>
-            </tr>
-        </tfoot>
-      </table>
-    </div>*/
   );
 };
 
