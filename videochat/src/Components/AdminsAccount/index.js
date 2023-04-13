@@ -1,9 +1,7 @@
 import './style.css';
 import React, { useState, useRef, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { socket } from "../../Socket";
 import Header from '../Header/Header'
-import ACTIONS from "../../Socket/actions";
 import axios from "axios";
 import WebFont from 'webfontloader';
 import Modal from 'react-modal';
@@ -112,8 +110,6 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
       navigate(`/room/${adminId}`);
       return res.data;
     } catch (error) {
-      console.error(error);
-      alert("Something went wrong, see console");
       return [];
     }
   };
@@ -150,8 +146,6 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
       });
       return res.data;
     } catch (error) {
-      console.error(error);
-      alert("Something went wrong, see console");
       return [];
     }
   };
@@ -165,8 +159,6 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
       });
       return res.data;
     } catch (error) {
-      console.error(error);
-      alert("Something went wrong, see console");
       return [];
     }
   };
@@ -193,8 +185,6 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
       });
       return res.status;
     } catch (error) {
-      console.error(error);
-      alert("Something went wrong, see console");
       return [];
     }
   };
@@ -235,8 +225,6 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
       alert('Success')
       return res.data;
     } catch (error) {
-      console.error(error);
-      alert("Something went wrong, see console");
       return [];
     }
   };

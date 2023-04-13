@@ -11,7 +11,6 @@ import WebFont from 'webfontloader';
 import Webcam from "react-webcam";
 import { MyContext } from '../../GlobalContex';
 
-
 const Redirect = ({ children }) => {
     const [redirected, setIsRedirected] = useState(false);
     const [audioSwitch, setAudioSwitch] = useState(true);
