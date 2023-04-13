@@ -13,7 +13,7 @@ import RedirectPage from './Components/Room/RoomRedirect';
 import { MyProvider } from './Components/GlobalContex';
 
 import AdminsAccount from './Components/AdminsAccount';           //!!!
-import DoctorsAccount from './Components/DoctorsAccount';         //!!!
+import DoctorsAccount from './Components/DoctorsAccount';
 
 function App() {
   return (

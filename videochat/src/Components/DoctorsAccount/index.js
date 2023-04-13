@@ -99,7 +99,7 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
     }
   };
 
-  
+
   const getUsers = async (token) => {
     try {
       const res = await axios.get("/api/users", {
@@ -146,8 +146,10 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
           <div className='doctor-account-component-grid-text'>
             <span className="doctor-account-component-grid-profile-text">{name}</span>
             <span className="doctor-account-component-grid-profile-text doctor-account-component-grid-profile-text-2">{surname}</span>
-            <button onClick={setLogout}>Logout</button>
-            <button onClick={() => { navigate('/') }}>W/no logout</button>
+            <span className="doctor-account-component-grid-profile-text" style={{ color: "green", marginTop: "20px" }}>Doctor</span>
+            <div className="doctor-account-component-grid-log-out">
+              <button className='doctor-account-component-grid-log-out-button' onClick={setLogout}>Log out</button>
+            </div>
           </div>
         </div>
         <div className='doctor-account-component-grid-2'>

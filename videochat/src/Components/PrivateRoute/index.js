@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom';
 import axios from 'axios';
 import DoctorsAccount from '../DoctorsAccount';
 import AdminsAccount from '../AdminsAccount';
+import UsersAccount from '../UsersAccount';
 
 const PrivateRoute = () => {
   const [auth, setAuth] = useState(false);
@@ -44,7 +45,7 @@ const PrivateRoute = () => {
   return (
     <>
       {accessLevel === 20 && auth && (
-        <DoctorsAccount {...{ name, surname, profilePic }} />
+        <UsersAccount {...{ name, surname, profilePic }} />
       )}
       {accessLevel === 25 && auth && (
         <DoctorsAccount {...{ name, surname, profilePic }} />

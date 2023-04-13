@@ -39,7 +39,7 @@ router.post("/api/delete-room", passport.authenticate('jwt', {session: false}), 
       if (!roomId ) {
         return res.status(400).send({ message: 'RoomId and RoomPassword is required!' })
       }
-      const room = await RoomsModel.findOneAndDelete(roomId);
+      const room = await RoomsModel.findOneAndDelete({roomId});
 
       if (!room) {
         return res.status(400).send({ message: 'We not found any room' })
@@ -90,7 +90,7 @@ router.get("/api/room-pass-verify", async (req, res) => {
     return res.status(400).send({message: 'We not found any room with such room id'});
   };
   if (room_ident.password !== password) {
-    return res.status(401).send({message: 'Password is incorrect'});
+    return res.status(401).send();
   };
   res.status(200).send();
  } catch (error) {

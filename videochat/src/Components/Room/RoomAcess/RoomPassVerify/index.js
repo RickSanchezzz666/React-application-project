@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import './style.css'
 import axios from 'axios';
 import WebFont from 'webfontloader';
@@ -11,6 +11,8 @@ const RoomPassVerify = ({ children }) => {
   const [callPass, setCallPass] = useState('');
   const [doctorRoomCreate, setDoctorRoomCreate] = useContext(MyContext);
   const [adminRoomCreate, setAdminRoomCreate] = useContext(MyContext);
+
+  const passErrRef = useRef()
 
   useEffect(() => {
     WebFont.load({
@@ -39,6 +41,9 @@ const RoomPassVerify = ({ children }) => {
           }
         })
         .catch((err) => {
+          if (err) {
+            return passErrRef.current.className = 'password-redirecting-page-error-visible';
+          }
           setVerify(false);
         })
     }
@@ -55,6 +60,7 @@ const RoomPassVerify = ({ children }) => {
         <Link to='/' className="header-router"><span className="room-logo-name">MedDoc</span></Link>
       </div>
       <div className="password-redirecting-page-input-wrapper">
+        <div ref={passErrRef} className="password-redirecting-page-error-invisible">Password is incorrect!</div>
         <div className="password-redirecting-page-input-text">Enter the Password to connect to <span className="password-redirecting-page-text-color">{roomId}</span></div>
         <input type="text" id="password-redirecting-page-input" className="password-redirecting-page-input" onChange={(event) => setCallPass(event.target.value)} />
         <button className="meeting-join-button" onClick={redirectToCall}>Confirm the Password</button>
