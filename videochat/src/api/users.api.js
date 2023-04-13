@@ -101,7 +101,7 @@ router.get("/api/users", passport.authenticate('jwt', { session: false }), async
         return res.status(200).send(users);
     };
     if (req.user.user_info.access_level === 25) {
-        const dbQuery = {user_info: {access_level: 20}};
+        const dbQuery = {};
         const { email, phone, name, surname, gender, access_level, createdBy, creationTime, birthday, address, city, country, zipcode, blood_type } = req.query;
         if (email) {
             dbQuery["user_info.email"] = { $regex: email, $options: 'i' };

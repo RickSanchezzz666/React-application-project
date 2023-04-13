@@ -6,6 +6,17 @@
     justify-content: center;
 }
 
+.password-redirecting-page-error-invisible {
+    display: none;
+}
+
+.password-redirecting-page-error-visible {
+    font-size: 17px;
+    font-family: 'Arvo';
+    color: red;
+    position: absolute;
+}
+
 .password-redirecting-page-input-wrapper {
     display: grid;
     grid-template-rows: 2fr 2fr 2fr;
@@ -20,6 +31,7 @@
 }
 
 .password-redirecting-page-input-text {
+    padding-top: 25px;
     padding-bottom: 25px;
     font-size: 25px;
     font-family: 'Arvo';

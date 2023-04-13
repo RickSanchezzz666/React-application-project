@@ -290,16 +290,16 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
                 {rooms.map((room) => (
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                     <hr style={{ margin: '10px 0 5px 0', height: '2px', width: '160px', color: 'black' }} />
-                    <span className="admin-rooms-modal-window-info-text">Room Id: <span style={{ color: 'red', fontWeight: 'bold' }}>{room.roomId === '' ? 'N/A' : room.roomId}</span></span>
-                    <span className="admin-rooms-modal-window-info-text">Pass: <span style={{ color: 'red', fontWeight: 'bold' }}>{room.password === '' ? 'N/A' : room.password}</span></span>
-                    <span className="admin-rooms-modal-window-info-text">Owner: <span style={{ fontWeight: 'bold' }}>{room.createdBy === '' ? 'N/A' : room.createdBy}</span></span>
+                    <span className="admin-rooms-modal-window-info-text">Room Id: <span style={{ color: 'red', fontWeight: 'bold' }}>{room.roomId === '' || room.roomId === null ? 'N/A' : room.roomId}</span></span>
+                    <span className="admin-rooms-modal-window-info-text">Pass: <span style={{ color: 'red', fontWeight: 'bold' }}>{room.password === '' || room.password === null ? 'N/A' : room.password}</span></span>
+                    <span className="admin-rooms-modal-window-info-text">Owner: <span style={{ fontWeight: 'bold' }}>{room.createdBy === '' || room.createdBy === null ? 'N/A' : room.createdBy}</span></span>
                     <span className="admin-rooms-modal-window-info-text">Creation time: <span style={{ fontWeight: 'bold' }}>{room.startTime === null ? 'N/A' : room.startTime}</span></span>
                     <button onClick={() => {
                       setAdminRoomCreate(true)
                       navigate(`/room/${room.roomId}`)
                     }} className='admin-rooms-modal-window-button'>Join</button>
                     <button onClick={async () => {
-                      await handleDeleteRoom(`${room.roomId}`)
+                      await handleDeleteRoom(room.roomId)
                       handleGetRooms()
                     }} className='admin-rooms-modal-window-button'>Delete</button>
                   </div>
