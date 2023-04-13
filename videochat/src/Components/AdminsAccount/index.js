@@ -419,7 +419,7 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
               <input value={searchName} onChange={(event) => setSearchName(event.target.value)} style={{ width: '70px', marginRight: '10px' }} placeholder='Name'></input>
               <input value={searchSurname} onChange={(event) => setSearchSurname(event.target.value)} style={{ width: '70px', marginRight: '10px' }} placeholder='Surname'></input>
               <select value={searchAccessLevel} onChange={(event) => setSearchAccessLevel(event.target.value)} style={{ width: '90px', marginRight: '10px' }} name="Role">
-                <option style={{ fontStyle: 'italic' }} selected>User role</option>
+                <option style={{ fontStyle: 'italic' }} value='' selected>User role</option>
                 <option value="20">User</option>
                 <option value="25">Doctor</option>
                 <option value="30">Admin</option>
@@ -428,7 +428,7 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
               <input value={searchCity} onChange={(event) => setSearchCity(event.target.value)} style={{ width: '70px', marginRight: '10px' }} placeholder='City'></input>
               <input value={searchAddress} onChange={(event) => setSearchAddress(event.target.value)} style={{ width: '70px', marginRight: '10px' }} placeholder='Address'></input>
               <select value={searchBloodType} onChange={(event) => setSearchBloodType(event.target.value)} style={{ width: '90px', marginRight: '10px' }} placeholder='Blood type'>
-                <option style={{ fontStyle: 'italic' }} selected>Blood type</option>
+                <option style={{ fontStyle: 'italic' }} value='' selected>Blood type</option>
                 <optgroup label='Group I'>
                   <option value="I-">I-</option>
                   <option value="I+">I+</option>
@@ -454,6 +454,7 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
                       <th>Name</th>
                       <th>Surname</th>
                       <th className='table_user_acess_level'>User role</th>
+                      <th className='table_user_interaction'/>
                     </tr>
                   </thead>
                   <tbody>
@@ -465,6 +466,7 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
                           : user.user_info.access_level === 25 ? 'Doctor'
                             : user.user_info.access_level === 30 ? 'Admin'
                               : user.user_info.access_level}</td>
+                        <td><a className='active_user_interaction'>View</a></td>
                       </tr>
                     ))}
                   </tbody>

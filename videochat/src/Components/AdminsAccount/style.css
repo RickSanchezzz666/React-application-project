@@ -256,5 +256,20 @@
 }
 
 .table_user_acess_level {
-  width: 15%
+  width: 15%;
+}
+
+.table_user_interaction {
+  width: 7%;
+}
+
+.active_user_interaction {
+  text-decoration: underline;
+  color: #396f8e;
+  cursor: pointer;
+  text-align: center;
+}
+
+.active_user_interaction:active {
+  color: #4486AB;
 }

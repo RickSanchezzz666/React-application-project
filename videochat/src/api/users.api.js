@@ -101,8 +101,8 @@ router.get("/api/users", passport.authenticate('jwt', { session: false }), async
         return res.status(200).send(users);
     };
     if (req.user.user_info.access_level === 25) {
-        const dbQuery = {user_info: {access_level: 20}};
-        const { email, phone, name, surname, gender, access_level, createdBy, creationTime, birthday, address, city, country, zipcode, blood_type } = req.query;
+        const dbQuery = {};
+        const { email, phone, name, surname, gender, createdBy, creationTime, birthday, address, city, country, zipcode, blood_type } = req.query;
         if (email) {
             dbQuery["user_info.email"] = { $regex: email, $options: 'i' };
         }
@@ -117,9 +117,6 @@ router.get("/api/users", passport.authenticate('jwt', { session: false }), async
         }
         if (gender) {
             dbQuery["user_info.gender"] = gender;
-        }
-        if (access_level) {
-            dbQuery["user_info.access_level"] = access_level;
         }
         if (createdBy) {
             dbQuery["user_info.createdBy"] = createdBy;
@@ -145,6 +142,7 @@ router.get("/api/users", passport.authenticate('jwt', { session: false }), async
         if (blood_type) {
             dbQuery["patient_info.blood_type"] = blood_type;
         }
+        dbQuery["user_info.access_level"] = 20;
         const users = await Users.find(dbQuery);
         return res.status(200).send(users);
     } else {

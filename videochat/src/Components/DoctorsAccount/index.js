@@ -33,7 +33,6 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
 
   const [searchName, setSearchName] = useState();
   const [searchSurname, setSearchSurname] = useState();
-  const [searchAccessLevel, setSearchAccessLevel] = useState();
   const [searchCountry, setSearchCountry] = useState();
   const [searchCity, setSearchCity] = useState();
   const [searchAddress, setSearchAddress] = useState();
@@ -110,7 +109,6 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
         params: {
           name: searchName,
           surname: searchSurname,
-          access_level: searchAccessLevel,
           country: searchCountry,
           city: searchCity,
           address: searchAddress,
@@ -163,17 +161,11 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
             <div className="doctor-account-component-client-base-area">
               <input value={searchName} onChange={(event) => setSearchName(event.target.value)} style={{ width: '70px', marginRight: '10px' }} placeholder='Name'></input>
               <input value={searchSurname} onChange={(event) => setSearchSurname(event.target.value)} style={{ width: '70px', marginRight: '10px' }} placeholder='Surname'></input>
-              <select value={searchAccessLevel} onChange={(event) => setSearchAccessLevel(event.target.value)} style={{ width: '90px', marginRight: '10px' }} name="Role">
-                <option style={{ fontStyle: 'italic' }} selected>User role</option>
-                <option value="20">User</option>
-                <option value="25">Doctor</option>
-                <option value="30">Admin</option>
-              </select>
               <input value={searchCountry} onChange={(event) => setSearchCountry(event.target.value)} style={{ width: '70px', marginRight: '10px' }} placeholder='Country'></input>
               <input value={searchCity} onChange={(event) => setSearchCity(event.target.value)} style={{ width: '70px', marginRight: '10px' }} placeholder='City'></input>
               <input value={searchAddress} onChange={(event) => setSearchAddress(event.target.value)} style={{ width: '70px', marginRight: '10px' }} placeholder='Address'></input>
               <select value={searchBloodType} onChange={(event) => setSearchBloodType(event.target.value)} style={{ width: '90px', marginRight: '10px' }} placeholder='Blood type'>
-                <option style={{ fontStyle: 'italic' }} selected>Blood type</option>
+                <option style={{ fontStyle: 'italic' }} value='' selected>Blood type</option>
                 <optgroup label='Group I'>
                   <option value="I-">I-</option>
                   <option value="I+">I+</option>
@@ -198,7 +190,6 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
                     <tr>
                       <th>Name</th>
                       <th>Surname</th>
-                      <th className='table_user_acess_level'>User role</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -206,10 +197,6 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
                       <tr key={user._id}>
                         <td>{user.user_info.name}</td>
                         <td>{user.user_info.surname}</td>
-                        <td>{user.user_info.access_level === 20 ? 'User'
-                          : user.user_info.access_level === 25 ? 'Doctor'
-                            : user.user_info.access_level === 30 ? 'Admin'
-                              : user.user_info.access_level}</td>
                       </tr>
                     ))}
                   </tbody>
