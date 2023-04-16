@@ -5,6 +5,7 @@ import Header from '../Header/Header'
 import axios from "axios";
 import WebFont from 'webfontloader';
 import Modal from 'react-modal';
+import moment from 'moment/moment';
 import { MyContext } from '../GlobalContex';
 export { adminId, adminPassword }
 
@@ -39,14 +40,17 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
   const [newCreatedBy, setNewCreatedBy] = useState(`${name} ${surname}`);
   const [newCreationTime, setNewCreationTime] = useState(new Date());
   const [newAccessLevel, setNewAccessLevel] = useState("20");
-  const [newBirthday, setNewBirthday] = useState("");
+  const [newBirthday, setNewBirthday] = useState("01.01.1800");
   const [newGender, setNewGender] = useState("Male");
-  const [newAddress, setNewAddress] = useState("");
-  const [newCity, setNewCity] = useState("");
-  const [newCountry, setNewCountry] = useState("");
-  const [newZipcode, setNewZipcode] = useState("");
-  const [newOverall, setNewOverall] = useState("");
-  const [newBloodType, setNewBloodType] = useState("1");
+  const [newAddress, setNewAddress] = useState("-");
+  const [newCity, setNewCity] = useState("-");
+  const [newCountry, setNewCountry] = useState("-");
+  const [newZipcode, setNewZipcode] = useState("-");
+  const [newOverall, setNewOverall] = useState("-");
+  const [newBloodType, setNewBloodType] = useState("I-");
+
+  const [modalUserIsOpen, setModalUserIsOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
 
   const navigate = useNavigate();
 
@@ -189,6 +193,107 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
     }
   };
 
+  const handleUserToModal = (user) => {
+    setModalUserIsOpen(true);
+    setSelectedUser(user);
+  };
+
+  const ModalUserInfo = () => {
+    if (!selectedUser) {
+      return null;
+    }
+  
+    return (
+      <Modal
+              className={"admin-new-user-modal-window-wrapper"}
+              isOpen={modalUserIsOpen}
+              onRequestClose={() => setModalUserIsOpen(false)}
+              contentLabel="User info"
+              style={ModalNewUser}
+            >
+              <h2>User info</h2>
+              <hr style={{ margin: '15px 0', opacity: '50%' }} />
+              <div className="admin-new-user-modal-window-form">
+                <div className="admin-new-user-modal-window-input-wrapper">
+                  <img className="doctor-account-component-grid-1-icon" src={selectedUser.user_info.profile_pic}></img>
+                </div>
+                <div className="admin-new-user-modal-window-input-wrapper">
+                  <label htmlFor="login">Login:</label>
+                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.user_info.login} disabled />
+                </div>
+                <div className="admin-new-user-modal-window-input-wrapper">
+                  <label htmlFor="password">Password:</label>
+                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.user_info.password} disabled />
+                </div>
+                <hr style={{ margin: '15px 0', opacity: '50%' }} />
+                <div className="admin-new-user-modal-window-input-wrapper">
+                  <label htmlFor="email">Email:</label>
+                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.user_info.email} disabled />
+                </div>
+                <div className="admin-new-user-modal-window-input-wrapper">
+                  <label htmlFor="phone">Phone:</label>
+                  <input type="tel" className="admin-new-user-modal-window-input" placeholder={selectedUser.user_info.phone} disabled />
+                </div>
+                <div className="admin-new-user-modal-window-input-wrapper">
+                  <label htmlFor="name">Name:</label>
+                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.user_info.name} disabled />
+                </div>
+                <div className="admin-new-user-modal-window-input-wrapper">
+                  <label htmlFor="surname">Surname:</label>
+                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.user_info.surname} disabled />
+                </div>
+                <div className="admin-new-user-modal-window-input-wrapper">
+                  <label htmlFor="gender">Gender:</label>
+                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.user_info.gender} disabled />
+                </div>
+                <div className="admin-new-user-modal-window-input-wrapper">
+                  <label htmlFor="birthday">Birthday:</label>
+                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.user_info.birthday} disabled />
+                </div>
+                <hr style={{ margin: '15px 0', opacity: '50%' }} />
+                <div className="admin-new-user-modal-window-input-wrapper">
+                  <label htmlFor="address">Address:</label>
+                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.location_info.address} disabled />
+                </div>
+                <div className="admin-new-user-modal-window-input-wrapper">
+                  <label htmlFor="city">City:</label>
+                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.location_info.city} disabled />
+                </div>
+                <div className="admin-new-user-modal-window-input-wrapper">
+                  <label htmlFor="country">Country:</label>
+                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.location_info.country} disabled />
+                </div>
+                <div className="admin-new-user-modal-window-input-wrapper">
+                  <label htmlFor="zipcode">Zipcode:</label>
+                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.location_info.zipcode} disabled />
+                </div>
+                <hr style={{ margin: '15px 0', opacity: '50%' }} />
+                <div className="admin-new-user-modal-window-input-wrapper">
+                  <label htmlFor="overall">Overall:</label><br/>
+                  <textarea type="text" className="admin-new-user-modal-window-input" rows={4} cols={50} style={{ resize: 'none' }} placeholder={selectedUser.patient_info.overall} disabled />
+                </div>
+                <div className="admin-new-user-modal-window-input-wrapper">
+                  <label htmlFor="Blood_type">Blood type:</label>
+                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.patient_info.blood_type} disabled />
+                </div>
+                <hr style={{ margin: '15px 0', opacity: '50%' }} />
+                <div className="admin-new-user-modal-window-input-wrapper">
+                  <label htmlFor="user_role">User Role:</label>
+                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.user_info.access_level === 30 ? 'Admin' : selectedUser.user_info.access_level === 25 ? 'Doctor' : selectedUser.user_info.access_level === 20 ? 'User' : selectedUser.user_info.access_level } disabled />
+                </div>
+                <div className="admin-new-user-modal-window-input-wrapper">
+                  <label htmlFor="created_by">Created by:</label>
+                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.user_info.createdBy} disabled />
+                </div>
+                <div className="admin-new-user-modal-window-input-wrapper">
+                  <label htmlFor="creation_time">Creation time:</label>
+                  <input type="text" className="admin-new-user-modal-window-input" placeholder={moment(selectedUser.user_info.creationTime).format('llll')} disabled />
+                </div>
+              </div>
+            </Modal>
+    );
+  };
+
   async function createUser() {
     const token = localStorage.getItem("token");
     try {
@@ -248,8 +353,9 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
             <span className="doctor-account-component-grid-profile-text">{name}</span>
             <span className="doctor-account-component-grid-profile-text doctor-account-component-grid-profile-text-2">{surname}</span>
             <span className="doctor-account-component-grid-profile-text" style={{ color: "red", marginTop: "20px" }}>Admin</span>
-            <button onClick={setLogout}>Logout</button>
-            <button onClick={() => { navigate('/') }}>W/no logout</button>
+            <div className="doctor-account-component-grid-log-out">
+              <button className='doctor-account-component-grid-log-out-button' onClick={setLogout}>Log out</button>
+            </div>
           </div>
         </div>
         <div className='doctor-account-component-grid-2'>
@@ -275,13 +381,13 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
             >
               <h2>Active rooms</h2>
               <div className="admin-rooms-modal-window-info">
-                {rooms.map((room) => (
+                {rooms.length === 0 ? (<span style={{ margin: '15px 0', fontStyle: 'italic' }}>No active rooms</span>) : ( rooms.map((room) => (
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                     <hr style={{ margin: '10px 0 5px 0', height: '2px', width: '160px', color: 'black' }} />
                     <span className="admin-rooms-modal-window-info-text">Room Id: <span style={{ color: 'red', fontWeight: 'bold' }}>{room.roomId === '' || room.roomId === null ? 'N/A' : room.roomId}</span></span>
                     <span className="admin-rooms-modal-window-info-text">Pass: <span style={{ color: 'red', fontWeight: 'bold' }}>{room.password === '' || room.password === null ? 'N/A' : room.password}</span></span>
                     <span className="admin-rooms-modal-window-info-text">Owner: <span style={{ fontWeight: 'bold' }}>{room.createdBy === '' || room.createdBy === null ? 'N/A' : room.createdBy}</span></span>
-                    <span className="admin-rooms-modal-window-info-text">Creation time: <span style={{ fontWeight: 'bold' }}>{room.startTime === null ? 'N/A' : room.startTime}</span></span>
+                    <span className="admin-rooms-modal-window-info-text">Creation time: <span style={{ fontWeight: 'bold' }}>{room.startTime === null ? 'N/A' : moment(room.startTime).format('llll')}</span></span>
                     <button onClick={() => {
                       setAdminRoomCreate(true)
                       navigate(`/room/${room.roomId}`)
@@ -291,7 +397,7 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
                       handleGetRooms()
                     }} className='admin-rooms-modal-window-button'>Delete</button>
                   </div>
-                ))}
+                )))}
               </div>
               <button className="room-modal-window-button" onClick={closeModal}>Close</button>
             </Modal>
@@ -308,20 +414,20 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
               <div className="admin-new-user-modal-window-form">
                 <div className="admin-new-user-modal-window-input-wrapper">
                   <label htmlFor="login">Login:</label>
-                  <input type="text" className="admin-new-user-modal-window-input" value={newLogin} onChange={(event) => setNewLogin(event.target.value)} />
+                  <input type="text" className="admin-new-user-modal-window-input" maxLength={22} value={newLogin} onChange={(event) => setNewLogin(event.target.value)} />
                 </div>
                 <div className="admin-new-user-modal-window-input-wrapper">
                   <label htmlFor="password">Password:</label>
-                  <input type="text" className="admin-new-user-modal-window-input" value={newPassword} onChange={(event) => setNewPassword(event.target.value)} />
+                  <input type="text" className="admin-new-user-modal-window-input" maxLength={22} value={newPassword} onChange={(event) => setNewPassword(event.target.value)} />
                 </div>
                 <hr style={{ margin: '15px 0', opacity: '50%' }} />
                 <div className="admin-new-user-modal-window-input-wrapper">
                   <label htmlFor="email">Email:</label>
-                  <input type="email" className="admin-new-user-modal-window-input" value={newEmail} onChange={(event) => setNewEmail(event.target.value)} />
+                  <input type="email" className="admin-new-user-modal-window-input" maxLength={22} value={newEmail} onChange={(event) => setNewEmail(event.target.value)} />
                 </div>
                 <div className="admin-new-user-modal-window-input-wrapper">
                   <label htmlFor="phone">Phone:</label>
-                  <input type="tel" className="admin-new-user-modal-window-input" value={newPhone} onChange={(event) => setNewPhone(event.target.value)} />
+                  <input type="tel" className="admin-new-user-modal-window-input" maxLength={22} value={newPhone} onChange={(event) => setNewPhone(event.target.value)} />
                 </div>
                 <div className="admin-new-user-modal-window-input-wrapper">
                   <label htmlFor="name">Name:</label>
@@ -357,12 +463,12 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
                 </div>
                 <div className="admin-new-user-modal-window-input-wrapper">
                   <label htmlFor="zipcode">Zipcode:</label>
-                  <input type="text" className="admin-new-user-modal-window-input" value={newZipcode} onChange={(event) => setNewZipcode(event.target.value)} />
+                  <input type="text" className="admin-new-user-modal-window-input" maxLength={22} value={newZipcode} onChange={(event) => setNewZipcode(event.target.value)} />
                 </div>
                 <hr style={{ margin: '15px 0', opacity: '50%' }} />
                 <div className="admin-new-user-modal-window-input-wrapper">
-                  <label htmlFor="overall">Overall:</label>
-                  <input type="text" className="admin-new-user-modal-window-input" value={newOverall} onChange={(event) => setNewOverall(event.target.value)} />
+                  <label htmlFor="overall">Overall:</label><br/>
+                  <textarea type="text" className="admin-new-user-modal-window-input" rows={4} cols={50} style={{ resize: 'none' }} value={newOverall} onChange={(event) => setNewOverall(event.target.value)} />
                 </div>
                 <div className="admin-new-user-modal-window-input-wrapper">
                   <label htmlFor="Blood_type">Blood type:</label>
@@ -401,40 +507,44 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
               <button className="room-modal-window-button" onClick={createUser}>Submit</button>
             </Modal>
 
+            <ModalUserInfo />
+
             <div className="doctor-account-component-client-base">Client Base</div>
 
             <div className="doctor-account-component-client-base-area">
-              <input value={searchName} onChange={(event) => setSearchName(event.target.value)} style={{ width: '70px', marginRight: '10px' }} placeholder='Name'></input>
-              <input value={searchSurname} onChange={(event) => setSearchSurname(event.target.value)} style={{ width: '70px', marginRight: '10px' }} placeholder='Surname'></input>
-              <select value={searchAccessLevel} onChange={(event) => setSearchAccessLevel(event.target.value)} style={{ width: '90px', marginRight: '10px' }} name="Role">
-                <option style={{ fontStyle: 'italic' }} value='' selected>User role</option>
-                <option value="20">User</option>
-                <option value="25">Doctor</option>
-                <option value="30">Admin</option>
-              </select>
-              <input value={searchCountry} onChange={(event) => setSearchCountry(event.target.value)} style={{ width: '70px', marginRight: '10px' }} placeholder='Country'></input>
-              <input value={searchCity} onChange={(event) => setSearchCity(event.target.value)} style={{ width: '70px', marginRight: '10px' }} placeholder='City'></input>
-              <input value={searchAddress} onChange={(event) => setSearchAddress(event.target.value)} style={{ width: '70px', marginRight: '10px' }} placeholder='Address'></input>
-              <select value={searchBloodType} onChange={(event) => setSearchBloodType(event.target.value)} style={{ width: '90px', marginRight: '10px' }} placeholder='Blood type'>
-                <option style={{ fontStyle: 'italic' }} value='' selected>Blood type</option>
-                <optgroup label='Group I'>
-                  <option value="I-">I-</option>
-                  <option value="I+">I+</option>
-                </optgroup>
-                <optgroup label='Group II'>
-                  <option value="II-">II-</option>
-                  <option value="II+">II+</option>
-                </optgroup>
-                <optgroup label='Group III'>
-                  <option value="III-">III-</option>
-                  <option value="III+">III+</option>
-                </optgroup>
-                <optgroup label='Group IV'>
-                  <option value="IV-">IV-</option>
-                  <option value="IV+">IV+</option>
-                </optgroup>
-              </select>
-              <button id='doctor-get-user' onClick={handleGetUsers}>Search</button><br />
+              <div className='users-search-area'>
+                <input className='users-search-input' value={searchName} onChange={(event) => setSearchName(event.target.value)} placeholder='Name'></input>
+                <input className='users-search-input' value={searchSurname} onChange={(event) => setSearchSurname(event.target.value)} placeholder='Surname'></input>
+                <select className='users-search-input' value={searchAccessLevel} style={{ width: '110px' }} onChange={(event) => setSearchAccessLevel(event.target.value)} name="Role">
+                  <option style={{ fontStyle: 'italic' }} value="" selected>User role</option>
+                  <option value="20">User</option>
+                  <option value="25">Doctor</option>
+                  <option value="30">Admin</option>
+                </select>
+                <input className='users-search-input' value={searchCountry} onChange={(event) => setSearchCountry(event.target.value)} placeholder='Country'></input>
+                <input className='users-search-input' value={searchCity} onChange={(event) => setSearchCity(event.target.value)} placeholder='City'></input>
+                <input className='users-search-input' value={searchAddress} onChange={(event) => setSearchAddress(event.target.value)} placeholder='Address'></input>
+                <select className='users-search-input' value={searchBloodType} style={{ width: '110px' }} onChange={(event) => setSearchBloodType(event.target.value)} placeholder='Blood type'>
+                  <option style={{ fontStyle: 'italic' }} value="" selected>Blood type</option>
+                  <optgroup label='Group I'>
+                    <option value="I-">I-</option>
+                    <option value="I+">I+</option>
+                  </optgroup>
+                  <optgroup label='Group II'>
+                    <option value="II-">II-</option>
+                    <option value="II+">II+</option>
+                  </optgroup>
+                  <optgroup label='Group III'>
+                    <option value="III-">III-</option>
+                    <option value="III+">III+</option>
+                  </optgroup>
+                  <optgroup label='Group IV'>
+                    <option value="IV-">IV-</option>
+                    <option value="IV+">IV+</option>
+                  </optgroup>
+                </select>
+                <button id='doctor-get-user' onClick={handleGetUsers}>Search</button><br />
+              </div>
               <div className="doctor-account-component-client-base-table">
                 <table class="doctor-account-component-client-base-list">
                   <thead>
@@ -442,7 +552,8 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
                       <th>Name</th>
                       <th>Surname</th>
                       <th className='table_user_acess_level'>User role</th>
-                      <th className='table_user_interaction'/>
+                      <th className='table_user_interaction_0'/>
+                      <th className='table_user_interaction_1'/>
                     </tr>
                   </thead>
                   <tbody>
@@ -454,7 +565,12 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
                           : user.user_info.access_level === 25 ? 'Doctor'
                             : user.user_info.access_level === 30 ? 'Admin'
                               : user.user_info.access_level}</td>
-                        <td><a className='active_user_interaction'>View</a></td>
+                        <td style={{ textAlign: 'center' }}>
+                          <button>+</button>
+                        </td>
+                        <td style={{ textAlign: 'center' }}>
+                          <a className='active_user_interaction' onClick={() => handleUserToModal(user)}>View</a>
+                        </td>
                       </tr>
                     ))}
                   </tbody>

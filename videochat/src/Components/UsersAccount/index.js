@@ -1,12 +1,8 @@
 import './style.css';
-import React, { useState, useRef, useEffect, useContext } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { socket } from "../../Socket";
 import Header from '../Header/Header'
-import ACTIONS from "../../Socket/actions";
-import axios from "axios";
 import WebFont from 'webfontloader';
-import { MyContext } from '../GlobalContex';
 
 const UsersAccount = ({ name, surname, profilePic }) => {
 
@@ -39,8 +35,9 @@ const UsersAccount = ({ name, surname, profilePic }) => {
                     <div className='doctor-account-component-grid-text'>
                         <span className="doctor-account-component-grid-profile-text">{name}</span>
                         <span className="doctor-account-component-grid-profile-text doctor-account-component-grid-profile-text-2">{surname}</span>
-                        <button onClick={setLogout}>Logout</button>
-                        <button onClick={() => { navigate('/') }}>W/no logout</button>
+                        <div className="doctor-account-component-grid-log-out">
+                            <button className='doctor-account-component-grid-log-out-button' onClick={setLogout}>Log out</button>
+                        </div>
                     </div>
                 </div>
                 <div className='doctor-account-component-grid-2'>

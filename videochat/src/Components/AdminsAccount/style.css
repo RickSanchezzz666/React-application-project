@@ -259,7 +259,11 @@
   width: 15%;
 }
 
-.table_user_interaction {
+.table_user_interaction_0 {
+  width: 3%;
+}
+
+.table_user_interaction_1 {
   width: 7%;
 }
 
@@ -267,9 +271,42 @@
   text-decoration: underline;
   color: #396f8e;
   cursor: pointer;
-  text-align: center;
 }
 
 .active_user_interaction:active {
   color: #4486AB;
+}
+
+.users-search-area {
+  margin: 10px 0 0 10px;
+}
+
+.users-search-input {
+  width: 90px;
+  background-color: #EFF2F7;
+  border-radius: 20px;
+  border: none;
+  padding: 5px;
+  margin-right: 10px;
+  font-size: 16px;
+  color: #1A202C;
+}
+
+.users-search-input:focus {
+  outline: none;
+}
+
+#doctor-get-user {
+  background-color: #3981ff;
+  border-radius: 20px;
+  border: none;
+  padding: 5px;
+  margin-right: 10px;
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+}
+
+#doctor-get-user:hover {
+  background-color: #3273e4;
 }
