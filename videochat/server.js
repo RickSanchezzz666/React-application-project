@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');                              // Па�
 const Mongo = require('./src/setup/mongoose');
 const AcessAPI = require('./src/api/users.api');                         // Авторизація користувачів
 const RoomsAPI = require('./src/api/rooms.api');
+const AppoimtmentsAPI = require('./src/api/appointments.api');
 const authMiddleware = require('./src/middlewares/auth.middleware');    // Middleware
 const socket = require('./src/Socket');
 const ACTIONS = require('./src/Socket/actions');
@@ -29,7 +30,8 @@ const setup = async () => {
     authMiddleware(app);
 
     app.use(AcessAPI.router);
-    app.use(RoomsAPI.router)
+    app.use(RoomsAPI.router);
+    app.use(AppoimtmentsAPI.router);
 
     app.use(express.static('build'));
     app.get('*', (req, res) => {

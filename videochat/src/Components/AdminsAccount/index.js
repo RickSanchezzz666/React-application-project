@@ -19,6 +19,8 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
   const [rooms, setRooms] = useState([]);
   const [modalRoomIsOpen, setModalRoomIsOpen] = useState(false);
   const [modalNewUserIsOpen, setModalNewUserIsOpen] = useState(false);
+  const [modalUserIsOpen, setModalUserIsOpen] = useState(false);
+  const [modalAppointmentIsOpen, setModalAppointmentIsOpen] = useState(false);
   const [doctorRoomCreate, setDoctorRoomCreate] = useContext(MyContext);
   const [adminRoomCreate, setAdminRoomCreate] = useContext(MyContext);
 
@@ -49,8 +51,10 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
   const [newOverall, setNewOverall] = useState("-");
   const [newBloodType, setNewBloodType] = useState("I-");
 
-  const [modalUserIsOpen, setModalUserIsOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
+
+  const [appointmentForUser, setAppointmentForUser] = useState(null);
+  const [appointmentTime, setAppointmentTime] = useState("");
 
   const navigate = useNavigate();
 
@@ -69,6 +73,7 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
   function closeModal() {
     setModalRoomIsOpen(false);
     setModalNewUserIsOpen(false);
+    setModalAppointmentIsOpen(false);
   }
 
   function roomIdGenerator(length) {
@@ -117,6 +122,8 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
       return [];
     }
   };
+
+  
 
   async function openRoomsModal() {
     setModalRoomIsOpen(true)
@@ -198,6 +205,11 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
     setSelectedUser(user);
   };
 
+  const handleUserAppointmentToModal = (user) => {
+    setModalAppointmentIsOpen(true);
+    setAppointmentForUser(user);
+  };
+
   const ModalUserInfo = () => {
     if (!selectedUser) {
       return null;
@@ -207,7 +219,7 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
       <Modal
               className={"admin-new-user-modal-window-wrapper"}
               isOpen={modalUserIsOpen}
-              onRequestClose={() => setModalUserIsOpen(false)}
+              onRequestClose={closeModal}
               contentLabel="User info"
               style={ModalNewUser}
             >
@@ -294,6 +306,28 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
     );
   };
 
+  const ModalAppointmentCreate = () => {
+    if (!appointmentForUser) {
+      return null;
+    }
+    return (
+      <Modal
+              className={"admin-new-user-modal-window-wrapper"}
+              isOpen={modalAppointmentIsOpen}
+              onRequestClose={closeModal}
+              contentLabel="Add an appointment"
+              style={ModalNewUser}
+            >
+              <h2>Add an appointment</h2>
+              <hr style={{ margin: '15px 0', opacity: '50%' }} />
+              <span>Client: <br/>{appointmentForUser.user_info.name} {appointmentForUser.user_info.surname}</span>
+              <input className="admin-new-user-modal-window-input" type="datetime-local" value={appointmentTime} onChange={(event) => setAppointmentTime(event.target.value)} />
+              <hr style={{ margin: '15px 0', opacity: '50%' }} />
+              <button className="room-modal-window-button" onClick={createAppointment}>Submit</button>
+            </Modal>
+    );
+  };
+
   async function createUser() {
     const token = localStorage.getItem("token");
     try {
@@ -322,6 +356,25 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
           overall: newOverall,
           blood_type: newBloodType
         }
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      });
+      alert('Success')
+      return res.data;
+    } catch (error) {
+      return [];
+    }
+  };
+
+  async function createAppointment() {
+    const token = localStorage.getItem("token");
+    try {
+      const res = await axios.post("/api/create-new-appointment", {
+        createdBy: `${name} ${surname}`,
+        forUser: appointmentForUser,
+        appointmentTime: appointmentTime
       }, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -508,6 +561,7 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
             </Modal>
 
             <ModalUserInfo />
+            <ModalAppointmentCreate />
 
             <div className="doctor-account-component-client-base">Client Base</div>
 
@@ -566,7 +620,7 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
                             : user.user_info.access_level === 30 ? 'Admin'
                               : user.user_info.access_level}</td>
                         <td style={{ textAlign: 'center' }}>
-                          <button>+</button>
+                          <button onClick={() => handleUserAppointmentToModal(user)}>+</button>
                         </td>
                         <td style={{ textAlign: 'center' }}>
                           <a className='active_user_interaction' onClick={() => handleUserToModal(user)}>View</a>

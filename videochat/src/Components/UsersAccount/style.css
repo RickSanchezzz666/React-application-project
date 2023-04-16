@@ -1,0 +1,37 @@
+.user-account-appointment-label {
+    margin-top: 100px;
+    margin-left: 2%;
+    font-family: Arvo;
+}
+
+.user-account-appointment-list-wrapper {
+    width: 96%;
+    margin-top: 20px;
+    margin-left: 2%;
+    height: 70vh;
+    overflow-y: auto;
+}
+
+.user-account-appointment-list-element {
+    display: flex;
+    flex-direction: column;
+    height: 120px;
+    width: 100%;
+    padding: 13px;
+    margin-bottom: 12px;
+    background: rgba(139, 139, 139, 0.2);
+    border-radius: 16px;
+    border: 1px solid rgba(139, 139, 139, 0.68);
+}
+
+.user-account-appointment-list-element-label {
+    font-size: 23px;
+    margin-bottom: 8px;
+    font-family: Arvo;
+}
+
+.user-account-appointment-list-sub-label {
+    font-style: italic;
+    align-self: flex-end;
+    justify-self: flex-end;
+}

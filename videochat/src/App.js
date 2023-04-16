@@ -14,6 +14,7 @@ import { MyProvider } from './Components/GlobalContex';
 
 import AdminsAccount from './Components/AdminsAccount';           //!!!
 import DoctorsAccount from './Components/DoctorsAccount';
+import UsersAccount from './Components/UsersAccount';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
           <Route path='/room-not-found' element={<NotFoundRoom />} />
           <Route path='/backdoor-admin' element={<AdminsAccount {...{ name: 'Ivan', surname: 'Ivanov' }} />} />        {/* !!! */}
           <Route path='/backdoor-doctor' element={<DoctorsAccount {...{ name: 'Ivan', surname: 'Ivanov' }} />} />      {/* !!! */}
+          <Route path='/backdoor-user' element={<UsersAccount {...{ name: 'Ivan', surname: 'Ivanov' }} />} />      {/* !!! */}
           <Route path='*' element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
