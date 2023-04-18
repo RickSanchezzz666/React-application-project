@@ -235,75 +235,75 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
                 </div>
                 <div className="admin-new-user-modal-window-input-wrapper">
                   <label htmlFor="login">Login:</label>
-                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.user_info.login} disabled />
+                  <input type="text" className="admin-new-user-modal-window-input" value={selectedUser.user_info.login} disabled />
                 </div>
                 <div className="admin-new-user-modal-window-input-wrapper">
                   <label htmlFor="password">Password:</label>
-                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.user_info.password} disabled />
+                  <input type="text" className="admin-new-user-modal-window-input" value={selectedUser.user_info.password} disabled />
                 </div>
                 <hr style={{ margin: '15px 0', opacity: '50%' }} />
                 <div className="admin-new-user-modal-window-input-wrapper">
                   <label htmlFor="email">Email:</label>
-                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.user_info.email} disabled />
+                  <input type="text" className="admin-new-user-modal-window-input" value={selectedUser.user_info.email} disabled />
                 </div>
                 <div className="admin-new-user-modal-window-input-wrapper">
                   <label htmlFor="phone">Phone:</label>
-                  <input type="tel" className="admin-new-user-modal-window-input" placeholder={selectedUser.user_info.phone} disabled />
+                  <input type="tel" className="admin-new-user-modal-window-input" value={selectedUser.user_info.phone} disabled />
                 </div>
                 <div className="admin-new-user-modal-window-input-wrapper">
                   <label htmlFor="name">Name:</label>
-                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.user_info.name} disabled />
+                  <input type="text" className="admin-new-user-modal-window-input" value={selectedUser.user_info.name} disabled />
                 </div>
                 <div className="admin-new-user-modal-window-input-wrapper">
                   <label htmlFor="surname">Surname:</label>
-                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.user_info.surname} disabled />
+                  <input type="text" className="admin-new-user-modal-window-input" value={selectedUser.user_info.surname} disabled />
                 </div>
                 <div className="admin-new-user-modal-window-input-wrapper">
                   <label htmlFor="gender">Gender:</label>
-                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.user_info.gender} disabled />
+                  <input type="text" className="admin-new-user-modal-window-input" value={selectedUser.user_info.gender} disabled />
                 </div>
                 <div className="admin-new-user-modal-window-input-wrapper">
                   <label htmlFor="birthday">Birthday:</label>
-                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.user_info.birthday} disabled />
+                  <input type="text" className="admin-new-user-modal-window-input" value={selectedUser.user_info.birthday} disabled />
                 </div>
                 <hr style={{ margin: '15px 0', opacity: '50%' }} />
                 <div className="admin-new-user-modal-window-input-wrapper">
                   <label htmlFor="address">Address:</label>
-                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.location_info.address} disabled />
+                  <input type="text" className="admin-new-user-modal-window-input" value={selectedUser.location_info.address} disabled />
                 </div>
                 <div className="admin-new-user-modal-window-input-wrapper">
                   <label htmlFor="city">City:</label>
-                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.location_info.city} disabled />
+                  <input type="text" className="admin-new-user-modal-window-input" value={selectedUser.location_info.city} disabled />
                 </div>
                 <div className="admin-new-user-modal-window-input-wrapper">
                   <label htmlFor="country">Country:</label>
-                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.location_info.country} disabled />
+                  <input type="text" className="admin-new-user-modal-window-input" value={selectedUser.location_info.country} disabled />
                 </div>
                 <div className="admin-new-user-modal-window-input-wrapper">
                   <label htmlFor="zipcode">Zipcode:</label>
-                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.location_info.zipcode} disabled />
+                  <input type="text" className="admin-new-user-modal-window-input" value={selectedUser.location_info.zipcode} disabled />
                 </div>
                 <hr style={{ margin: '15px 0', opacity: '50%' }} />
                 <div className="admin-new-user-modal-window-input-wrapper">
                   <label htmlFor="overall">Overall:</label><br/>
-                  <textarea type="text" className="admin-new-user-modal-window-input" rows={4} cols={50} style={{ resize: 'none' }} placeholder={selectedUser.patient_info.overall} disabled />
+                  <textarea type="text" className="admin-new-user-modal-window-input" rows={4} cols={50} style={{ resize: 'none' }} value={selectedUser.patient_info.overall} disabled />
                 </div>
                 <div className="admin-new-user-modal-window-input-wrapper">
                   <label htmlFor="Blood_type">Blood type:</label>
-                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.patient_info.blood_type} disabled />
+                  <input type="text" className="admin-new-user-modal-window-input" value={selectedUser.patient_info.blood_type} disabled />
                 </div>
                 <hr style={{ margin: '15px 0', opacity: '50%' }} />
                 <div className="admin-new-user-modal-window-input-wrapper">
                   <label htmlFor="user_role">User Role:</label>
-                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.user_info.access_level === 30 ? 'Admin' : selectedUser.user_info.access_level === 25 ? 'Doctor' : selectedUser.user_info.access_level === 20 ? 'User' : selectedUser.user_info.access_level } disabled />
+                  <input type="text" className="admin-new-user-modal-window-input" value={selectedUser.user_info.access_level === 30 ? 'Admin' : selectedUser.user_info.access_level === 25 ? 'Doctor' : selectedUser.user_info.access_level === 20 ? 'User' : selectedUser.user_info.access_level } disabled />
                 </div>
                 <div className="admin-new-user-modal-window-input-wrapper">
                   <label htmlFor="created_by">Created by:</label>
-                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.user_info.createdBy} disabled />
+                  <input type="text" className="admin-new-user-modal-window-input" value={selectedUser.user_info.createdBy} disabled />
                 </div>
                 <div className="admin-new-user-modal-window-input-wrapper">
                   <label htmlFor="creation_time">Creation time:</label>
-                  <input type="text" className="admin-new-user-modal-window-input" placeholder={moment(selectedUser.user_info.creationTime).format('llll')} disabled />
+                  <input type="text" className="admin-new-user-modal-window-input" value={moment(selectedUser.user_info.creationTime).format('llll')} disabled />
                 </div>
               </div>
             </Modal>
