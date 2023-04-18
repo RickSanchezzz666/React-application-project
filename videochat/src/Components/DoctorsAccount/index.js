@@ -56,6 +56,12 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
     handleGetUsers();
   }, []);
 
+  const ModalNewUser = {
+    overlay: {
+      overflowY: 'auto',
+    },
+  };
+
   function closeModal() {
     setModalAppointmentIsOpen(false);
     setModalUserIsOpen(false);
@@ -149,11 +155,6 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
       return null;
     }
 
-    const ModalNewUser = {
-      overlay: {
-        overflowY: 'auto',
-      },
-    };
   
     return (
       <Modal
@@ -335,12 +336,6 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
               <div className='users-search-area'>
                 <input className='users-search-input' value={searchName} onChange={(event) => setSearchName(event.target.value)} placeholder='Name'></input>
                 <input className='users-search-input' value={searchSurname} onChange={(event) => setSearchSurname(event.target.value)} placeholder='Surname'></input>
-                <select className='users-search-input' value={searchAccessLevel} style={{ width: '110px' }} onChange={(event) => setSearchAccessLevel(event.target.value)} name="Role">
-                  <option style={{ fontStyle: 'italic' }} value="" selected>User role</option>
-                  <option value="20">User</option>
-                  <option value="25">Doctor</option>
-                  <option value="30">Admin</option>
-                </select>
                 <input className='users-search-input' value={searchCountry} onChange={(event) => setSearchCountry(event.target.value)} placeholder='Country'></input>
                 <input className='users-search-input' value={searchCity} onChange={(event) => setSearchCity(event.target.value)} placeholder='City'></input>
                 <input className='users-search-input' value={searchAddress} onChange={(event) => setSearchAddress(event.target.value)} placeholder='Address'></input>
