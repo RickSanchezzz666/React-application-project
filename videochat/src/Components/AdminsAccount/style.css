@@ -111,7 +111,7 @@
     justify-content: center;
     font-family: 'Arvo';
     text-align: center;
-    margin-top: 20vh;
+    margin-top: 15vh;
     margin-bottom: 10vh;
     margin-left: 65vh;
     border: 1px solid black;
@@ -123,7 +123,7 @@
     -webkit-box-shadow: 8px 12px 16px -4px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 8px 12px 16px -4px rgba(0, 0, 0, 0.75);
     box-shadow: 8px 12px 16px -4px rgba(0, 0, 0, 0.75);
-    animation-name: modal-appear;
+    animation-name: modal-appear-2;
     animation-duration: 1.2s;
 }
 
@@ -192,6 +192,15 @@
     100% {
         margin-top: 15vh;
     }
+}
+
+@keyframes modal-appear-2 {
+  0% {
+      margin-top: -35vh;
+  }
+  100% {
+      margin-top: 15vh;
+  }
 }
 
 .admin-rooms-modal-window-info {
@@ -309,4 +318,47 @@
 
 #doctor-get-user:hover {
   background-color: #3273e4;
+}
+
+.admin-modal-window-grid {
+  display: grid;
+  grid-template-columns: 15fr 1fr;
+  box-sizing: border-box;
+}
+.admin-modal-window-grid h2 {
+  padding-left: 50px;
+}
+
+.account-modal-window-button-invisible {
+  width: 32px;
+  height: 32px;
+  background-color: white;
+  border: 0px;
+  display: grid;
+}
+
+.account-modal-window-close-button {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  opacity: 0.7;
+  display: grid;
+  justify-self: end;
+}
+.account-modal-window-close-button:hover {
+  opacity: 1;
+}
+.account-modal-window-close-button:before, .account-modal-window-close-button:after {
+  position: absolute;
+  left: 15px;
+  content: ' ';
+  height: 33px;
+  width: 2px;
+  background-color: #333;
+}
+.account-modal-window-close-button:before {
+  transform: rotate(45deg);
+}
+.account-modal-window-close-button:after {
+  transform: rotate(-45deg);
 }

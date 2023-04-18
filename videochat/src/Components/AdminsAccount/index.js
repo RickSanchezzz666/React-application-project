@@ -74,6 +74,7 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
     setModalRoomIsOpen(false);
     setModalNewUserIsOpen(false);
     setModalAppointmentIsOpen(false);
+    setModalUserIsOpen(false);
   }
 
   function roomIdGenerator(length) {
@@ -223,7 +224,10 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
               contentLabel="User info"
               style={ModalNewUser}
             >
-              <h2>User info</h2>
+              <div className="admin-modal-window-grid">
+                <h2>User Info</h2>
+                  <button className='account-modal-window-button-invisible' onClick={closeModal}><span className="account-modal-window-close-button"></span></button>
+              </div>
               <hr style={{ margin: '15px 0', opacity: '50%' }} />
               <div className="admin-new-user-modal-window-form">
                 <div className="admin-new-user-modal-window-input-wrapper">
@@ -462,7 +466,10 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
               contentLabel="Create a new user"
               style={ModalNewUser}
             >
-              <h2>Create a new user</h2>
+              <div className="admin-modal-window-grid">
+                <h2>Create a new user</h2>
+                  <button className='account-modal-window-button-invisible' onClick={closeModal}><span className="account-modal-window-close-button"></span></button>
+              </div>
               <hr style={{ margin: '15px 0', opacity: '50%' }} />
               <div className="admin-new-user-modal-window-form">
                 <div className="admin-new-user-modal-window-input-wrapper">
