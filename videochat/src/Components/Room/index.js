@@ -78,6 +78,7 @@ function Room({ audioSwitch, videoSwitch }) {
 
     const [modalIsOpen, setIsOpen] = useState(false);
     const [modalAppear, setModalAppear] = useState(true);
+    const [settingsIsOpen, setSettingsIsOpen] = useState(false);
     const [doctorRoomCreate, setDoctorRoomCreate] = useContext(MyContext);
     const [adminRoomCreate, setAdminRoomCreate] = useContext(MyContext);
 
@@ -98,8 +99,14 @@ function Room({ audioSwitch, videoSwitch }) {
             }, 1000);
         }
     }
+
+    function openSettingsModal() {
+        setSettingsIsOpen(true);
+    }
+
     function closeModal() {
         setIsOpen(false);
+        setSettingsIsOpen(false);
     }
 
     if (videoSwitch === false) {
@@ -173,6 +180,17 @@ function Room({ audioSwitch, videoSwitch }) {
                 <button className="room-modal-window-button" onClick={closeModal}>Close</button>
             </Modal>
 
+            <Modal
+                className={"room-modal-window-wrapper"}
+                isOpen={settingsIsOpen}
+                onRequestClose={closeModal}
+                contentLabel="Settings"
+            >
+                <h2>Settings</h2>
+                <button className="room-modal-window-button" onClick={closeModal}>Close</button>
+            </Modal>
+
+
             <div className="header-logo-room">
                 <Link to='/' className="header-router"><img className="room-logo" src={logo} /></Link>
                 <Link to='/' className="header-router"><span className="room-logo-name">MedDoc</span></Link>
@@ -196,7 +214,7 @@ function Room({ audioSwitch, videoSwitch }) {
             <div className="room-emptiness"></div>
             <div className="room-footer">
                 <div className="room-buttons">
-                    <button className="room-button" id="room-settings">
+                    <button onClick={openSettingsModal} className="room-button" id="room-settings">
                         <img src={settings}></img>
                     </button>
                     <button ref={audioButtonRef} onClick={turnOffAudio} className="room-button audio-button-on" id="off-audio-button">
