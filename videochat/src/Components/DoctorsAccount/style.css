@@ -183,6 +183,8 @@ table.doctor-account-component-client-base-list tfoot .links a {
 .doctor-account-component-grid-log-out{
   display: grid;
   align-items: end;
+  position: absolute;
+  margin-top: 365px;
 }
 
 .doctor-account-component-grid-log-out-button {
@@ -209,7 +211,7 @@ table.doctor-account-component-client-base-list tfoot .links a {
   -moz-box-shadow: 0px 1px 5px -1px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 1px 5px -1px rgba(0, 0, 0, 0.75);
   filter: brightness(0.9);
-  transform: scale(0.97);
+  transform: scale(0.98);
 }
 
 .doctor-account-component-client-base {
