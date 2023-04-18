@@ -12,19 +12,6 @@ export { id, password };
 let id = '';
 let password = '';
 
-const getUsers = async (token) => {
-  try {
-    const res = await axios.get("/api/users", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return res.data;
-  } catch (error) {
-    return [];
-  }
-};
-
 const DoctorsAccount = ({ name, surname, profilePic }) => {
   const [users, setUsers] = useState([]);
   const [doctorRoomCreate, setDoctorRoomCreate] = useContext(MyContext);

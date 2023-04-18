@@ -483,7 +483,7 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
                 <hr style={{ margin: '15px 0', opacity: '50%' }} />
                 <div className="admin-new-user-modal-window-input-wrapper">
                   <label htmlFor="email">Email:</label>
-                  <input type="email" className="admin-new-user-modal-window-input" maxLength={22} value={newEmail} onChange={(event) => setNewEmail(event.target.value)} />
+                  <input type="email" className="admin-new-user-modal-window-input" value={newEmail} onChange={(event) => setNewEmail(event.target.value)} />
                 </div>
                 <div className="admin-new-user-modal-window-input-wrapper">
                   <label htmlFor="phone">Phone:</label>
