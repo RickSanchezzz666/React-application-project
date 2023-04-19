@@ -140,6 +140,17 @@
     transition: 0.25s;
 }
 
+.room-settings-modal-input {
+    background-color: #EFF2F7;
+    border-radius: 20px;
+    border: none;
+    padding: 10px;
+    margin: 10px;
+    font-size: 16px;
+    color: #1A202C;
+    width: 300px;
+}
+
 
 .room-modal-window-wrapper {
     display: grid;
@@ -162,12 +173,45 @@
     animation-duration: 1.2s;
 }
 
+.room-modal-settings-window-wrapper {
+    display: grid;
+    grid-template-rows: 2fr 2fr 2fr;
+    justify-content: center;
+    font-family: 'Arvo';
+    text-align: center;
+    margin-top: 20vh;
+    margin-left: 80vh;
+    border: 1px solid black;
+    border-radius: 40px;
+    width: 375px;
+    height: 425px;
+    padding: 10px 0 10px 0;
+    background-color: rgba(0, 0, 0, 0.125);
+    align-items: center;
+    -webkit-box-shadow: 8px 12px 16px -4px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 8px 12px 16px -4px rgba(0, 0, 0, 0.75);
+    box-shadow: 8px 12px 16px -4px rgba(0, 0, 0, 0.75);
+    animation-name: room-settings-modal-appear;
+    animation-duration: 1.2s;
+}
+
 @keyframes room-modal-appear {
     0% {
         margin-top: -35vh;
     }
+
     100% {
         margin-top: 30vh;
+    }
+}
+
+@keyframes room-settings-modal-appear {
+    0% {
+        margin-top: -35vh;
+    }
+
+    100% {
+        margin-top: 20vh;
     }
 }
 

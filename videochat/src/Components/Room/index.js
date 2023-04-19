@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useContext, useState } from "react";
+import React, { useEffect, useRef, useContext, useState, useCallback } from "react";
 import { useParams } from "react-router";
 import useWebRTC, { LOCAL_VIDEO, userStream } from "../../hooks/useWebRTC";
 import './style.css';
@@ -51,6 +51,14 @@ function layout(clientsNumber = 1) {
 
 
 function Room({ audioSwitch, videoSwitch }) {
+    const [audioInputDevices, setAudioInputDevices] = useState([]);
+    const [audioOutputDevices, setAudioOutputDevices] = useState([]);
+    const [videoDevices, setVideoDevices] = useState([]);
+
+    const [selectedAudioInputDevices, setSelectedAudioInputDevices] = useState([]);
+    const [selectedAudioOutputDevices, setSelectedAudioOutputDevices] = useState([]);
+    const [selectedVideoDevices, setSelectedVideoDevices] = useState([]);
+
     useEffect(() => {
         WebFont.load({
             google: {
@@ -58,19 +66,30 @@ function Room({ audioSwitch, videoSwitch }) {
             }
         });
         document.title = "Room | MedDoc";
+
+        navigator.mediaDevices
+            .enumerateDevices()
+            .then((devices) => {
+                setAudioInputDevices(devices.filter(device => device.kind === 'audioinput'));
+                setAudioOutputDevices(devices.filter(device => device.kind === 'audiooutput'));
+                setVideoDevices(devices.filter(device => device.kind === 'videoinput'));
+            })
+            .catch((err) => {
+                console.error(`${err.name}: ${err.message}`);
+            })
     }, []);
 
-    
+
     let showRoomId;
     let showPassword;
 
-    if(id === '') {
+    if (id === '') {
         showRoomId = adminId;
     } else {
         showRoomId = id;
     }
-    
-    if(password === '') {
+
+    if (password === '') {
         showPassword = adminPassword;
     } else {
         showPassword = password;
@@ -91,6 +110,7 @@ function Room({ audioSwitch, videoSwitch }) {
 
     const leaveButtonRef = useRef();
 
+
     if (modalAppear === true) {
         if (doctorRoomCreate === true) {
             setTimeout(() => {
@@ -99,6 +119,52 @@ function Room({ audioSwitch, videoSwitch }) {
             }, 1000);
         }
     }
+
+    function handleAudioOutputDeviceChange(e) {
+        setSelectedAudioOutputDevices(e.target.value);
+    }
+
+
+    const handleAudioInputDeviceChange = useCallback(async (event) => {
+        const deviceId = event.target.value;
+        setSelectedAudioInputDevices(deviceId);
+
+        const newStream = await navigator.mediaDevices.getUserMedia({
+            audio: {
+                deviceId: { exact: deviceId }
+            },
+            video: true
+        });
+        userStream = newStream;
+
+        userStream.getAudioTracks().forEach((track) => {
+            track.stop();
+            userStream.removeTrack(track);
+        })
+
+
+    }, []);
+
+    const handleVideoDeviceChange = useCallback(async (event) => {
+        const deviceId = event.target.value;
+        setSelectedVideoDevices(deviceId);
+
+        const newStream = await navigator.mediaDevices.getUserMedia({
+            audio: true,
+            video: {
+                deviceId: { exact: deviceId }
+            }
+        });
+        userStream = newStream;
+
+        userStream.getVideoTracks().forEach((track) => {
+            track.stop();
+            userStream.removeTrack(track);
+        })
+
+    }, []);
+
+
 
     function openSettingsModal() {
         setSettingsIsOpen(true);
@@ -155,8 +221,6 @@ function Room({ audioSwitch, videoSwitch }) {
         }
     }
 
-    console.log(clients);
-
     return (
 
         <div id="room-main-page-wrapper" className="room-wrapper" style={{
@@ -181,12 +245,38 @@ function Room({ audioSwitch, videoSwitch }) {
             </Modal>
 
             <Modal
-                className={"room-modal-window-wrapper"}
+                className={"room-modal-settings-window-wrapper"}
                 isOpen={settingsIsOpen}
                 onRequestClose={closeModal}
                 contentLabel="Settings"
             >
                 <h2>Settings</h2>
+                <div className="room-settings-modal-wrapper">
+                    <span>Choose your Microphone:</span>
+                    <select className="room-settings-modal-input" value={selectedAudioInputDevices} onChange={handleAudioInputDeviceChange}>
+                        {audioInputDevices.map((device) => (
+                            <option key={device.deviceId} value={device.deviceId} selected={device.deviceId === selectedAudioInputDevices}>
+                                {device.label}
+                            </option>
+                        ))}
+                    </select>
+                    <span>Choose your Speakers:</span>
+                    <select className="room-settings-modal-input" value={selectedAudioOutputDevices} onChange={handleAudioOutputDeviceChange}>
+                        {audioOutputDevices.map((device) => (
+                            <option key={device.deviceId} value={device.deviceId}>
+                                {device.label}
+                            </option>
+                        ))}
+                    </select>
+                    <span>Choose your Webcam:</span>
+                    <select className="room-settings-modal-input" value={selectedVideoDevices} onChange={handleVideoDeviceChange}>
+                        {videoDevices.map((device) => (
+                            <option key={device.deviceId} value={device.deviceId} selected={device.deviceId === selectedVideoDevices}>
+                                {device.label}
+                            </option>
+                        ))}
+                    </select>
+                </div>
                 <button className="room-modal-window-button" onClick={closeModal}>Close</button>
             </Modal>
 

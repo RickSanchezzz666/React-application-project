@@ -11,7 +11,7 @@ function useWebRTC(roomID) {
     const [clients, updateClients] = useStateWithCallback([]);
 
     const addNewClient = useCallback((newClient, cb) => {
-        if(!clients.includes(newClient)) {
+        if (!clients.includes(newClient)) {
             updateClients(list => [...list, newClient], cb)
         }
     }, [clients, updateClients])
@@ -23,7 +23,7 @@ function useWebRTC(roomID) {
     });
 
     useEffect(() => {
-        async function handleNewPeer({peerID, createOffer}) {
+        async function handleNewPeer({ peerID, createOffer }) {
             if (peerID in peerConnections.current) {
                 return console.warn(`Already connected to ${peerID}`);
             }
@@ -42,7 +42,7 @@ function useWebRTC(roomID) {
             }
 
             let tracksNumber = 0;
-            peerConnections.current[peerID].ontrack = ({streams: [remoteStream]}) => {
+            peerConnections.current[peerID].ontrack = ({ streams: [remoteStream] }) => {
                 tracksNumber++
 
                 if (tracksNumber === 2) {// here we receiving both video and audio streams
@@ -60,7 +60,7 @@ function useWebRTC(roomID) {
                 const offer = await peerConnections.current[peerID].createOffer();
 
                 await peerConnections.current[peerID].setLocalDescription(offer);
-                
+
                 socket.emit(ACTIONS.RELAY_SDP, {
                     peerID,
                     sessionDescription: offer,
@@ -72,14 +72,14 @@ function useWebRTC(roomID) {
     }, [])
 
     useEffect(() => {
-        async function setRemoteMedia({peerID, sessionDescription: remoteDescription}) {
+        async function setRemoteMedia({ peerID, sessionDescription: remoteDescription }) {
             await peerConnections.current[peerID].setRemoteDescription(
                 new RTCSessionDescription(remoteDescription)
             )
 
             if (remoteDescription.type === 'offer') {
                 const answer = await peerConnections.current[peerID].createAnswer();
-                
+
                 await peerConnections.current[peerID].setLocalDescription(answer);
 
                 socket.emit(ACTIONS.RELAY_SDP, {
@@ -93,7 +93,7 @@ function useWebRTC(roomID) {
     }, [])
 
     useEffect(() => {
-        socket.on(ACTIONS.ICE_CANDIDATE, ({peerID, iceCandidate}) => {
+        socket.on(ACTIONS.ICE_CANDIDATE, ({ peerID, iceCandidate }) => {
             peerConnections.current[peerID].addIceCandidate(
                 new RTCIceCandidate(iceCandidate)
             )
@@ -101,7 +101,7 @@ function useWebRTC(roomID) {
     }, [])
 
     useEffect(() => {
-        const handleRemovePeer = ({peerID}) => {
+        const handleRemovePeer = ({ peerID }) => {
             if (peerConnections.current[peerID]) {
                 peerConnections.current[peerID].close();
             }
@@ -130,7 +130,7 @@ function useWebRTC(roomID) {
             addNewClient(LOCAL_VIDEO, () => {
                 const localVideoElement = peerMediaElements.current[LOCAL_VIDEO];
 
-                if(localVideoElement) {
+                if (localVideoElement) {
                     localVideoElement.volume = 0;
                     localVideoElement.srcObject = localMediaStream.current;
                 }
@@ -138,15 +138,15 @@ function useWebRTC(roomID) {
         }
 
         startCapture()
-        .then(() => socket.emit(ACTIONS.JOIN, {room: roomID}))
-        .catch(e => console.error('Error getting userMedia:', e))
+            .then(() => socket.emit(ACTIONS.JOIN, { room: roomID }))
+            .catch(e => console.error('Error getting userMedia:', e))
     }, [roomID])
 
     const provideMediaRef = useCallback((id, node) => {
         peerMediaElements.current[id] = node;
     }, [])
 
-    return {clients, provideMediaRef };
+    return { clients, provideMediaRef };
 }
 
 export default useWebRTC;
