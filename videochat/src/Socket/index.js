@@ -7,7 +7,7 @@ const options = {
     transports: ["websocket"]
 }
 
-const socket = io('https://7981-92-253-212-16.ngrok-free.app/', options);
+const socket = io('http://localhost:3001/', options);
 
 module.exports = {
     socket

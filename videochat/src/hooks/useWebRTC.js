@@ -16,6 +16,12 @@ function useWebRTC(roomID) {
         }
     }, [clients, updateClients])
 
+    async function deleteOldClient(oldClient) {
+        if(clients.includes(oldClient)) {
+            await updateClients(list => list.filter(c => c.id !== oldClient))
+        }
+    }
+
     const peerConnections = useRef({});
     const localMediaStream = useRef(null);
     const peerMediaElements = useRef({
@@ -137,16 +143,34 @@ function useWebRTC(roomID) {
             })
         }
 
+
         startCapture()
             .then(() => socket.emit(ACTIONS.JOIN, { room: roomID }))
             .catch(e => console.error('Error getting userMedia:', e))
     }, [roomID])
 
+    async function updateStartCapture(constraints) {
+        localMediaStream.current = await navigator.mediaDevices.getUserMedia(constraints)
+
+        userStream = localMediaStream.current;
+
+        deleteOldClient(LOCAL_VIDEO);
+
+        addNewClient(LOCAL_VIDEO, () => {
+            const localVideoElement = peerMediaElements.current[LOCAL_VIDEO];
+
+            if (localVideoElement) {
+                localVideoElement.volume = 0;
+                localVideoElement.srcObject = localMediaStream.current;
+            }
+        })
+    };
+
     const provideMediaRef = useCallback((id, node) => {
         peerMediaElements.current[id] = node;
     }, [])
 
-    return { clients, provideMediaRef };
+    return { clients, provideMediaRef, updateStartCapture };
 }
 
 export default useWebRTC;

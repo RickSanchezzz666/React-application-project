@@ -102,7 +102,7 @@ function Room({ audioSwitch, videoSwitch }) {
     const [adminRoomCreate, setAdminRoomCreate] = useContext(MyContext);
 
     const { id: roomID } = useParams();
-    const { clients, provideMediaRef } = useWebRTC(roomID);
+    const { clients, provideMediaRef, updateStartCapture } = useWebRTC(roomID);
     const videoLayout = layout(clients.length);
 
     const videoButtonRef = useRef();
@@ -129,19 +129,20 @@ function Room({ audioSwitch, videoSwitch }) {
         const deviceId = event.target.value;
         setSelectedAudioInputDevices(deviceId);
 
-        const newStream = await navigator.mediaDevices.getUserMedia({
+        const constraints = {
             audio: {
                 deviceId: { exact: deviceId }
             },
             video: true
-        });
-        userStream = newStream;
+        };
 
-        userStream.getAudioTracks().forEach((track) => {
-            track.stop();
+        const tracks = userStream.getAudioTracks();
+        for (const track of tracks) {
+            await track.stop();
             userStream.removeTrack(track);
-        })
+        }
 
+        updateStartCapture(constraints);
 
     }, []);
 
@@ -149,18 +150,20 @@ function Room({ audioSwitch, videoSwitch }) {
         const deviceId = event.target.value;
         setSelectedVideoDevices(deviceId);
 
-        const newStream = await navigator.mediaDevices.getUserMedia({
+        const constraints = {
             audio: true,
             video: {
                 deviceId: { exact: deviceId }
             }
-        });
-        userStream = newStream;
+        };
 
-        userStream.getVideoTracks().forEach((track) => {
-            track.stop();
+        const tracks = userStream.getVideoTracks();
+        for (const track of tracks) {
+            await track.stop();
             userStream.removeTrack(track);
-        })
+        }
+
+        updateStartCapture(constraints);
 
     }, []);
 
