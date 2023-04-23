@@ -269,7 +269,8 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
     try {
       const res = await axios.post("/api/create-new-appointment", {
         createdBy: `${name} ${surname}`,
-        forUser: appointmentForUser,
+        forUserId: appointmentForUser,
+        forUserName: `${appointmentForUser.user_info.name} ${appointmentForUser.user_info.surname}`,
         appointmentTime: appointmentTime
       }, {
         headers: {

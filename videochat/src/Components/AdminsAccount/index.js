@@ -17,10 +17,13 @@ Modal.setAppElement(document.getElementById('doctor-component-wrapper'));
 const AdminsAccount = ({ name, surname, profilePic }) => {
   const [users, setUsers] = useState([]);
   const [rooms, setRooms] = useState([]);
+  const [appointments, setAppointments] = useState([]);
+
   const [modalRoomIsOpen, setModalRoomIsOpen] = useState(false);
   const [modalNewUserIsOpen, setModalNewUserIsOpen] = useState(false);
   const [modalUserIsOpen, setModalUserIsOpen] = useState(false);
   const [modalAppointmentIsOpen, setModalAppointmentIsOpen] = useState(false);
+  const [modalNewMeetingIsOpen, setModalNewMeetingIsOpen] = useState(false);
   const [doctorRoomCreate, setDoctorRoomCreate] = useContext(MyContext);
   const [adminRoomCreate, setAdminRoomCreate] = useContext(MyContext);
 
@@ -52,6 +55,7 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
   const [newBloodType, setNewBloodType] = useState("I-");
 
   const [selectedUser, setSelectedUser] = useState(null);
+  const [selectedAppointment, setSelectedAppointment] = useState(null);
 
   const [appointmentForUser, setAppointmentForUser] = useState(null);
   const [appointmentTime, setAppointmentTime] = useState("");
@@ -75,6 +79,7 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
     setModalNewUserIsOpen(false);
     setModalAppointmentIsOpen(false);
     setModalUserIsOpen(false);
+    setModalNewMeetingIsOpen(false);
   }
 
   function roomIdGenerator(length) {
@@ -107,6 +112,18 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
     const token = localStorage.getItem("token");
     setDoctorRoomCreate(true);
     try {
+      if (selectedAppointment !== null) {
+        await axios.put("/api/appointment-update", {
+          id: selectedAppointment,
+          roomId: adminId,
+          roomPass: adminPassword
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+      }
+
       const res = await axios.post("/api/create-new-room", {
         roomId: adminId,
         password: adminPassword,
@@ -124,14 +141,16 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
     }
   };
 
-  
-
   async function openRoomsModal() {
     setModalRoomIsOpen(true)
   }
 
   async function openNewUserModal() {
     setModalNewUserIsOpen(true)
+  }
+
+  async function openNewMeetingModal() {
+    setModalNewMeetingIsOpen(true)
   }
 
   const ModalNewUser = {
@@ -184,6 +203,20 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
     const token = localStorage.getItem("token");
     getRooms(token).then((data) => setRooms(data));
   };
+
+  async function getAppointments() {
+    const token = localStorage.getItem("token");
+    try {
+        const res = await axios.get("/api/get-appointments", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
+        });
+        return setAppointments(res.data);
+      } catch (error) {
+        return [];
+      };
+};
 
   async function handleDeleteRoom(roomId) {
     const token = localStorage.getItem("token");
@@ -377,7 +410,8 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
     try {
       const res = await axios.post("/api/create-new-appointment", {
         createdBy: `${name} ${surname}`,
-        forUser: appointmentForUser,
+        forUserId: appointmentForUser,
+        forUserName: `${appointmentForUser.user_info.name} ${appointmentForUser.user_info.surname}`,
         appointmentTime: appointmentTime
       }, {
         headers: {
@@ -425,7 +459,7 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
                 <button id='show-available-rooms' className='admin-account-component-grid-2-available-rooms-button' ref={roomsRef} onClick={openRoomsModal}>Show available rooms</button>
               </div>
               <div className="admin-account-component-grid-2-start-meeting">
-                <button className='admin-account-component-grid-2-start-meeting-button' onClick={startMeeting}>Start meeting</button>
+                <button className='admin-account-component-grid-2-start-meeting-button' onClick={openNewMeetingModal}>Start meeting</button>
               </div>
             </div>
 
@@ -457,6 +491,27 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
                 )))}
               </div>
               <button className="room-modal-window-button" onClick={closeModal}>Close</button>
+            </Modal>
+
+            <Modal
+              className={"admin-new-user-modal-window-wrapper"}
+              isOpen={modalNewMeetingIsOpen}
+              onRequestClose={closeModal}
+              onAfterOpen={getAppointments}
+              contentLabel="Start new meeting"
+              style={ModalNewUser}
+            >
+              <h2>Start new meeting</h2>
+              <hr style={{ margin: '15px 0', opacity: '50%' }} />
+              <span>Please select an appointment:</span>
+              <select className="admin-new-user-modal-window-input" value={selectedAppointment} onChange={(event) => setSelectedAppointment(event.target.value)}>
+                <option value={null}>-</option>
+                {appointments.map((appointment) => (
+                  <option key={appointment._id} value={appointment._id}>{appointment.forUserName} - {moment(appointment.appointmentTime).calendar()}</option>
+                ))}
+              </select>
+              <hr style={{ margin: '15px 0', opacity: '50%' }} />
+              <button className="room-modal-window-button" onClick={startMeeting}>Start</button>
             </Modal>
 
             <Modal

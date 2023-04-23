@@ -35,3 +35,18 @@
     align-self: flex-end;
     justify-self: flex-end;
 }
+
+.user-account-appointment-connection-button {
+    background-color: #3981ff;
+    border: none;
+    border-radius: 20px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 10px;
+    padding: 5px;
+}
+
+.user-account-appointment-connection-button:hover {
+    background-color: #3273e4;
+}
