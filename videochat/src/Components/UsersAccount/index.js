@@ -29,7 +29,7 @@ const UsersAccount = ({ name, surname, profilePic }) => {
     async function getAppointments() {
         const token = localStorage.getItem("token");
         try {
-            const res = await axios.get("/api/show-user-appointments", {
+            const res = await axios.get("/api/get-appointments", {
               headers: {
                 Authorization: `Bearer ${token}`,
               }
@@ -66,7 +66,8 @@ const UsersAccount = ({ name, surname, profilePic }) => {
                                 <div key={appointment._id} className='user-account-appointment-list-element'>
                                     <span className='user-account-appointment-list-element-label'>Appointment time: <span style={{ fontStyle: 'italic' }}>{moment(appointment.appointmentTime).calendar()}</span></span>
                                     <span className='user-account-appointment-list-element-label' style={{ fontSize: '19px' }}>Doctor: <span style={{ fontStyle: 'italic' }}>{appointment.createdBy}</span></span>
-                                    <span className='user-account-appointment-list-sub-label'>You will receive an invitation link to your email a few minutes before the meeting</span>
+                                    {appointment.roomId !== null && appointment.roomPass !== null ? (<button className="user-account-appointment-connection-button">Connect</button>) : (
+                                    <span className='user-account-appointment-list-sub-label'>You will receive an invitation link a few minutes before the meeting</span>)}
                                 </div>
                             )))}
                         </div>
