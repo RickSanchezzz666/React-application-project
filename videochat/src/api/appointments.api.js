@@ -22,7 +22,7 @@ router.post("/api/create-new-appointment", passport.authenticate('jwt', {session
 router.get("/api/get-appointments", passport.authenticate('jwt', {session: false}), async (req, res) => {
   if (req.user.user_info.access_level === 20) {
     try {
-      const appointments = await AppointmentsModel.find({ forUser: req.user._id }).sort({ appointmentTime: 1 });
+      const appointments = await AppointmentsModel.find({ forUserId: req.user._id }).sort({ appointmentTime: 1 });
       return res.status(200).send(appointments);
     } catch (err) {
       res.status(400).send();
