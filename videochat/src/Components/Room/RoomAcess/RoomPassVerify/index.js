@@ -11,6 +11,7 @@ const RoomPassVerify = ({ children }) => {
   const [callPass, setCallPass] = useState('');
   const [doctorRoomCreate, setDoctorRoomCreate] = useContext(MyContext);
   const [adminRoomCreate, setAdminRoomCreate] = useContext(MyContext);
+  const [userCabJoin, setUserCabJoin] = useContext(MyContext);
 
   const passErrRef = useRef()
 
@@ -49,7 +50,11 @@ const RoomPassVerify = ({ children }) => {
     }
   }
 
-  return (adminRoomCreate || doctorRoomCreate) ? (
+  return userCabJoin ? (
+    children
+  ) : adminRoomCreate ? (
+    children
+  ) : doctorRoomCreate ? (
     children
   ) : verify ? (
     children

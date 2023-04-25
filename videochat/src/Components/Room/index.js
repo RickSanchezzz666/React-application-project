@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useContext, useState, useCallback } from "rea
 import { useParams } from "react-router";
 import useWebRTC, { LOCAL_VIDEO, userStream } from "../../hooks/useWebRTC";
 import './style.css';
+import axios from "axios";
 import logo from './imgs/logo_blue.png';
 import microphone from './imgs/microphone.png';
 import microphoneOff from './imgs/microphone-off.png';
@@ -99,7 +100,7 @@ function Room({ audioSwitch, videoSwitch }) {
     const [modalAppear, setModalAppear] = useState(true);
     const [settingsIsOpen, setSettingsIsOpen] = useState(false);
     const [doctorRoomCreate, setDoctorRoomCreate] = useContext(MyContext);
-    const [adminRoomCreate, setAdminRoomCreate] = useContext(MyContext);
+    const [userCabJoin, setUserCabJoin] = useContext(MyContext)
 
     const { id: roomID } = useParams();
     const { clients, provideMediaRef, updateStartCapture } = useWebRTC(roomID);
@@ -108,8 +109,7 @@ function Room({ audioSwitch, videoSwitch }) {
     const videoButtonRef = useRef();
     const audioButtonRef = useRef();
 
-    const leaveButtonRef = useRef();
-
+    const leaveButtonRef = useRef()
 
     if (modalAppear === true) {
         if (doctorRoomCreate === true) {
@@ -119,6 +119,7 @@ function Room({ audioSwitch, videoSwitch }) {
             }, 1000);
         }
     }
+
 
     function handleAudioOutputDeviceChange(e) {
         setSelectedAudioOutputDevices(e.target.value);

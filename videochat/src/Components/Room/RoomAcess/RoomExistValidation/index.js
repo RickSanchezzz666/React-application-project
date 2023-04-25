@@ -7,6 +7,7 @@ const RoomExistVerify = ({ children }) => {
   const [verify, setVerify] = useState(false);
   const [isIdValidated, setIsIdValidated] = useState(false);
   const [doctorRoomCreate, setDoctorRoomCreate] = useContext(MyContext);
+  const [adminRoomCreate, setAdminRoomCreate] = useContext(MyContext);
 
   useEffect(() => {
     let pathName = window.location.pathname;
@@ -17,23 +18,24 @@ const RoomExistVerify = ({ children }) => {
           roomId: roomId,
         },
       })
-      .then((res) => {
-        if (res.status === 200) {
+        .then((res) => {
+          if (res.status === 200) {
             setVerify(true);
-        }
-      })
-      .catch((err) => {
-        setVerify(false);
-      })
-      .then(() => setIsIdValidated(true));
+          }
+        })
+        .catch((err) => {
+          setVerify(false);
+        })
+        .then(() => setIsIdValidated(true));
     } else {
-        setIsIdValidated(true);
+      setIsIdValidated(true);
     }
+
   }, [])
 
   if (!isIdValidated) return <div />;
 
-  return doctorRoomCreate ? (
+  return (doctorRoomCreate || adminRoomCreate) ? (
     children
   ) : verify ? (
     children
