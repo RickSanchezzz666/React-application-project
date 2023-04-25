@@ -45,6 +45,8 @@
     font-size: 16px;
     margin-right: 10px;
     padding: 5px;
+    align-self: flex-end;
+    width: 300px;
 }
 
 .user-account-appointment-connection-button:hover {

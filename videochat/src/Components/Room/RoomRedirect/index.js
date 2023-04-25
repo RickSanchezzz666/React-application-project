@@ -16,6 +16,7 @@ const Redirect = ({ children }) => {
     const [audioSwitch, setAudioSwitch] = useState(true);
     const [videoSwitch, setVideoSwitch] = useState(true);
     const [doctorRoomCreate, setDoctorRoomCreate] = useContext(MyContext);
+    const [adminRoomCreate, setAdminRoomCreate] = useContext(MyContext);
 
     useEffect(() => {
         WebFont.load({
@@ -75,7 +76,9 @@ const Redirect = ({ children }) => {
         setIsRedirected(true);
     }
 
-    return doctorRoomCreate ? (
+    return adminRoomCreate ? (
+        children
+    ) : doctorRoomCreate ? (
         children
     ) : redirected ? (
         React.cloneElement(children, { videoSwitch, audioSwitch })

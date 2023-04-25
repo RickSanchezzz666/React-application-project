@@ -24,7 +24,6 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
   const [modalUserIsOpen, setModalUserIsOpen] = useState(false);
   const [modalAppointmentIsOpen, setModalAppointmentIsOpen] = useState(false);
   const [modalNewMeetingIsOpen, setModalNewMeetingIsOpen] = useState(false);
-  const [doctorRoomCreate, setDoctorRoomCreate] = useContext(MyContext);
   const [adminRoomCreate, setAdminRoomCreate] = useContext(MyContext);
 
   const [searchName, setSearchName] = useState();
@@ -110,8 +109,8 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
     adminId = roomIdGenerator(6);
     adminPassword = passwordGenerator(5);
     const token = localStorage.getItem("token");
-    setDoctorRoomCreate(true);
-    try {
+    setAdminRoomCreate(true);
+    try { 
       if (selectedAppointment !== null) {
         await axios.put("/api/appointment-update", {
           id: selectedAppointment,

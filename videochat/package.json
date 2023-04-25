@@ -27,6 +27,7 @@
     "react-router-dom": "^6.8.1",
     "react-scripts": "5.0.1",
     "react-scroll": "^1.8.9",
+    "react-toastify": "^9.1.2",
     "react-visibility-sensor": "^5.1.1",
     "react-webcam": "^7.0.1",
     "socket.io": "^4.6.0",
