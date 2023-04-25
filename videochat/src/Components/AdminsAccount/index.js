@@ -47,11 +47,11 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
   const [newAccessLevel, setNewAccessLevel] = useState("20");
   const [newBirthday, setNewBirthday] = useState("01.01.1800");
   const [newGender, setNewGender] = useState("Male");
-  const [newAddress, setNewAddress] = useState("-");
-  const [newCity, setNewCity] = useState("-");
-  const [newCountry, setNewCountry] = useState("-");
-  const [newZipcode, setNewZipcode] = useState("-");
-  const [newOverall, setNewOverall] = useState("-");
+  const [newAddress, setNewAddress] = useState("");
+  const [newCity, setNewCity] = useState("");
+  const [newCountry, setNewCountry] = useState("");
+  const [newZipcode, setNewZipcode] = useState("");
+  const [newOverall, setNewOverall] = useState("");
   const [newBloodType, setNewBloodType] = useState("I-");
 
   const [selectedUser, setSelectedUser] = useState(null);
@@ -128,7 +128,7 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
         roomId: adminId,
         password: adminPassword,
         startTime: Date.now(),
-        createdBy: `${name} ${surname}`
+        createdBy: `${name} ${surname}`,
       }, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -477,6 +477,7 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
                     <hr style={{ margin: '10px 0 5px 0', height: '2px', width: '160px', color: 'black' }} />
                     <span className="admin-rooms-modal-window-info-text">Room Id: <span style={{ color: 'red', fontWeight: 'bold' }}>{room.roomId === '' || room.roomId === null ? 'N/A' : room.roomId}</span></span>
                     <span className="admin-rooms-modal-window-info-text">Pass: <span style={{ color: 'red', fontWeight: 'bold' }}>{room.password === '' || room.password === null ? 'N/A' : room.password}</span></span>
+                    <span className="admin-rooms-modal-window-info-text">Attached to: <span style={{ fontWeight: 'bold' }}>{room.attachedTo === '' || room.attachedTo === null ? 'N/A' : room.attachedTo}</span></span>
                     <span className="admin-rooms-modal-window-info-text">Owner: <span style={{ fontWeight: 'bold' }}>{room.createdBy === '' || room.createdBy === null ? 'N/A' : room.createdBy}</span></span>
                     <span className="admin-rooms-modal-window-info-text">Creation time: <span style={{ fontWeight: 'bold' }}>{room.startTime === null ? 'N/A' : moment(room.startTime).format('llll')}</span></span>
                     <button onClick={() => {
