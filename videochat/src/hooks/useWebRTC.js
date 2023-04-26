@@ -8,37 +8,15 @@ export const LOCAL_VIDEO = 'LOCAL_VIDEO';
 export let userStream = 'userStream';
 
 function useWebRTC(roomID) {
-    /**
-     * clients = {
-     * 
-     * }[]
-     */
     const [clients, updateClients] = useStateWithCallback([]);
 
     const addNewClient = useCallback((newClient, cb) => {
-        console.log(newClient)
         if (!clients.includes(newClient)) {
             updateClients(list => [...list, newClient], cb)
         }
     }, [clients, updateClients])
 
-    async function deleteOldClient(oldClient) {
-        if(clients.includes(oldClient)) {
-            await updateClients(list => list.filter(c => c.id !== oldClient))
-        }
-    }
-
     const peerConnections = useRef({});
-    const removeRef = useRef(({ peerID }) => {
-        if (peerConnections.current[peerID]) {
-            peerConnections.current[peerID].close();
-        }
-
-        delete peerConnections.current[peerID];
-        delete peerMediaElements.current[peerID];
-
-        updateClients(list => list.filter(c => c !== peerID));
-    })
     const localMediaStream = useRef(null);
     const peerMediaElements = useRef({
         [LOCAL_VIDEO]: null,
@@ -123,19 +101,18 @@ function useWebRTC(roomID) {
     }, [])
 
     useEffect(() => {
-        // const handleRemovePeer = ({ peerID }) => {
-        //     if (peerConnections.current[peerID]) {
-        //         peerConnections.current[peerID].close();
-        //     }
+        const handleRemovePeer = ({ peerID }) => {
+            if (peerConnections.current[peerID]) {
+                peerConnections.current[peerID].close();
+            }
 
-        //     delete peerConnections.current[peerID];
-        //     delete peerMediaElements.current[peerID];
+            delete peerConnections.current[peerID];
+            delete peerMediaElements.current[peerID];
 
-        //     updateClients(list => list.filter(c => c !== peerID));
-        // }
-        
-        socket.on(ACTIONS.REMOVE_PEER, removeRef.current)
-        // socket.on(ACTIONS.REMOVE_PEER, handleRemovePeer)
+            updateClients(list => list.filter(c => c !== peerID));
+        }
+
+        socket.on(ACTIONS.REMOVE_PEER, handleRemovePeer)
     }, [])
 
     useEffect(() => {
@@ -171,8 +148,14 @@ function useWebRTC(roomID) {
 
         userStream = localMediaStream.current;
 
-        deleteOldClient(LOCAL_VIDEO);
-        
+        if (peerConnections.current[LOCAL_VIDEO]) {
+            peerConnections.current[LOCAL_VIDEO].close();
+        }
+
+        delete peerConnections.current[LOCAL_VIDEO];
+        delete peerMediaElements.current[LOCAL_VIDEO];
+
+        updateClients(list => list.filter(c => c !== LOCAL_VIDEO));
 
         addNewClient(LOCAL_VIDEO, () => {
             const localVideoElement = peerMediaElements.current[LOCAL_VIDEO];
@@ -182,6 +165,7 @@ function useWebRTC(roomID) {
                 localVideoElement.srcObject = localMediaStream.current;
             }
         })
+
     };
 
     const provideMediaRef = useCallback((id, node) => {
