@@ -143,7 +143,17 @@ function Room({ audioSwitch, videoSwitch }) {
             userStream.removeTrack(track);
         }
 
-        updateStartCapture(constraints);
+        await updateStartCapture(constraints);
+
+        if (videoButtonRef.current.className === 'room-button video-button-off') {
+            const videoTrack = userStream.getVideoTracks()[0];
+            videoTrack.enabled = false;
+        }
+
+        if (audioButtonRef.current.className === 'room-button audio-button-off') {
+            const audioTrack = userStream.getAudioTracks()[0];
+            audioTrack.enabled = false;
+        }
 
     }, []);
 
@@ -164,7 +174,17 @@ function Room({ audioSwitch, videoSwitch }) {
             userStream.removeTrack(track);
         }
 
-        updateStartCapture(constraints);
+        await updateStartCapture(constraints);
+
+        if (videoButtonRef.current.className === 'room-button video-button-off') {
+            const videoTrack = userStream.getVideoTracks()[0];
+            videoTrack.enabled = false;
+        }
+
+        if (audioButtonRef.current.className === 'room-button audio-button-off') {
+            const audioTrack = userStream.getAudioTracks()[0];
+            audioTrack.enabled = false;
+        }
 
     }, []);
 
@@ -191,7 +211,7 @@ function Room({ audioSwitch, videoSwitch }) {
         setTimeout(() => {
             const audioTrack = userStream.getAudioTracks()[0];
             audioTrack.enabled = false;
-            audioButtonRef.current.className = 'room-button video-button-off';
+            audioButtonRef.current.className = 'room-button audio-button-off';
             audioButtonRef.current.innerHTML = `<img src=${microphoneOff} alt="Microphone Off">`
         }, 250);
     }
@@ -216,11 +236,11 @@ function Room({ audioSwitch, videoSwitch }) {
             const audioTrack = userStream.getAudioTracks()[0];
             if (audioTrack.enabled) {
                 audioTrack.enabled = false;
-                audioButtonRef.current.className = 'room-button video-button-off';
+                audioButtonRef.current.className = 'room-button audio-button-off';
                 audioButtonRef.current.innerHTML = `<img src=${microphoneOff} alt="Microphone Off">`
             } else {
                 audioTrack.enabled = true;
-                audioButtonRef.current.className = 'room-button video-button-on';
+                audioButtonRef.current.className = 'room-button audio-button-on';
                 audioButtonRef.current.innerHTML = `<img src=${microphone} alt="Microphone On">`
             }
         }
