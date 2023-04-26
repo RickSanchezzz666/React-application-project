@@ -180,10 +180,20 @@ function Room({ audioSwitch, videoSwitch }) {
     }
 
     if (videoSwitch === false) {
-        turnOffVideo();
+        setTimeout(() => {
+            const videoTrack = userStream.getVideoTracks()[0];
+            videoTrack.enabled = false;
+            videoButtonRef.current.className = 'room-button video-button-off';
+            videoButtonRef.current.innerHTML = `<img src=${cameraOff} alt="Camera Off">`;
+        }, 250);
     }
     if (audioSwitch === false) {
-        turnOffAudio();
+        setTimeout(() => {
+            const audioTrack = userStream.getAudioTracks()[0];
+            audioTrack.enabled = false;
+            audioButtonRef.current.className = 'room-button video-button-off';
+            audioButtonRef.current.innerHTML = `<img src=${microphoneOff} alt="Microphone Off">`
+        }, 250);
     }
 
     function turnOffVideo() {

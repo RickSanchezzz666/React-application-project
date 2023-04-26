@@ -144,10 +144,6 @@ function useWebRTC(roomID) {
     }, [roomID])
 
     async function updateStartCapture(constraints) {
-        localMediaStream.current = await navigator.mediaDevices.getUserMedia(constraints)
-
-        userStream = localMediaStream.current;
-
         if (peerConnections.current[LOCAL_VIDEO]) {
             peerConnections.current[LOCAL_VIDEO].close();
         }
@@ -156,6 +152,23 @@ function useWebRTC(roomID) {
         delete peerMediaElements.current[LOCAL_VIDEO];
 
         updateClients(list => list.filter(c => c !== LOCAL_VIDEO));
+
+        localMediaStream.current = await navigator.mediaDevices.getUserMedia(constraints)
+
+        userStream = localMediaStream.current;
+
+        const tracks = userStream.getTracks();
+
+        for (const pc of Object.values(peerConnections.current)) {
+            for (const oldTrack of pc.getSenders().map(sender => sender.track)) {
+                const newTrack = tracks.find(track => track.kind === oldTrack.kind);
+                if (newTrack) {
+                    await oldTrack.stop();
+                    const sender = pc.getSenders().find(sender => sender.track === oldTrack);
+                    sender.replaceTrack(newTrack);
+                }
+            }
+        }
 
         addNewClient(LOCAL_VIDEO, () => {
             const localVideoElement = peerMediaElements.current[LOCAL_VIDEO];
