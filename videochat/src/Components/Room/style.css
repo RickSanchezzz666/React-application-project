@@ -179,12 +179,12 @@
     justify-content: center;
     font-family: 'Arvo';
     text-align: center;
-    margin-top: 20vh;
+    margin-top: 25vh;
     margin-left: 80vh;
     border: 1px solid black;
     border-radius: 40px;
     width: 375px;
-    height: 425px;
+    height: 300px;
     padding: 10px 0 10px 0;
     background-color: rgba(0, 0, 0, 0.125);
     align-items: center;
@@ -211,7 +211,7 @@
     }
 
     100% {
-        margin-top: 20vh;
+        margin-top: 25vh;
     }
 }
 

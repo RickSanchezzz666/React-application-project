@@ -14,7 +14,7 @@ import WebFont from 'webfontloader';
 import { MyContext } from "../GlobalContex";
 import Modal from 'react-modal';
 import { Link } from 'react-router-dom';
-import { id, password } from '../DoctorsAccount'
+import { roomId, roomPass } from '../DoctorsAccount'
 import { adminId, adminPassword } from '../AdminsAccount'
 
 Modal.setAppElement(document.getElementById('room-main-page-wrapper'));
@@ -57,7 +57,6 @@ function Room({ audioSwitch, videoSwitch }) {
     const [videoDevices, setVideoDevices] = useState([]);
 
     const [selectedAudioInputDevices, setSelectedAudioInputDevices] = useState([]);
-    const [selectedAudioOutputDevices, setSelectedAudioOutputDevices] = useState([]);
     const [selectedVideoDevices, setSelectedVideoDevices] = useState([]);
 
     useEffect(() => {
@@ -72,7 +71,6 @@ function Room({ audioSwitch, videoSwitch }) {
             .enumerateDevices()
             .then((devices) => {
                 setAudioInputDevices(devices.filter(device => device.kind === 'audioinput'));
-                setAudioOutputDevices(devices.filter(device => device.kind === 'audiooutput'));
                 setVideoDevices(devices.filter(device => device.kind === 'videoinput'));
             })
             .catch((err) => {
@@ -84,16 +82,16 @@ function Room({ audioSwitch, videoSwitch }) {
     let showRoomId;
     let showPassword;
 
-    if (id === '') {
+    if (roomId === '') {
         showRoomId = adminId;
     } else {
-        showRoomId = id;
+        showRoomId = roomId;
     }
 
-    if (password === '') {
+    if (roomPass === '') {
         showPassword = adminPassword;
     } else {
-        showPassword = password;
+        showPassword = roomPass;
     }
 
     const [modalIsOpen, setIsOpen] = useState(false);
@@ -119,12 +117,6 @@ function Room({ audioSwitch, videoSwitch }) {
             }, 1000);
         }
     }
-
-
-    function handleAudioOutputDeviceChange(e) {
-        setSelectedAudioOutputDevices(e.target.value);
-    }
-
 
     const handleAudioInputDeviceChange = useCallback(async (event) => {
         const deviceId = event.target.value;
@@ -290,14 +282,6 @@ function Room({ audioSwitch, videoSwitch }) {
                     <select className="room-settings-modal-input" value={selectedAudioInputDevices} onChange={handleAudioInputDeviceChange}>
                         {audioInputDevices.map((device) => (
                             <option key={device.deviceId} value={device.deviceId} selected={device.deviceId === selectedAudioInputDevices}>
-                                {device.label}
-                            </option>
-                        ))}
-                    </select>
-                    <span>Choose your Speakers:</span>
-                    <select className="room-settings-modal-input" value={selectedAudioOutputDevices} onChange={handleAudioOutputDeviceChange}>
-                        {audioOutputDevices.map((device) => (
-                            <option key={device.deviceId} value={device.deviceId}>
                                 {device.label}
                             </option>
                         ))}

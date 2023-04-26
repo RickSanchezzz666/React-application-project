@@ -7,13 +7,14 @@ import WebFont from 'webfontloader';
 import Modal from 'react-modal';
 import moment from 'moment/moment';
 import { MyContext } from '../GlobalContex';
-export { id, password };
+export { roomId, roomPass };
 
-let id = '';
-let password = '';
+let roomId = '';
+let roomPass = '';
 
 const DoctorsAccount = ({ name, surname, profilePic }) => {
   const [users, setUsers] = useState([]);
+  const [appointments, setAppointments] = useState([]);
   const [doctorRoomCreate, setDoctorRoomCreate] = useContext(MyContext);
 
   const [searchName, setSearchName] = useState();
@@ -25,8 +26,10 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
 
   const [modalUserIsOpen, setModalUserIsOpen] = useState(false);
   const [modalAppointmentIsOpen, setModalAppointmentIsOpen] = useState(false);
+  const [modalNewMeetingIsOpen, setModalNewMeetingIsOpen] = useState(false);
 
   const [selectedUser, setSelectedUser] = useState(null);
+  const [selectedAppointment, setSelectedAppointment] = useState(null);
 
   const [appointmentForUser, setAppointmentForUser] = useState(null);
   const [appointmentTime, setAppointmentTime] = useState("");
@@ -52,6 +55,7 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
   function closeModal() {
     setModalAppointmentIsOpen(false);
     setModalUserIsOpen(false);
+    setModalNewMeetingIsOpen(false);
   }
 
   function roomIdGenerator(length) {
@@ -79,29 +83,43 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
   }
 
   async function startMeeting() {
-    id = roomIdGenerator(6);
-    password = passwordGenerator(5);
+    roomId = roomIdGenerator(6);
+    roomPass = passwordGenerator(5);
     const token = localStorage.getItem("token");
     setDoctorRoomCreate(true);
     try {
+      if (selectedAppointment !== null) {
+        await axios.put("/api/appointment-update", {
+          id: selectedAppointment,
+          roomId: roomId,
+          roomPass: roomPass
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+      }
+
       const res = await axios.post("/api/create-new-room", {
-        roomId: id,
-        password: password,
+        roomId: roomId,
+        password: roomPass,
         startTime: Date.now(),
-        createdBy: `${name} ${surname}`
+        createdBy: `${name} ${surname}`,
       }, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      navigate(`/room/${id}`);
+      navigate(`/room/${roomId}`);
       return res.data;
     } catch (error) {
-      console.error(error);
-      alert("Something went wrong, see console");
       return [];
     }
   };
+
+  async function openNewMeetingModal() {
+    setModalNewMeetingIsOpen(true)
+  }
 
 
   const getUsers = async (token) => {
@@ -127,6 +145,20 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
     }
   };
 
+  async function getAppointments() {
+    const token = localStorage.getItem("token");
+    try {
+      const res = await axios.get("/api/get-appointments", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      });
+      return setAppointments(res.data);
+    } catch (error) {
+      return [];
+    };
+  };
+
   const handleUserToModal = (user) => {
     setModalUserIsOpen(true);
     setSelectedUser(user);
@@ -142,98 +174,97 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
       return null;
     }
 
-  
     return (
       <Modal
-              className={"admin-new-user-modal-window-wrapper"}
-              isOpen={modalUserIsOpen}
-              onRequestClose={closeModal}
-              contentLabel="User info"
-              style={ModalNewUser}
-            >
-              <div className="admin-modal-window-grid">
-                <h2>User Info</h2>
-                  <button className='account-modal-window-button-invisible' onClick={closeModal}><span className="account-modal-window-close-button"></span></button>
-              </div>
-              <hr style={{ margin: '15px 0', opacity: '50%' }} />
-              <div className="admin-new-user-modal-window-form">
-                <div className="admin-new-user-modal-window-input-wrapper">
-                  <img className="doctor-account-component-grid-1-icon" src={selectedUser.user_info.profile_pic}></img>
-                </div>
-                <div className="admin-new-user-modal-window-input-wrapper">
-                  <label htmlFor="login">Login:</label>
-                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.user_info.login} disabled />
-                </div>
-                <div className="admin-new-user-modal-window-input-wrapper">
-                  <label htmlFor="password">Password:</label>
-                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.user_info.password} disabled />
-                </div>
-                <hr style={{ margin: '15px 0', opacity: '50%' }} />
-                <div className="admin-new-user-modal-window-input-wrapper">
-                  <label htmlFor="email">Email:</label>
-                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.user_info.email} disabled />
-                </div>
-                <div className="admin-new-user-modal-window-input-wrapper">
-                  <label htmlFor="phone">Phone:</label>
-                  <input type="tel" className="admin-new-user-modal-window-input" placeholder={selectedUser.user_info.phone} disabled />
-                </div>
-                <div className="admin-new-user-modal-window-input-wrapper">
-                  <label htmlFor="name">Name:</label>
-                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.user_info.name} disabled />
-                </div>
-                <div className="admin-new-user-modal-window-input-wrapper">
-                  <label htmlFor="surname">Surname:</label>
-                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.user_info.surname} disabled />
-                </div>
-                <div className="admin-new-user-modal-window-input-wrapper">
-                  <label htmlFor="gender">Gender:</label>
-                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.user_info.gender} disabled />
-                </div>
-                <div className="admin-new-user-modal-window-input-wrapper">
-                  <label htmlFor="birthday">Birthday:</label>
-                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.user_info.birthday} disabled />
-                </div>
-                <hr style={{ margin: '15px 0', opacity: '50%' }} />
-                <div className="admin-new-user-modal-window-input-wrapper">
-                  <label htmlFor="address">Address:</label>
-                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.location_info.address} disabled />
-                </div>
-                <div className="admin-new-user-modal-window-input-wrapper">
-                  <label htmlFor="city">City:</label>
-                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.location_info.city} disabled />
-                </div>
-                <div className="admin-new-user-modal-window-input-wrapper">
-                  <label htmlFor="country">Country:</label>
-                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.location_info.country} disabled />
-                </div>
-                <div className="admin-new-user-modal-window-input-wrapper">
-                  <label htmlFor="zipcode">Zipcode:</label>
-                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.location_info.zipcode} disabled />
-                </div>
-                <hr style={{ margin: '15px 0', opacity: '50%' }} />
-                <div className="admin-new-user-modal-window-input-wrapper">
-                  <label htmlFor="overall">Overall:</label><br/>
-                  <textarea type="text" className="admin-new-user-modal-window-input" rows={4} cols={50} style={{ resize: 'none' }} placeholder={selectedUser.patient_info.overall} disabled />
-                </div>
-                <div className="admin-new-user-modal-window-input-wrapper">
-                  <label htmlFor="Blood_type">Blood type:</label>
-                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.patient_info.blood_type} disabled />
-                </div>
-                <hr style={{ margin: '15px 0', opacity: '50%' }} />
-                <div className="admin-new-user-modal-window-input-wrapper">
-                  <label htmlFor="user_role">User Role:</label>
-                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.user_info.access_level === 30 ? 'Admin' : selectedUser.user_info.access_level === 25 ? 'Doctor' : selectedUser.user_info.access_level === 20 ? 'User' : selectedUser.user_info.access_level } disabled />
-                </div>
-                <div className="admin-new-user-modal-window-input-wrapper">
-                  <label htmlFor="created_by">Created by:</label>
-                  <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.user_info.createdBy} disabled />
-                </div>
-                <div className="admin-new-user-modal-window-input-wrapper">
-                  <label htmlFor="creation_time">Creation time:</label>
-                  <input type="text" className="admin-new-user-modal-window-input" placeholder={moment(selectedUser.user_info.creationTime).format('llll')} disabled />
-                </div>
-              </div>
-            </Modal>
+        className={"admin-new-user-modal-window-wrapper"}
+        isOpen={modalUserIsOpen}
+        onRequestClose={closeModal}
+        contentLabel="User info"
+        style={ModalNewUser}
+      >
+        <div className="admin-modal-window-grid">
+          <h2>User Info</h2>
+          <button className='account-modal-window-button-invisible' onClick={closeModal}><span className="account-modal-window-close-button"></span></button>
+        </div>
+        <hr style={{ margin: '15px 0', opacity: '50%' }} />
+        <div className="admin-new-user-modal-window-form">
+          <div className="admin-new-user-modal-window-input-wrapper">
+            <img className="doctor-account-component-grid-1-icon" src={selectedUser.user_info.profile_pic}></img>
+          </div>
+          <div className="admin-new-user-modal-window-input-wrapper">
+            <label htmlFor="login">Login:</label>
+            <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.user_info.login} disabled />
+          </div>
+          <div className="admin-new-user-modal-window-input-wrapper">
+            <label htmlFor="password">Password:</label>
+            <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.user_info.password} disabled />
+          </div>
+          <hr style={{ margin: '15px 0', opacity: '50%' }} />
+          <div className="admin-new-user-modal-window-input-wrapper">
+            <label htmlFor="email">Email:</label>
+            <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.user_info.email} disabled />
+          </div>
+          <div className="admin-new-user-modal-window-input-wrapper">
+            <label htmlFor="phone">Phone:</label>
+            <input type="tel" className="admin-new-user-modal-window-input" placeholder={selectedUser.user_info.phone} disabled />
+          </div>
+          <div className="admin-new-user-modal-window-input-wrapper">
+            <label htmlFor="name">Name:</label>
+            <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.user_info.name} disabled />
+          </div>
+          <div className="admin-new-user-modal-window-input-wrapper">
+            <label htmlFor="surname">Surname:</label>
+            <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.user_info.surname} disabled />
+          </div>
+          <div className="admin-new-user-modal-window-input-wrapper">
+            <label htmlFor="gender">Gender:</label>
+            <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.user_info.gender} disabled />
+          </div>
+          <div className="admin-new-user-modal-window-input-wrapper">
+            <label htmlFor="birthday">Birthday:</label>
+            <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.user_info.birthday} disabled />
+          </div>
+          <hr style={{ margin: '15px 0', opacity: '50%' }} />
+          <div className="admin-new-user-modal-window-input-wrapper">
+            <label htmlFor="address">Address:</label>
+            <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.location_info.address} disabled />
+          </div>
+          <div className="admin-new-user-modal-window-input-wrapper">
+            <label htmlFor="city">City:</label>
+            <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.location_info.city} disabled />
+          </div>
+          <div className="admin-new-user-modal-window-input-wrapper">
+            <label htmlFor="country">Country:</label>
+            <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.location_info.country} disabled />
+          </div>
+          <div className="admin-new-user-modal-window-input-wrapper">
+            <label htmlFor="zipcode">Zipcode:</label>
+            <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.location_info.zipcode} disabled />
+          </div>
+          <hr style={{ margin: '15px 0', opacity: '50%' }} />
+          <div className="admin-new-user-modal-window-input-wrapper">
+            <label htmlFor="overall">Overall:</label><br />
+            <textarea type="text" className="admin-new-user-modal-window-input" rows={4} cols={50} style={{ resize: 'none' }} placeholder={selectedUser.patient_info.overall} disabled />
+          </div>
+          <div className="admin-new-user-modal-window-input-wrapper">
+            <label htmlFor="Blood_type">Blood type:</label>
+            <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.patient_info.blood_type} disabled />
+          </div>
+          <hr style={{ margin: '15px 0', opacity: '50%' }} />
+          <div className="admin-new-user-modal-window-input-wrapper">
+            <label htmlFor="user_role">User Role:</label>
+            <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.user_info.access_level === 30 ? 'Admin' : selectedUser.user_info.access_level === 25 ? 'Doctor' : selectedUser.user_info.access_level === 20 ? 'User' : selectedUser.user_info.access_level} disabled />
+          </div>
+          <div className="admin-new-user-modal-window-input-wrapper">
+            <label htmlFor="created_by">Created by:</label>
+            <input type="text" className="admin-new-user-modal-window-input" placeholder={selectedUser.user_info.createdBy} disabled />
+          </div>
+          <div className="admin-new-user-modal-window-input-wrapper">
+            <label htmlFor="creation_time">Creation time:</label>
+            <input type="text" className="admin-new-user-modal-window-input" placeholder={moment(selectedUser.user_info.creationTime).format('llll')} disabled />
+          </div>
+        </div>
+      </Modal>
     );
   };
 
@@ -248,19 +279,19 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
     }
     return (
       <Modal
-              className={"admin-new-user-modal-window-wrapper"}
-              isOpen={modalAppointmentIsOpen}
-              onRequestClose={closeModal}
-              contentLabel="Add an appointment"
-              style={ModalNewUser}
-            >
-              <h2>Add an appointment</h2>
-              <hr style={{ margin: '15px 0', opacity: '50%' }} />
-              <span>Client: <br/>{appointmentForUser.user_info.name} {appointmentForUser.user_info.surname}</span>
-              <input className="admin-new-user-modal-window-input" type="datetime-local" value={appointmentTime} onChange={(event) => setAppointmentTime(event.target.value)} />
-              <hr style={{ margin: '15px 0', opacity: '50%' }} />
-              <button className="room-modal-window-button" onClick={createAppointment}>Submit</button>
-            </Modal>
+        className={"admin-new-user-modal-window-wrapper"}
+        isOpen={modalAppointmentIsOpen}
+        onRequestClose={closeModal}
+        contentLabel="Add an appointment"
+        style={ModalNewUser}
+      >
+        <h2>Add an appointment</h2>
+        <hr style={{ margin: '15px 0', opacity: '50%' }} />
+        <span>Client: <br />{appointmentForUser.user_info.name} {appointmentForUser.user_info.surname}</span>
+        <input className="admin-new-user-modal-window-input" type="datetime-local" value={appointmentTime} onChange={(event) => setAppointmentTime(event.target.value)} />
+        <hr style={{ margin: '15px 0', opacity: '50%' }} />
+        <button className="room-modal-window-button" onClick={createAppointment}>Submit</button>
+      </Modal>
     );
   };
 
@@ -312,11 +343,32 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
         <div className='doctor-account-component-grid-2'>
           <div className="doctor-account-component-grid-2-section">
             <div className="doctor-account-component-grid-2-start-meeting">
-              <button className='doctor-account-component-grid-2-start-meeting-button' onClick={startMeeting}>Start meeting</button>
+              <button className='doctor-account-component-grid-2-start-meeting-button' onClick={openNewMeetingModal}>Start meeting</button>
             </div>
 
             <ModalUserInfo />
             <ModalAppointmentCreate />
+
+            <Modal
+              className={"admin-new-user-modal-window-wrapper"}
+              isOpen={modalNewMeetingIsOpen}
+              onRequestClose={closeModal}
+              onAfterOpen={getAppointments}
+              contentLabel="Start new meeting"
+              style={ModalNewUser}
+            >
+              <h2>Start new meeting</h2>
+              <hr style={{ margin: '15px 0', opacity: '50%' }} />
+              <span>Please select an appointment:</span>
+              <select className="admin-new-user-modal-window-input" value={selectedAppointment} onChange={(event) => setSelectedAppointment(event.target.value)}>
+                <option value={null}>-</option>
+                {appointments.map((appointment) => (
+                  <option key={appointment._id} value={appointment._id}>{appointment.forUserName} - {moment(appointment.appointmentTime).calendar()}</option>
+                ))}
+              </select>
+              <hr style={{ margin: '15px 0', opacity: '50%' }} />
+              <button className="room-modal-window-button" onClick={startMeeting}>Start</button>
+            </Modal>
 
             <div className="doctor-account-component-client-base">Client Base</div>
 
@@ -355,8 +407,8 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
                       <th>Name</th>
                       <th>Surname</th>
                       <th className='table_user_acess_level'>User role</th>
-                      <th className='table_user_interaction_0'/>
-                      <th className='table_user_interaction_1'/>
+                      <th className='table_user_interaction_0' />
+                      <th className='table_user_interaction_1' />
                     </tr>
                   </thead>
                   <tbody>
