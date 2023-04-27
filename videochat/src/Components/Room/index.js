@@ -51,9 +51,8 @@ function layout(clientsNumber = 1) {
 
 
 
-function Room({ audioSwitch, videoSwitch }) {
+function Room({ audioSwitch, videoSwitch, accessLevel }) {
     const [audioInputDevices, setAudioInputDevices] = useState([]);
-    const [audioOutputDevices, setAudioOutputDevices] = useState([]);
     const [videoDevices, setVideoDevices] = useState([]);
 
     const [selectedAudioInputDevices, setSelectedAudioInputDevices] = useState([]);
@@ -97,8 +96,6 @@ function Room({ audioSwitch, videoSwitch }) {
     const [modalIsOpen, setIsOpen] = useState(false);
     const [modalAppear, setModalAppear] = useState(true);
     const [settingsIsOpen, setSettingsIsOpen] = useState(false);
-    const [doctorRoomCreate, setDoctorRoomCreate] = useContext(MyContext);
-    const [userCabJoin, setUserCabJoin] = useContext(MyContext)
 
     const { id: roomID } = useParams();
     const { clients, provideMediaRef, updateStartCapture } = useWebRTC(roomID);
@@ -110,7 +107,7 @@ function Room({ audioSwitch, videoSwitch }) {
     const leaveButtonRef = useRef()
 
     if (modalAppear === true) {
-        if (doctorRoomCreate === true) {
+        if (accessLevel === 25 || accessLevel === 30) {
             setTimeout(() => {
                 setIsOpen(true)
                 setModalAppear(false);
@@ -179,8 +176,6 @@ function Room({ audioSwitch, videoSwitch }) {
         }
 
     }, []);
-
-
 
     function openSettingsModal() {
         setSettingsIsOpen(true);
@@ -300,8 +295,8 @@ function Room({ audioSwitch, videoSwitch }) {
 
 
             <div className="header-logo-room">
-                <Link to='/' className="header-router"><img className="room-logo" src={logo} /></Link>
-                <Link to='/' className="header-router"><span className="room-logo-name">MedDoc</span></Link>
+                <Link to='/' className="header-router" onClick={callLeave}><img className="room-logo" src={logo} /></Link>
+                <Link to='/' className="header-router" onClick={callLeave}><span className="room-logo-name">MedDoc</span></Link>
             </div>
             {clients.map((clientID, index) => {
                 return (

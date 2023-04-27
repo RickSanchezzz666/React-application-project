@@ -1,12 +1,11 @@
 import './style.css';
-import React, { useState, useRef, useEffect, useContext } from "react";
+import React, { useState, useRef, useEffect, } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from '../Header/Header'
 import axios from "axios";
 import WebFont from 'webfontloader';
 import Modal from 'react-modal';
 import moment from 'moment/moment';
-import { MyContext } from '../GlobalContex';
 export { adminId, adminPassword }
 
 let adminId = '';
@@ -24,7 +23,6 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
   const [modalUserIsOpen, setModalUserIsOpen] = useState(false);
   const [modalAppointmentIsOpen, setModalAppointmentIsOpen] = useState(false);
   const [modalNewMeetingIsOpen, setModalNewMeetingIsOpen] = useState(false);
-  const [adminRoomCreate, setAdminRoomCreate] = useContext(MyContext);
 
   const [searchName, setSearchName] = useState();
   const [searchSurname, setSearchSurname] = useState();
@@ -109,7 +107,6 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
     adminId = roomIdGenerator(6);
     adminPassword = passwordGenerator(5);
     const token = localStorage.getItem("token");
-    setAdminRoomCreate(true);
     try { 
       if (selectedAppointment !== null) {
         await axios.put("/api/appointment-update", {
@@ -480,7 +477,8 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
                     <span className="admin-rooms-modal-window-info-text">Owner: <span style={{ fontWeight: 'bold' }}>{room.createdBy === '' || room.createdBy === null ? 'N/A' : room.createdBy}</span></span>
                     <span className="admin-rooms-modal-window-info-text">Creation time: <span style={{ fontWeight: 'bold' }}>{room.startTime === null ? 'N/A' : moment(room.startTime).format('llll')}</span></span>
                     <button onClick={() => {
-                      setAdminRoomCreate(true)
+                      adminId = room.roomId;
+                      adminPassword = room.password;
                       navigate(`/room/${room.roomId}`)
                     }} className='admin-rooms-modal-window-button'>Join</button>
                     <button onClick={async () => {

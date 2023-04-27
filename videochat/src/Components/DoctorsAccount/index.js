@@ -1,12 +1,11 @@
 import './style.css';
-import React, { useState, useRef, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from '../Header/Header'
 import axios from "axios";
 import WebFont from 'webfontloader';
 import Modal from 'react-modal';
 import moment from 'moment/moment';
-import { MyContext } from '../GlobalContex';
 export { roomId, roomPass };
 
 let roomId = '';
@@ -15,7 +14,6 @@ let roomPass = '';
 const DoctorsAccount = ({ name, surname, profilePic }) => {
   const [users, setUsers] = useState([]);
   const [appointments, setAppointments] = useState([]);
-  const [doctorRoomCreate, setDoctorRoomCreate] = useContext(MyContext);
 
   const [searchName, setSearchName] = useState();
   const [searchSurname, setSearchSurname] = useState();
@@ -86,7 +84,6 @@ const DoctorsAccount = ({ name, surname, profilePic }) => {
     roomId = roomIdGenerator(6);
     roomPass = passwordGenerator(5);
     const token = localStorage.getItem("token");
-    setDoctorRoomCreate(true);
     try {
       if (selectedAppointment !== null) {
         await axios.put("/api/appointment-update", {

@@ -1,17 +1,15 @@
 import './style.css';
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from '../Header/Header'
 import WebFont from 'webfontloader';
 import axios from "axios";
 import moment from 'moment/moment';
-import { MyContext } from '../GlobalContex';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const UsersAccount = ({ name, surname, profilePic }) => {
     const [appointments, setAppointments] = useState([]);
-    const [userCabJoin, setUserCabJoin] = useContext(MyContext);
 
     const userAccountNotification15min = () => toast.info('Your appointment is in 15 min. Get ready soon!', {
         position: "bottom-right",
@@ -78,6 +76,7 @@ const UsersAccount = ({ name, surname, profilePic }) => {
     };
 
     function userAccountNotificationShow() {
+        let notificationCount = 0;
         appointments.map((appointment) => {
             let dateNow = new Date().getTime();
             let appointmentTime = moment(appointment.appointmentTime).valueOf();
@@ -87,13 +86,18 @@ const UsersAccount = ({ name, surname, profilePic }) => {
             if (appointmentTime - 300000 <= dateNow && dateNow <= appointmentTime - 265000) {
                 userAccountNotification5min();
             }
-            if(appointment.roomId !== null && appointment.roomPass !== null) {
+            if(appointment.roomId !== null && appointment.roomPass !== null && notificationCount < 3) {
+                notificationCount++;
                 userAccountNotificationNow();
             }
         })
     }
 
     function userAccountNotificationUpdate() {
+        setTimeout(() => {
+            userAccountNotificationShow()
+        }, 2500)
+
         setTimeout(() => {
             userAccountNotificationShow()
             userAccountNotificationUpdate()
@@ -141,7 +145,6 @@ const UsersAccount = ({ name, surname, profilePic }) => {
                                     <span className='user-account-appointment-list-element-label'>Appointment time: <span style={{ fontStyle: 'italic' }}>{moment(appointment.appointmentTime).calendar()}</span></span>
                                     <span className='user-account-appointment-list-element-label' style={{ fontSize: '19px' }}>Doctor: <span style={{ fontStyle: 'italic' }}>{appointment.createdBy}</span></span>
                                     {appointment.roomId !== null && appointment.roomPass !== null ? (<button onClick={() => {
-                                        setUserCabJoin(true)
                                         navigate(`/room/${appointment.roomId}`)
                                     }} className="user-account-appointment-connection-button">Connect</button>) : (
                                         <span className='user-account-appointment-list-sub-label'>You will receive an invitation link a few minutes before the meeting</span>)}

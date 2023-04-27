@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import './style.css'
+import axios from "axios";
 import camera from '../imgs/camera.png';
 import cameraOff from '../imgs/camera-off.png';
 import microphone from '../imgs/microphone.png';
@@ -9,14 +10,12 @@ import logo from '../imgs/logo_blue.png';
 import { Link } from "react-router-dom";
 import WebFont from 'webfontloader';
 import Webcam from "react-webcam";
-import { MyContext } from '../../GlobalContex';
 
 const Redirect = ({ children }) => {
     const [redirected, setIsRedirected] = useState(false);
     const [audioSwitch, setAudioSwitch] = useState(true);
     const [videoSwitch, setVideoSwitch] = useState(true);
-    const [doctorRoomCreate, setDoctorRoomCreate] = useContext(MyContext);
-    const [adminRoomCreate, setAdminRoomCreate] = useContext(MyContext);
+    const [accessLevel, setaccessLevel] = useState("");
 
     useEffect(() => {
         WebFont.load({
@@ -25,6 +24,26 @@ const Redirect = ({ children }) => {
             }
         });
         document.title = "Redirecting... | MedDoc";
+    }, []);
+
+    useEffect(() => {
+        let token = localStorage.getItem("token");
+        if (token) {
+            axios.get("/api/gatekeeper", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }).then((res) => {
+                if (res.status === 200) {
+                    const { access_level } = res.data;
+                    setaccessLevel(access_level);
+                }
+            }).catch((err) => {
+                console.log(err);
+            });
+        } else {
+            console.log("Something went wrong!");
+        }
     }, []);
 
     const leaveButton = useRef();
@@ -76,17 +95,19 @@ const Redirect = ({ children }) => {
         setIsRedirected(true);
     }
 
-    return adminRoomCreate ? (
-        children
-    ) : doctorRoomCreate ? (
-        children
-    ) : redirected ? (
+    function reloadFunc() {
+        setTimeout(() => {
+            window.location.reload()
+        }, 0);
+    }
+
+    return redirected ? (
         React.cloneElement(children, { videoSwitch, audioSwitch })
     ) : (
         <div className="redirect-component">
             <div className="header-logo-room">
-                <Link to='/' className="header-router"><img className="room-logo" src={logo} /></Link>
-                <Link to='/' className="header-router"><span className="room-logo-name">MedDoc</span></Link>
+                <Link to='/' className="header-router" onClick={reloadFunc}><img className="room-logo" src={logo} /></Link>
+                <Link to='/' className="header-router" onClick={reloadFunc}><span className="room-logo-name">MedDoc</span></Link>
             </div>
             <div className="redirect-header-text">Ready to Join?</div>
             <Webcam className="redirect-video-source" id="redirect-video-source"
