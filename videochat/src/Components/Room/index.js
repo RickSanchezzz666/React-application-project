@@ -1,8 +1,7 @@
-import React, { useEffect, useRef, useContext, useState, useCallback } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import { useParams } from "react-router";
 import useWebRTC, { LOCAL_VIDEO, userStream } from "../../hooks/useWebRTC";
 import './style.css';
-import axios from "axios";
 import logo from './imgs/logo_blue.png';
 import microphone from './imgs/microphone.png';
 import microphoneOff from './imgs/microphone-off.png';
@@ -11,7 +10,6 @@ import settings from './imgs/setting.png';
 import camera from './imgs/camera.png';
 import cameraOff from './imgs/camera-off.png';
 import WebFont from 'webfontloader';
-import { MyContext } from "../GlobalContex";
 import Modal from 'react-modal';
 import { Link } from 'react-router-dom';
 import { roomId, roomPass } from '../DoctorsAccount'

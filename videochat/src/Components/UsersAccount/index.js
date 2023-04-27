@@ -76,7 +76,6 @@ const UsersAccount = ({ name, surname, profilePic }) => {
     };
 
     function userAccountNotificationShow() {
-        let notificationCount = 0;
         appointments.map((appointment) => {
             let dateNow = new Date().getTime();
             let appointmentTime = moment(appointment.appointmentTime).valueOf();
@@ -86,8 +85,7 @@ const UsersAccount = ({ name, surname, profilePic }) => {
             if (appointmentTime - 300000 <= dateNow && dateNow <= appointmentTime - 265000) {
                 userAccountNotification5min();
             }
-            if(appointment.roomId !== null && appointment.roomPass !== null && notificationCount < 3) {
-                notificationCount++;
+            if(appointment.roomId !== null && appointment.roomPass !== null) {
                 userAccountNotificationNow();
             }
         })

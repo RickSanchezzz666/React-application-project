@@ -10,15 +10,9 @@ import PrivateRoute from './Components/PrivateRoute';
 import RoomExistVerify from './Components/Room/RoomAcess/RoomExistValidation';
 import RoomPassVerify from './Components/Room/RoomAcess/RoomPassVerify';
 import RedirectPage from './Components/Room/RoomRedirect';
-import { MyProvider } from './Components/GlobalContex';
-
-import AdminsAccount from './Components/AdminsAccount';           //!!!
-import DoctorsAccount from './Components/DoctorsAccount';
-import UsersAccount from './Components/UsersAccount';
 
 function App() {
   return (
-    <MyProvider>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Content />} />
@@ -35,13 +29,9 @@ function App() {
           <Route path='/login' element={<SignInPage />} />
           <Route path='/account' element={<PrivateRoute />} />
           <Route path='/room-not-found' element={<NotFoundRoom />} />
-          <Route path='/backdoor-admin' element={<AdminsAccount {...{ name: 'Ivan', surname: 'Ivanov' }} />} />        {/* !!! */}
-          <Route path='/backdoor-doctor' element={<DoctorsAccount {...{ name: 'Ivan', surname: 'Ivanov' }} />} />      {/* !!! */}
-          <Route path='/backdoor-user' element={<UsersAccount {...{ name: 'Ivan', surname: 'Ivanov' }} />} />      {/* !!! */}
           <Route path='*' element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
-    </MyProvider>
   );
 }
 
