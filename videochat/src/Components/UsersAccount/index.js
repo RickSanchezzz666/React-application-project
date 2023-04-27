@@ -85,7 +85,7 @@ const UsersAccount = ({ name, surname, profilePic }) => {
             if (appointmentTime - 300000 <= dateNow && dateNow <= appointmentTime - 265000) {
                 userAccountNotification5min();
             }
-            if(appointment.roomId !== null && appointment.roomPass !== null) {
+            if(appointment.roomId !== null && appointment.roomPass !== null && dateNow <= appointmentTime + 120000) {
                 userAccountNotificationNow();
             }
         })
