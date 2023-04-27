@@ -35,7 +35,7 @@ const UsersAccount = ({ name, surname, profilePic }) => {
 
     const userAccountNotificationNow = () => toast.info('Your appointment is started. You can join!', {
         position: "bottom-right",
-        autoClose: 15000,
+        autoClose: 25000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
