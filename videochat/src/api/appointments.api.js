@@ -9,7 +9,7 @@ router.post("/api/create-new-appointment", passport.authenticate('jwt', { sessio
     const { createdBy, forUserId, forUserName, appointmentTime } = req.body;
     const appointment = new AppointmentsModel({ createdBy, forUserId, forUserName, appointmentTime });
     try {
-      await appointment.save();
+      await appointment.save(); 
       return res.status(200).send();
     } catch (err) {
       res.status(400).send();
