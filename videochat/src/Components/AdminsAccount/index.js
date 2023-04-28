@@ -55,6 +55,7 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
   const [newBloodType, setNewBloodType] = useState("I-");
 
   const [selectedUser, setSelectedUser] = useState(null);
+  const [selectedUserAppointments, setSelectedUserAppointments] = useState(null);
   const [selectedAppointment, setSelectedAppointment] = useState(null);
 
   const [appointmentForUser, setAppointmentForUser] = useState(null);
@@ -82,7 +83,6 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
     setModalNewMeetingIsOpen(false);
     setModalUserAppointmentsIsOpen(false);
   }
-
 
   function roomIdGenerator(length) {
     let result = '';
@@ -223,6 +223,8 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
     const token = localStorage.getItem("token");
     try {
       const res = await axios.get("/api/get-user-appointments", {
+        forUserId: selectedUserAppointments
+      }, {
         headers: {
           Authorization: `Bearer ${token}`,
         }
@@ -261,44 +263,8 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
 
   const handleUserAppointmentsModal = (user) => {
     setModalUserAppointmentsIsOpen(true);
+    setSelectedUserAppointments(user);
   }
-
-  const ModalUserAppointmentsInfo = () => {
-    if (!selectedUser) {
-      return null;
-    }
-
-    return (
-      <Modal
-        className={"admin-user-modal-appointment-window-wrapper"}
-        isOpen={modalUserAppointmentIsOpen}
-        onAfterOpen={getUserAppointments}
-        onRequestClose={closeModal}
-        contentLabel="Appointments"
-        style={ModalNewUser}
-      >
-        <div className='modal-user-appointments'>
-          {userAppointments.length === 0 ? (<span style={{ margin: '15px 0', fontStyle: 'italic' }}>There are no appointments</span>) : (userAppointments.map((userAppointment) => (
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-              <hr style={{ margin: '10px 0 5px 0', height: '2px', width: '160px', color: 'black' }} />
-
-              <span className='user-account-appointment-list-element-label'>Appointment time: <span style={{ fontStyle: 'italic' }}>{moment(userAppointment.appointmentTime).calendar()}</span></span>
-              <span className='user-account-appointment-list-element-label' style={{ fontSize: '19px' }}>Doctor: <span style={{ fontStyle: 'italic' }}>{userAppointment.createdBy}</span></span>
-              {userAppointment.roomId !== null && userAppointment.roomPass !== null ? (<button onClick={() => {
-                navigate(`/room/${userAppointment.roomId}`)
-              }} className="admin-account-appointment-connection-button">Connect</button>) : (
-                <span className='user-account-appointment-list-element-label'>There is no available room</span>)}
-              <button onClick={async () => {
-                /*await handleDeleteRoom(room.roomId)
-                handleGetRooms()*/
-              }} className='admin-rooms-modal-window-button'>Delete</button>
-            </div>
-          )))}
-          <button className="room-modal-window-button" onClick={closeModal}>Close</button>
-        </div>
-      </Modal>
-    );
-  };
 
   const ModalUserInfo = () => {
     if (!selectedUser) {
@@ -331,12 +297,6 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
             <input type="text" className="admin-new-user-modal-window-input" value={selectedUser.user_info.password} disabled />
           </div>
           <hr style={{ margin: '15px 0', opacity: '50%' }} />
-          <div className="admin-new-user-modal-window-input-wrapper">
-            <button onClick={() => {
-              setModalUserIsOpen(false);
-              handleUserAppointmentsModal();
-            }}>Show appointments</button>
-          </div>
           <div className="admin-new-user-modal-window-input-wrapper">
             <label htmlFor="email">Email:</label>
             <input type="text" className="admin-new-user-modal-window-input" value={selectedUser.user_info.email} disabled />
@@ -558,6 +518,35 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
             </Modal>
 
             <Modal
+              className={"admin-user-modal-appointment-window-wrapper"}
+              isOpen={modalUserAppointmentIsOpen}
+              onAfterOpen={getUserAppointments}
+              onRequestClose={closeModal}
+              contentLabel="Appointments"
+              style={ModalNewUser}
+            >
+              <div className='modal-user-appointments'>
+                {userAppointments.length === 0 ? (<span style={{ margin: '15px 0', fontStyle: 'italic' }}>There are no appointments</span>) : (userAppointments.map((userAppointment) => (
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                    <hr style={{ margin: '10px 0 5px 0', height: '2px', width: '160px', color: 'black' }} />
+
+                    <span className='user-account-appointment-list-element-label'>Appointment time: <span style={{ fontStyle: 'italic' }}>{moment(userAppointment.appointmentTime).calendar()}</span></span>
+                    <span className='user-account-appointment-list-element-label' style={{ fontSize: '19px' }}>Doctor: <span style={{ fontStyle: 'italic' }}>{userAppointment.createdBy}</span></span>
+                    {userAppointment.roomId !== null && userAppointment.roomPass !== null ? (<button onClick={() => {
+                      navigate(`/room/${userAppointment.roomId}`)
+                    }} className="admin-account-appointment-connection-button">Connect</button>) : (
+                      <span className='user-account-appointment-list-element-label'>There is no available room</span>)}
+                    <button onClick={async () => {
+                      /*await handleDeleteRoom(room.roomId)
+                      handleGetRooms()*/
+                    }} className='admin-rooms-modal-window-button'>Delete</button>
+                  </div>
+                )))}
+                <button className="room-modal-window-button" onClick={closeModal}>Close</button>
+              </div>
+            </Modal>
+
+            <Modal
               className={"admin-new-user-modal-window-wrapper"}
               isOpen={modalNewMeetingIsOpen}
               onRequestClose={closeModal}
@@ -688,7 +677,6 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
 
             <ModalUserInfo />
             <ModalAppointmentCreate />
-            <ModalUserAppointmentsInfo />
 
             <div className="doctor-account-component-client-base">Client Base</div>
 
@@ -748,6 +736,11 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
                               : user.user_info.access_level}</td>
                         <td style={{ textAlign: 'center' }}>
                           <button onClick={() => handleUserAppointmentToModal(user)}>+</button>
+                        </td>
+                        <td style={{ textAlign: 'center' }}>
+                          <button onClick={() => {
+                            handleUserAppointmentsModal(user);
+                          }}>Show appointments</button>
                         </td>
                         <td style={{ textAlign: 'center' }}>
                           <a className='active_user_interaction' onClick={() => handleUserToModal(user)}>View</a>

@@ -46,7 +46,7 @@ router.get('/api/get-user-appointments', passport.authenticate('jwt', { session:
       const dbQuery = {};
 
       if (forUserId) {
-        dbQuery.forUserId = forUserId
+        dbQuery.forUserId = forUserId;
       }
       const userAppointments = await AppointmentsModel.find({ dbQuery });
       return res.status(200).send(userAppointments);

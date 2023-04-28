@@ -129,6 +129,7 @@
 
 .admin-user-modal-appointment-window-wrapper {
   display: grid;
+  position: absolute;
   justify-content: center;
   font-family: 'Arvo';
   text-align: center;
