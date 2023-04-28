@@ -30,17 +30,6 @@ router.get("/api/get-appointments", passport.authenticate('jwt', { session: fals
   }
   if (req.user.user_info.access_level === 25 || req.user.user_info.access_level === 30) {
     try {
-      const appointments = await AppointmentsModel.find().sort({ appointmentTime: 1 });
-      return res.status(200).send(appointments);
-    } catch (err) {
-      res.status(400).send();
-    };
-  }
-});
-
-router.get('/api/get-user-appointments', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  if (req.user.user_info.access_level === 25 || req.user.user_info.access_level === 30) {
-    try {
       const { forUserId } = req.query;
 
       const dbQuery = {};
@@ -48,15 +37,13 @@ router.get('/api/get-user-appointments', passport.authenticate('jwt', { session:
       if (forUserId) {
         dbQuery.forUserId = forUserId;
       }
-      const userAppointments = await AppointmentsModel.find({ dbQuery });
-      return res.status(200).send(userAppointments);
-    } catch (error) {
-      res.status(400).send(error);
-    }
-  } else {
-    return res.status(403).send('Your access level is not enough');
-  };
-})
+      const appointments = await AppointmentsModel.find(dbQuery).sort({ appointmentTime: 1 });
+      return res.status(200).send(appointments);
+    } catch (err) {
+      res.status(400).send();
+    };
+  }
+});
 
 router.put('/api/appointment-update', passport.authenticate('jwt', { session: false }), async (req, res) => {
   if (req.user.user_info.access_level === 25 || req.user.user_info.access_level === 30) {

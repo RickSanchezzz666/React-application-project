@@ -222,11 +222,12 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
   async function getUserAppointments() {
     const token = localStorage.getItem("token");
     try {
-      const res = await axios.get("/api/get-user-appointments", {
-        forUserId: selectedUserAppointments
-      }, {
+      const res = await axios.get("/api/get-appointments", {
         headers: {
           Authorization: `Bearer ${token}`,
+        },
+        params: {
+          forUserId: selectedUserAppointments
         }
       });
       return setUserAppointments(res.data);
@@ -723,6 +724,7 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
                       <th className='table_user_acess_level'>User role</th>
                       <th className='table_user_interaction_0' />
                       <th className='table_user_interaction_1' />
+                      <th />
                     </tr>
                   </thead>
                   <tbody>
@@ -739,7 +741,7 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
                         </td>
                         <td style={{ textAlign: 'center' }}>
                           <button onClick={() => {
-                            handleUserAppointmentsModal(user);
+                            handleUserAppointmentsModal(user._id);
                           }}>Show appointments</button>
                         </td>
                         <td style={{ textAlign: 'center' }}>
