@@ -7,7 +7,7 @@ const options = {
     transports: ["websocket"]
 }
 
-const socket = io('https://react-application-project.vercel.app/', options);
+const socket = io('http://localhost:3001/', options);
 
 module.exports = {
     socket
