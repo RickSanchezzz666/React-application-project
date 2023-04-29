@@ -2,22 +2,21 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');                              // Парсер тіла POST API запитів
 const Mongo = require('./src/setup/mongoose');
-const AcessAPI = require('./src/api/users.api');                         // Авторизація користувачів
-const RoomsAPI = require('./src/api/rooms.api');
-const AppoimtmentsAPI = require('./src/api/appointments.api');
 const authMiddleware = require('./src/middlewares/auth.middleware');    // Middleware
 const socket = require('./src/Socket');
 const ACTIONS = require('./src/Socket/actions');
 const { Socket } = require('socket.io-client');
 const { config } = require('process');
 const cors = require('cors');
-const {version, validate} = require('uuid')
+const { version, validate } = require('uuid')
 require('dotenv').config();                                            // Загальні серверні налаштування
 
 const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const PORT = process.env.PORT_BACK;
+
+const RouterAPI = require('./src/api')
 
 app.use(bodyParser.json());
 app.use(cors())
@@ -29,20 +28,18 @@ const setup = async () => {
 
     authMiddleware(app);
 
-    app.use(AcessAPI.router);
-    app.use(RoomsAPI.router);
-    app.use(AppoimtmentsAPI.router);
+    app.use(RouterAPI.router);
 
     app.use(express.static('build'));
     app.get('*', (req, res) => {
         res.sendFile(path.join(__dirname, "./build/index.html"))
     })
 };
-  
+
 setup();
 
 function getClientRooms() {
-    const {rooms} = io.sockets.adapter;
+    const { rooms } = io.sockets.adapter;
 
     return Array.from(rooms.keys()).filter(roomID => validate(roomID) && version(roomID) === 4);
 };
@@ -57,10 +54,10 @@ io.on('connection', socket => {
     shareRoomsInfo();
 
     socket.on(ACTIONS.JOIN, config => {
-        const {room: roomID} = config;
-        const {rooms: joinedRooms} = socket;
+        const { room: roomID } = config;
+        const { rooms: joinedRooms } = socket;
 
-        if(Array.from(joinedRooms).includes(roomID)) {
+        if (Array.from(joinedRooms).includes(roomID)) {
             return console.warn(`Already joined to ${roomID}`);
         }
 
@@ -83,7 +80,7 @@ io.on('connection', socket => {
     })
 
     function leaveRoom() {
-        const {rooms} = socket;
+        const { rooms } = socket;
 
         Array.from(rooms).forEach(roomID => {
             const clients = Array.from(io.sockets.adapter.rooms.get(roomID) || [])
@@ -104,15 +101,15 @@ io.on('connection', socket => {
 
     socket.on(ACTIONS.LEAVE, leaveRoom);
     socket.on('disconnecting', leaveRoom)
-    
-    socket.on(ACTIONS.RELAY_SDP, ({peerID, sessionDescription}) => {
+
+    socket.on(ACTIONS.RELAY_SDP, ({ peerID, sessionDescription }) => {
         io.to(peerID).emit(ACTIONS.SESSION_DESCRIPTION, {
             peerID: socket.id,
             sessionDescription,
         })
     })
 
-    socket.on(ACTIONS.RELAY_ICE, ({peerID, iceCandidate}) => {
+    socket.on(ACTIONS.RELAY_ICE, ({ peerID, iceCandidate }) => {
         io.to(peerID).emit(ACTIONS.ICE_CANDIDATE, {
             peerID: socket.id,
             iceCandidate,
