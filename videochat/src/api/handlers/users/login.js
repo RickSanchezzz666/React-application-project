@@ -1,4 +1,4 @@
-const { Users } = require('../../../models/rooms');
+const { Users } = require('../../../models/users');
 const jwt = require('jsonwebtoken');
 
 module.exports.login = async (req, res) => {

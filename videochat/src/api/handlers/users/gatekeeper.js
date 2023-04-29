@@ -1,4 +1,4 @@
-const { Users } = require('../../../models/rooms');
+const { Users } = require('../../../models/users');
 
 module.exports.gatekeeper = async (req, res) => {
     const { user_info: { name, surname, profile_pic, access_level } } = req.user;

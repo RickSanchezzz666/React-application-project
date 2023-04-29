@@ -1,6 +1,6 @@
 const { Router } = require('express')
 
-const UsersAPI = require('./users.api');                         // Авторизація користувачів
+const UsersAPI = require('./users.api');
 const RoomsAPI = require('./rooms.api');
 const AppointmentsAPI = require('./appointments.api');
 

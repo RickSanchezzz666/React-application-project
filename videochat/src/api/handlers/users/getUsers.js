@@ -1,4 +1,4 @@
-const { Users } = require('../../../models/rooms');
+const { Users } = require('../../../models/users');
 
 module.exports.getUsers = async (req, res) => {
     if (req.user.user_info.access_level === 30) {
