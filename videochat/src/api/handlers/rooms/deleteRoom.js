@@ -10,7 +10,7 @@ module.exports.deleteRoom = async (req, res) => {
             const room = await RoomsModel.findOneAndDelete({ roomId });
 
             if (!room) {
-                return res.status(400).send({ message: 'We not found any room' })
+                return res.status(404).send({ message: 'We not found any room' })
             }
 
             return res.status(200).send();

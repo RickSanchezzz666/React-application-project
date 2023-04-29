@@ -12,6 +12,11 @@ router.post("/api/create-new-appointment",
   wrapperApi(AppointmentHandler.createAppointment)
 );
 
+router.post('/api/delete-appointment',
+  passport.authenticate('jwt', { session: false }),
+  wrapperApi(AppointmentHandler.deleteAppointment)
+)
+
 router.get("/api/get-appointments",
   passport.authenticate('jwt', { session: false }),
   wrapperApi(AppointmentHandler.getAppointment)

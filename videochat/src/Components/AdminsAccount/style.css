@@ -103,7 +103,7 @@
   -moz-box-shadow: 8px 12px 16px -4px rgba(0, 0, 0, 0.75);
   box-shadow: 8px 12px 16px -4px rgba(0, 0, 0, 0.75);
   animation-name: modal-appear;
-  animation-duration: 1.2s;
+  animation-duration: 1s;
 }
 
 .admin-new-user-modal-window-wrapper {
@@ -124,7 +124,7 @@
   -moz-box-shadow: 8px 12px 16px -4px rgba(0, 0, 0, 0.75);
   box-shadow: 8px 12px 16px -4px rgba(0, 0, 0, 0.75);
   animation-name: modal-appear-2;
-  animation-duration: 1.2s;
+  animation-duration: 1s;
 }
 
 .admin-user-modal-appointment-window-wrapper {
@@ -144,6 +144,8 @@
   -webkit-box-shadow: 8px 12px 16px -4px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 8px 12px 16px -4px rgba(0, 0, 0, 0.75);
   box-shadow: 8px 12px 16px -4px rgba(0, 0, 0, 0.75);
+  animation-name: modal-appear-3;
+  animation-duration: 0.8s;
 }
 
 .admin-account-appointment-connection-button {
@@ -315,6 +317,10 @@
   width: 15%;
 }
 
+.table_user_information {
+  width: 15%;
+}
+
 .table_user_interaction_0 {
   width: 3%;
 }
@@ -350,6 +356,36 @@
 
 .users-search-input:focus {
   outline: none;
+}
+
+.admin-appointment-button {
+  background-color: white;
+  border-radius: 20px;
+  border: none;
+  padding: 5px;
+  margin-right: 10px;
+  font-size: 16px;
+  color: black;
+  cursor: pointer;
+}
+
+.admin-appointment-button:hover {
+  filter: brightness(0.80);
+}
+
+.admin-add-appointment-button {
+  background-color: #3981ff;
+  border-radius: 35px;
+  border: none;
+  padding: 5px;
+  margin-right: 10px;
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+}
+
+.admin-add-appointment-button:hover {
+  filter: brightness(0.80);
 }
 
 #doctor-get-user {

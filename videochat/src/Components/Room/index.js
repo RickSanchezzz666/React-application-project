@@ -50,11 +50,28 @@ function layout(clientsNumber = 1) {
 
 
 function Room({ audioSwitch, videoSwitch, accessLevel }) {
+    const videoResolutions = {
+        highResolution: {
+            width: 1280,
+            height: 720
+        },
+        defaultResolution: {
+            width: 480,
+            height: 360
+        },
+        lowResolution: {
+            width: 320,
+            height: 180
+        }
+    }
+
     const [audioInputDevices, setAudioInputDevices] = useState([]);
     const [videoDevices, setVideoDevices] = useState([]);
 
     const [selectedAudioInputDevices, setSelectedAudioInputDevices] = useState([]);
     const [selectedVideoDevices, setSelectedVideoDevices] = useState([]);
+
+    const [selectedVideoResolution, setSelectedVideoResolution] = useState({});
 
     useEffect(() => {
         WebFont.load({
@@ -151,7 +168,39 @@ function Room({ audioSwitch, videoSwitch, accessLevel }) {
         const constraints = {
             audio: true,
             video: {
-                deviceId: { exact: deviceId }
+                deviceId: { exact: deviceId },
+                selectedVideoResolution
+            }
+        };
+
+        const tracks = userStream.getVideoTracks();
+        for (const track of tracks) {
+            await track.stop();
+            userStream.removeTrack(track);
+        }
+
+        await updateStartCapture(constraints);
+
+        if (videoButtonRef.current.className === 'room-button video-button-off') {
+            const videoTrack = userStream.getVideoTracks()[0];
+            videoTrack.enabled = false;
+        }
+
+        if (audioButtonRef.current.className === 'room-button audio-button-off') {
+            const audioTrack = userStream.getAudioTracks()[0];
+            audioTrack.enabled = false;
+        }
+
+    }, []);
+
+    const handleVideoResolutionChange = useCallback(async (event) => {
+        const videoResolution = videoResolutions[event.target.value];
+        setSelectedVideoResolution(videoResolution);
+
+        const constraints = {
+            audio: true,
+            video: {
+                videoResolution
             }
         };
 
@@ -286,6 +335,18 @@ function Room({ audioSwitch, videoSwitch, accessLevel }) {
                                 {device.label}
                             </option>
                         ))}
+                    </select>
+                    <span>Choose video quality</span>
+                    <select className="room-settings-modal-input" value={selectedVideoResolution} onChange={handleVideoResolutionChange}>
+                        <option key={videoResolutions.highResolution} value={videoResolutions.highResolution}>
+                            High resolution (720p)
+                        </option>
+                        <option key={videoResolutions.defaultResolution} value={videoResolutions.defaultResolution}>
+                            Default resolution (360p)
+                        </option>
+                        <option key={videoResolutions.lowResolution} value={videoResolutions.lowResolution}>
+                            Low resolution (180p)
+                        </option>
                     </select>
                 </div>
                 <button className="room-modal-window-button" onClick={closeModal}>Close</button>

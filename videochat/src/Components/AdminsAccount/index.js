@@ -236,6 +236,22 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
     };
   }
 
+  async function handleDeleteAppointment(_id) {
+    const token = localStorage.getItem("token");
+    try {
+      const res = await axios.post('/api/delete-appointment', {
+        _id
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      })
+      return res.status;
+    } catch (error) {
+      return [];
+    }
+  }
+
   async function handleDeleteRoom(roomId) {
     const token = localStorage.getItem("token");
     try {
@@ -526,7 +542,7 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
               contentLabel="Appointments"
               style={ModalNewUser}
             >
-              <div className='modal-user-appointments'>
+              <div className='modal-user-appointments' style={{ display: 'grid' }}>
                 {userAppointments.length === 0 ? (<span style={{ margin: '15px 0', fontStyle: 'italic' }}>There are no appointments</span>) : (userAppointments.map((userAppointment) => (
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                     <hr style={{ margin: '10px 0 5px 0', height: '2px', width: '160px', color: 'black' }} />
@@ -534,12 +550,14 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
                     <span className='user-account-appointment-list-element-label'>Appointment time: <span style={{ fontStyle: 'italic' }}>{moment(userAppointment.appointmentTime).calendar()}</span></span>
                     <span className='user-account-appointment-list-element-label' style={{ fontSize: '19px' }}>Doctor: <span style={{ fontStyle: 'italic' }}>{userAppointment.createdBy}</span></span>
                     {userAppointment.roomId !== null && userAppointment.roomPass !== null ? (<button onClick={() => {
+                      adminId = userAppointment.roomId;
+                      adminPassword = userAppointment.roomPass;
                       navigate(`/room/${userAppointment.roomId}`)
                     }} className="admin-account-appointment-connection-button">Connect</button>) : (
                       <span className='user-account-appointment-list-element-label'>There is no available room</span>)}
                     <button onClick={async () => {
-                      /*await handleDeleteRoom(room.roomId)
-                      handleGetRooms()*/
+                      await handleDeleteAppointment(userAppointment._id)
+                      getUserAppointments(userAppointment)
                     }} className='admin-rooms-modal-window-button'>Delete</button>
                   </div>
                 )))}
@@ -722,9 +740,8 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
                       <th>Name</th>
                       <th>Surname</th>
                       <th className='table_user_acess_level'>User role</th>
-                      <th className='table_user_interaction_0' />
-                      <th className='table_user_interaction_1' />
-                      <th />
+                      <th className='table_user_interaction_1'>Appointments</th>
+                      <th className='table_user_information'>Information</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -737,12 +754,10 @@ const AdminsAccount = ({ name, surname, profilePic }) => {
                             : user.user_info.access_level === 30 ? 'Admin'
                               : user.user_info.access_level}</td>
                         <td style={{ textAlign: 'center' }}>
-                          <button onClick={() => handleUserAppointmentToModal(user)}>+</button>
-                        </td>
-                        <td style={{ textAlign: 'center' }}>
-                          <button onClick={() => {
+                          <button className='admin-add-appointment-button' onClick={() => handleUserAppointmentToModal(user)}>+</button>
+                          <button className='admin-appointment-button' onClick={() => {
                             handleUserAppointmentsModal(user._id);
-                          }}>Show appointments</button>
+                          }}>Show</button>
                         </td>
                         <td style={{ textAlign: 'center' }}>
                           <a className='active_user_interaction' onClick={() => handleUserToModal(user)}>View</a>
