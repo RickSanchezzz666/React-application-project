@@ -93,13 +93,11 @@ const UsersAccount = ({ name, surname, profilePic }) => {
 
     function userAccountNotificationUpdate() {
         setTimeout(() => {
-            userAccountNotificationShow()
-        }, 2500)
-
-        setTimeout(() => {
-            userAccountNotificationShow()
-            userAccountNotificationUpdate()
-        }, 30000)
+            userAccountNotificationShow();
+            setInterval(() => {
+                userAccountNotificationShow();
+            }, 30000);
+        }, 2500);
     }
 
     userAccountNotificationUpdate();
