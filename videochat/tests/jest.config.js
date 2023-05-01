@@ -8,5 +8,5 @@ module.exports = {
   collectCoverage: true,
   coverageDirectory: "coverage",
   coverageProvider: "v8",
-  testRegex: '.*\\.spec\\.js$',
+  preset: 'jest',
 };
