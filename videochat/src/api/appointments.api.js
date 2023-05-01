@@ -3,7 +3,7 @@ const { Router } = require('express');
 const { AppointmentHandler } = require('./handlers')
 const passport = require('passport');
 
-const { wrapperApi } = require('../wrapperApi')
+const { wrapperApi } = require('./wrapperApi')
 
 const router = Router();
 
