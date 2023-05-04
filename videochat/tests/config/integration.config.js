@@ -9,6 +9,6 @@ module.exports = {
  coverageDirectory: "coverage",
  coverageProvider: "v8",
  testRegex: '.*\\.it-spec\\.js$',
- // globalSetup: '../tests/jest.globalSetup.js',
- // globalTeardown: '../tests/jest.globalTeardown.js',
+ globalSetup: '../tests/jest.globalSetup.js',
+ globalTeardown: '../tests/jest.globalTeardown.js',
 };
