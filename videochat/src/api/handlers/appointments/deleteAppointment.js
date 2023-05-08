@@ -10,7 +10,7 @@ module.exports.deleteAppointment = async (req, res) => {
             const appointment = await AppointmentsModel.findOneAndDelete({ _id })
 
             if(!appointment) {
-                return res.status(404).send({ message: 'We dont find such appointment!' })
+                return res.status(404).send({ message: 'We dont found such appointment!' })
             }
 
             return res.status(200).send();
