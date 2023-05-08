@@ -1,25 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1683561744226" clover="3.2.0">
-  <project timestamp="1683561744227" name="All files">
-    <metrics statements="16" coveredstatements="10" conditionals="8" coveredconditionals="6" methods="1" coveredmethods="1" elements="25" coveredelements="17" complexity="0" loc="16" ncloc="16" packages="1" files="1" classes="1"/>
-    <file name="getAppointments.js" path="D:\React-application\videochat\src\api\handlers\appointments\getAppointments.js">
-      <metrics statements="16" coveredstatements="10" conditionals="8" coveredconditionals="6" methods="1" coveredmethods="1"/>
+<coverage generated="1683570054557" clover="3.2.0">
+  <project timestamp="1683570054558" name="All files">
+    <metrics statements="12" coveredstatements="9" conditionals="6" coveredconditionals="4" methods="1" coveredmethods="1" elements="19" coveredelements="14" complexity="0" loc="12" ncloc="12" packages="1" files="1" classes="1"/>
+    <file name="updateAppointment.js" path="D:\React-application\videochat\src\api\handlers\appointments\updateAppointment.js">
+      <metrics statements="12" coveredstatements="9" conditionals="6" coveredconditionals="4" methods="1" coveredmethods="1"/>
       <line num="1" count="1" type="stmt"/>
       <line num="3" count="1" type="stmt"/>
-      <line num="4" count="2" type="cond" truecount="2" falsecount="0"/>
+      <line num="4" count="2" type="cond" truecount="4" falsecount="0"/>
       <line num="5" count="1" type="stmt"/>
-      <line num="6" count="1" type="stmt"/>
-      <line num="7" count="0" type="stmt"/>
-      <line num="9" count="1" type="stmt"/>
-      <line num="12" count="2" type="cond" truecount="4" falsecount="0"/>
-      <line num="13" count="1" type="stmt"/>
-      <line num="14" count="1" type="stmt"/>
-      <line num="16" count="0" type="stmt"/>
-      <line num="18" count="0" type="cond" truecount="0" falsecount="2"/>
-      <line num="19" count="0" type="stmt"/>
-      <line num="21" count="0" type="stmt"/>
-      <line num="22" count="0" type="stmt"/>
-      <line num="24" count="1" type="stmt"/>
+      <line num="7" count="1" type="stmt"/>
+      <line num="8" count="1" type="stmt"/>
+      <line num="10" count="0" type="cond" truecount="0" falsecount="2"/>
+      <line num="11" count="0" type="stmt"/>
+      <line num="14" count="0" type="stmt"/>
+      <line num="16" count="1" type="stmt"/>
+      <line num="17" count="1" type="stmt"/>
+      <line num="20" count="1" type="stmt"/>
     </file>
   </project>
 </coverage>
