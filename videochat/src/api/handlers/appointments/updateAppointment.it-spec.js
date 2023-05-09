@@ -83,7 +83,7 @@ describe('updateAppointment', () => {
             expect(res.status).toBeCalled();
             expect(res.status).toBeCalledWith(404);
             expect(res.send).toBeCalled();
-            expect(res.send).toBeCalledWith('Object not found');
+            expect(res.send).toBeCalledWith('Object not found')
         })
     })
 })
