@@ -78,7 +78,7 @@ describe('updateAppointment', () => {
                     }
                 }
             }
-            await updateAppointment(req,res)
+            await updateAppointment(req,res);
 
             expect(res.status).toBeCalled();
             expect(res.status).toBeCalledWith(404);
