@@ -3,6 +3,7 @@ const { AppointmentsModel } = require('../../../models/appointments');
 const mongoose = require('mongoose');
 
 describe('updateAppointment', () => {
+    let appointmentId;
     beforeAll(async () => {
         await mongoose.connect(process.env.MONGO_DB_URI, {
             auth: {
@@ -12,9 +13,9 @@ describe('updateAppointment', () => {
         });
         console.log('mongoose was connected');
 
-        await AppointmentsModel.insertMany([
+        const docs = await AppointmentsModel.insertMany([
             {
-                id: '64591194202dd9e29c102a76',
+                _id: '64591194202dd9e29c102a76',
                 createdBy: "Roman Lapiyk",
                 forUserId: "643666caf929797862b72f1e",
                 forUserName: "Maksim Kagadiy",
@@ -23,6 +24,7 @@ describe('updateAppointment', () => {
                 roomPass: null
             }
         ])
+        appointmentId = docs._id;
     })
     describe('should be opened', () => {
         const req = {
@@ -43,14 +45,10 @@ describe('updateAppointment', () => {
             status: jest.fn().mockImplementation(() => res)
         }
 
-        const id = req.body.id;
-        const roomId = req.body.roomId;
-        const roomPass = req.body.roomPass;
-
-        it('and find and update and return 200 and send', async () => {
+        it('and find and update', async () => {
             await updateAppointment(req, res)
 
-            const updatedObject = await AppointmentsModel.findOneAndUpdate({ id: id }, { roomId, roomPass }, { new: true });
+            const updatedObject = await AppointmentsModel.findOne({ _id: req.body.id })
 
             expect(updatedObject).not.toBeNull();
             expect(updatedObject.createdBy).toBe('Roman Lapiyk');
@@ -59,6 +57,33 @@ describe('updateAppointment', () => {
             expect(updatedObject.appointmentTime).toEqual(new Date('2023-05-19T15:13:00.000Z'));
             expect(updatedObject.roomId).toEqual('123')
             expect(updatedObject.roomPass).toEqual('1234')
+        })
+        it('and return 200 and send', async () => {
+            await updateAppointment(req, res)
+
+            expect(res.status).toBeCalled();
+            expect(res.status).toBeCalledWith(200);
+            expect(res.send).toBeCalled();
+        })
+        it('and should throw error 404 and send message', async () => {
+            const req = {
+                body: {
+                    _id: '64591194202dd9e29c102a76',
+                    roomId: '123',
+                    roomPass: '1234',
+                },
+                user: {
+                    user_info: {
+                        access_level: 30
+                    }
+                }
+            }
+            await updateAppointment(req,res)
+
+            expect(res.status).toBeCalled();
+            expect(res.status).toBeCalledWith(404);
+            expect(res.send).toBeCalled();
+            expect(res.send).toBeCalledWith('Object not found')
         })
     })
 })

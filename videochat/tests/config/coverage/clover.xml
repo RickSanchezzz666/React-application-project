@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1683570054557" clover="3.2.0">
-  <project timestamp="1683570054558" name="All files">
+<coverage generated="1683634081297" clover="3.2.0">
+  <project timestamp="1683634081297" name="All files">
     <metrics statements="12" coveredstatements="9" conditionals="6" coveredconditionals="4" methods="1" coveredmethods="1" elements="19" coveredelements="14" complexity="0" loc="12" ncloc="12" packages="1" files="1" classes="1"/>
     <file name="updateAppointment.js" path="D:\React-application\videochat\src\api\handlers\appointments\updateAppointment.js">
       <metrics statements="12" coveredstatements="9" conditionals="6" coveredconditionals="4" methods="1" coveredmethods="1"/>

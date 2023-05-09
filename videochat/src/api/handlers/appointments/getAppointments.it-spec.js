@@ -46,41 +46,25 @@ describe('getAppointment', () => {
             status: jest.fn().mockImplementation(() => res)
         }
 
-        it('and find appointment', async () => {
-            await getAppointment(req, res)
+        it('and find appointment and sort by appointmentTime', async () => {
+            await getAppointment(req, res);
 
-            const appointments = await AppointmentsModel.find({ forUserId: req.user._id });
+            const result = res.send.mock.calls[0][0];
 
-            const appointment = appointments[0];
+            expect(result).not.toBeNull();
+            expect(result.every(el => el.createdBy === 'Roman Lapiyk')).toBe(true);
+            expect(result.every(el => el.forUserId === '643666caf929797862b72f1e')).toBe(true);
+            expect(result.every(el => el.forUserName === 'Maksim Kagadiy')).toBe(true);
+            expect(result[0].appointmentTime).toEqual(new Date('2023-05-17T15:13:00.000Z'));
+            expect(result[1].appointmentTime).toEqual(new Date('2023-05-19T15:13:00.000Z'));
 
-            expect(appointment).not.toBeNull();
-            expect(appointment.createdBy).toBe('Roman Lapiyk');
-            expect(appointment.forUserId).toBe('643666caf929797862b72f1e');
-            expect(appointment.forUserName).toBe('Maksim Kagadiy');
-            expect(appointment.appointmentTime).toEqual(new Date('2023-05-19T15:13:00.000Z'));
 
-        })
-        it('and sort by appointmentTime', async () => {
-            await getAppointment(req, res)
-
-            const appointments = await AppointmentsModel.find({ forUserId: req.user._id }).sort({ appointmentTime: 1 });
-
-            expect(appointments).not.toBeNull();
-            expect(appointments[0].createdBy).toBe('Roman Lapiyk');
-            expect(appointments[1].createdBy).toBe('Roman Lapiyk');
-            expect(appointments[0].forUserId).toBe('643666caf929797862b72f1e');
-            expect(appointments[1].forUserId).toBe('643666caf929797862b72f1e');
-            expect(appointments[0].forUserName).toBe('Maksim Kagadiy');
-            expect(appointments[1].forUserName).toBe('Maksim Kagadiy');
-            expect(appointments[0].appointmentTime).toEqual(new Date('2023-05-17T15:13:00.000Z'));
-            expect(appointments[1].appointmentTime).toEqual(new Date('2023-05-19T15:13:00.000Z'));
         })
         it('and return status 200 and send appointments', async () => {
             await getAppointment(req, res)
 
-            const appointments = await AppointmentsModel.find({ forUserId: req.user._id }).sort({ appointmentTime: 1 });
+            const appointments = res.send.mock.calls[0][0];
 
-            expect(appointments).not.toBeNull();
             expect(res.status).toBeCalled();
             expect(res.status).toBeCalledWith(200);
             expect(res.send).toBeCalled();
