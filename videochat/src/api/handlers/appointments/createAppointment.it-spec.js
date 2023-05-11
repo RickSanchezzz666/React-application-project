@@ -33,7 +33,7 @@ describe('createAppointment', () => {
             status: jest.fn().mockImplementation(() => res)
         }
 
-        it('and saved in db', async () => {
+        it('and saved in db and return status 200 and send', async () => {
 
             await createAppointment(req, res);
 
@@ -44,6 +44,10 @@ describe('createAppointment', () => {
             expect(appointment.forUserId).toBe('643666caf929797862b72f1e');
             expect(appointment.forUserName).toBe('Maksim Kagadiy');
             expect(appointment.appointmentTime).toEqual(new Date('2023-05-05T15:52:00.000Z'));
+
+            expect(res.status).toBeCalled();
+            expect(res.status).toBeCalledWith(200);
+            expect(res.send).toBeCalled();
         })
 
     });

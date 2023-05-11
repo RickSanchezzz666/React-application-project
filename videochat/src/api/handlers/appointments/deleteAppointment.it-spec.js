@@ -78,10 +78,7 @@ describe('deleteAppointment', () => {
             expect(res.status).toBeCalledWith(404);
             expect(res.send).toBeCalled();
             expect(res.send).toBeCalledWith({ message: 'We dont found such appointment!' })
-    })
+        })
 
-   
-
-
-});
+    });
 });
