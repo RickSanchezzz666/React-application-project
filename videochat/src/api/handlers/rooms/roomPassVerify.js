@@ -4,7 +4,7 @@ module.exports.roomPassVerify = async (req, res) => {
     try {
         const { roomId, password } = req.query;
         if (!roomId) {
-            return res.status(400).send({ message: 'Parameter username is required' });
+            return res.status(400).send({ message: 'Parameter roomId is required' });
         }
 
         if (!password) {

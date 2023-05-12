@@ -4,7 +4,7 @@ module.exports.roomVerify = async (req, res) => {
     try {
         const { roomId } = req.query;
         if (!roomId) {
-            return res.status(400).send({ message: 'Parameter username is required' });
+            return res.status(400).send({ message: 'Parameter roomId is required' });
         }
 
         const room_ident = await RoomsModel.findOne({ roomId });
