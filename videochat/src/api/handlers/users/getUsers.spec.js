@@ -1,10 +1,11 @@
-const { createNewUser } = require('./createNewUser')
+const { getUsers } = require('./getUsers')
 
-describe('createNewuser', () => {
+describe('getUsers', () => {
     const res = {
         send: jest.fn(),
         status: jest.fn().mockImplementation(() => res)
     }
+
     const req = {
         user: {
             user_info: {
@@ -12,8 +13,9 @@ describe('createNewuser', () => {
             }
         }
     }
-    it('should throw error 403 and send message', async () => {
-        await createNewUser(req, res);
+
+    it('should be opened and throw error 403 and send message', async () => {
+        await getUsers(req, res);
 
         expect(res.status).toBeCalled();
         expect(res.status).toBeCalledWith(403);
