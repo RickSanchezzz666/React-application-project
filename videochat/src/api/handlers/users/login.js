@@ -26,7 +26,7 @@ module.exports.login = async (req, res) => {
 
         if (user.user_info.password !== password) {
             return res.status(401).send({
-                message: 'Login or password is invalid'
+                message: 'Password is invalid'
             });
         }
 
