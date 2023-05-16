@@ -16,7 +16,8 @@ const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const PORT = process.env.PORT_BACK;
 
-const RouterAPI = require('./src/api')
+const RouterAPI = require('./src/api');
+const exp = require('constants');
 
 app.use(bodyParser.json());
 app.use(cors())
@@ -34,9 +35,10 @@ const setup = async () => {
     app.get('*', (req, res) => {
         res.sendFile(path.join(__dirname, "./build/index.html"))
     })
+
+    return app;
 };
 
-setup();
 
 function getClientRooms() {
     const { rooms } = io.sockets.adapter;
@@ -122,3 +124,5 @@ io.on('connection', socket => {
 server.listen(PORT, () => {
     console.log(`Server started on ${PORT}`)
 })
+
+module.exports = setup();

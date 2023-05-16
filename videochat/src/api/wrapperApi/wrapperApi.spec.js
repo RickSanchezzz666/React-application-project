@@ -7,11 +7,6 @@ describe('wrapperApi', () => {
         const req = jest.fn();
         const res = jest.fn();
 
-        it('and be called', async () => {
-            await handler();
-
-            expect(mock).toBeCalled();
-        });
         it('and be called with req, res', async () => {
             await handler(req, res);
 
