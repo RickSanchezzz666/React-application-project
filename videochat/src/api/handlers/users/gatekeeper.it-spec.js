@@ -19,7 +19,7 @@ describe('gatekeeper', () => {
                     phone: '+380000000000',
                     name: 'Roman',
                     surname: 'Lapiyk',
-                    login: 'user',
+                    login: 'user1',
                     password: '123',
                     profile_pic: 'https://i.ibb.co/HFbBrvn/Icon-profile.png',
                     access_level: 30,
@@ -41,6 +41,10 @@ describe('gatekeeper', () => {
             }
         ])
     });
+
+    afterAll(async () => {
+        await Users.deleteMany();
+    })
 
     describe('should be opened', () => {
         const res = {

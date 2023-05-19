@@ -26,6 +26,10 @@ describe('updateAppointment', () => {
         ])
         appointmentId = docs._id;
     })
+
+    afterAll(async () => {
+        await AppointmentsModel.deleteMany();
+    })
     describe('should be opened', () => {
         const req = {
             body: {
@@ -45,7 +49,7 @@ describe('updateAppointment', () => {
             status: jest.fn().mockImplementation(() => res)
         }
 
-        it('and find and update', async () => {
+        it('and find and update and return 200 and send', async () => {
             await updateAppointment(req, res)
 
             const updatedObject = await AppointmentsModel.findOne({ _id: req.body.id })
@@ -57,9 +61,6 @@ describe('updateAppointment', () => {
             expect(updatedObject.appointmentTime).toEqual(new Date('2023-05-19T15:13:00.000Z'));
             expect(updatedObject.roomId).toEqual('123');
             expect(updatedObject.roomPass).toEqual('1234');
-        })
-        it('and return 200 and send', async () => {
-            await updateAppointment(req, res)
 
             expect(res.status).toBeCalled();
             expect(res.status).toBeCalledWith(200);

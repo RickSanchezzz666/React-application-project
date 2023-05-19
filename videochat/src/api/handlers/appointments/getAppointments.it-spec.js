@@ -1,8 +1,10 @@
 const { getAppointment } = require('./getAppointments');
 const { AppointmentsModel } = require('../../../models/appointments');
 const mongoose = require('mongoose');
+const { v4: uuid } = require('uuid')
 
 describe('getAppointment', () => {
+    let forUserId = uuid();
     beforeAll(async () => {
         await mongoose.connect(process.env.MONGO_DB_URI, {
             auth: {
@@ -15,7 +17,7 @@ describe('getAppointment', () => {
         await AppointmentsModel.insertMany([
             {
                 createdBy: "Roman Lapiyk",
-                forUserId: "643666caf929797862b72f1e",
+                forUserId,
                 forUserName: "Maksim Kagadiy",
                 appointmentTime: "2023-05-19T15:13:00.000Z",
                 roomId: null,
@@ -23,7 +25,7 @@ describe('getAppointment', () => {
             },
             {
                 createdBy: "Roman Lapiyk",
-                forUserId: "643666caf929797862b72f1e",
+                forUserId,
                 forUserName: "Maksim Kagadiy",
                 appointmentTime: "2023-05-17T15:13:00.000Z",
                 roomId: null,
@@ -32,13 +34,17 @@ describe('getAppointment', () => {
         ])
     });
 
+    afterAll(async () => {
+        await AppointmentsModel.deleteMany();
+    })
+
     describe('should be opened with access level 20', () => {
         const req = {
             user: {
                 user_info: {
                     access_level: 20
                 },
-                _id: "643666caf929797862b72f1e"
+                _id: forUserId
             }
         }
         const res = {
@@ -53,7 +59,7 @@ describe('getAppointment', () => {
 
             expect(result).not.toBeNull();
             expect(result.every(el => el.createdBy === 'Roman Lapiyk')).toBe(true);
-            expect(result.every(el => el.forUserId === '643666caf929797862b72f1e')).toBe(true);
+            expect(result.every(el => el.forUserId === forUserId)).toBe(true);
             expect(result.every(el => el.forUserName === 'Maksim Kagadiy')).toBe(true);
             expect(result[0].appointmentTime).toEqual(new Date('2023-05-17T15:13:00.000Z'));
             expect(result[1].appointmentTime).toEqual(new Date('2023-05-19T15:13:00.000Z'));
@@ -80,7 +86,7 @@ describe('getAppointment', () => {
                 }
             },
             query: {
-                forUserId: "643666caf929797862b72f1e"
+                forUserId
             }
         }
         const res = {
@@ -104,7 +110,7 @@ describe('getAppointment', () => {
 
             expect(appointments).not.toBeNull()
             expect(appointment.createdBy).toBe('Roman Lapiyk');
-            expect(appointment.forUserId).toBe('643666caf929797862b72f1e');
+            expect(appointment.forUserId).toBe(forUserId);
             expect(appointment.forUserName).toBe('Maksim Kagadiy');
             expect(appointment.appointmentTime).toEqual(new Date('2023-05-19T15:13:00.000Z'));
 
@@ -123,8 +129,8 @@ describe('getAppointment', () => {
             expect(appointments).not.toBeNull();
             expect(appointments[0].createdBy).toBe('Roman Lapiyk');
             expect(appointments[1].createdBy).toBe('Roman Lapiyk');
-            expect(appointments[0].forUserId).toBe('643666caf929797862b72f1e');
-            expect(appointments[1].forUserId).toBe('643666caf929797862b72f1e');
+            expect(appointments[0].forUserId).toBe(forUserId);
+            expect(appointments[1].forUserId).toBe(forUserId);
             expect(appointments[0].forUserName).toBe('Maksim Kagadiy');
             expect(appointments[1].forUserName).toBe('Maksim Kagadiy');
             expect(appointments[0].appointmentTime).toEqual(new Date('2023-05-17T15:13:00.000Z'));

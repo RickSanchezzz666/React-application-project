@@ -1,9 +1,11 @@
 const { deleteAppointment } = require('./deleteAppointment');
 const { AppointmentsModel } = require('../../../models/appointments');
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
+const { ObjectId } = require('mongodb')
+const { v4: uuid } = require('uuid')
 
 describe('deleteAppointment', () => {
-    let appointmentId;
+    let appointmentId = uuid();
 
     beforeAll(async () => {
         await mongoose.connect(process.env.MONGO_DB_URI, {
@@ -23,6 +25,7 @@ describe('deleteAppointment', () => {
         const doc = await appointment.save();
         appointmentId = doc._id;
     });
+
 
     describe('should be opened', () => {
         it('and deleted from db and return 200 and send', async () => {
@@ -53,6 +56,8 @@ describe('deleteAppointment', () => {
         })
 
         it('should throw error and return 404 and send message', async () => {
+            await AppointmentsModel.deleteMany({ _id: appointmentId });
+            
             const req = {
                 user: {
                     user_info: {
@@ -71,9 +76,6 @@ describe('deleteAppointment', () => {
 
             await deleteAppointment(req, res);
 
-            const appointmentExist = await AppointmentsModel.findOne({ _id: appointmentId });
-
-            expect(appointmentExist).toBe(null);
             expect(res.status).toBeCalled();
             expect(res.status).toBeCalledWith(404);
             expect(res.send).toBeCalled();

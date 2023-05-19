@@ -1,8 +1,10 @@
 const { roomVerify } = require('./roomVerify')
 const { RoomsModel } = require('../../../models/rooms');
 const mongoose = require('mongoose')
+const { v4: uuid } = require('uuid')
 
 describe('roomVerify', () => {
+    let roomId = uuid();
     beforeAll(async () => {
         await mongoose.connect(process.env.MONGO_DB_URI, {
             auth: {
@@ -14,13 +16,17 @@ describe('roomVerify', () => {
 
         await RoomsModel.insertMany([
             {
-                roomId: 'UcTudU',
+                roomId,
                 password: 'VskCh',
                 startTime: '2023-05-11T14:23:00.000Z',
                 createdBy: 'Roman Lapiyk'
             }
         ])
     });
+
+    afterAll(async () => {
+        await RoomsModel.deleteMany();
+    })
 
     describe('should be opened', () => {
         const res = {
@@ -36,19 +42,17 @@ describe('roomVerify', () => {
                     }
                 },
                 query: {
-                    roomId: 'UcTudU'
+                    roomId
                 }
             }
 
             it('and verify the password', async () => {
-                const roomId = req.query.roomId;
-
                 await roomVerify(req, res);
 
                 const room_ident = await RoomsModel.findOne({ roomId });
 
                 expect(room_ident).not.toBeNull();
-                expect(room_ident.roomId).toBe('UcTudU');
+                expect(room_ident.roomId).toBe(roomId);
                 expect(room_ident.password).toBe('VskCh');
             });
 

@@ -22,7 +22,7 @@ describe('getUsers', () => {
                     login: 'doctor',
                     password: '123',
                     profile_pic: 'https://i.ibb.co/HFbBrvn/Icon-profile.png',
-                    access_level: 30,
+                    access_level: 25,
                     createdBy: 'Maksym Pasternak',
                     creationTime: '2023-04-11T07:37:18.457Z',
                     birthday: '2023-04-06',
@@ -93,6 +93,11 @@ describe('getUsers', () => {
             }
         ])
     });
+
+    afterAll(async () => {
+        await Users.deleteMany();
+    })
+    
     describe('should be opened with lvl 30', () => {
         const res = {
             send: jest.fn(),
@@ -136,7 +141,7 @@ describe('getUsers', () => {
             expect(users.every(el => el.user_info.name === 'Roman')).toBe(true);
             expect(users[0].user_info.surname).toBe('Lapiyk');
             expect(users[1].user_info.surname).toBe('Romanovich')
-            expect(users[0].user_info.access_level).toBe(30)
+            expect(users[0].user_info.access_level).toBe(25)
             expect(users[1].user_info.access_level).toBe(30)
             expect(users[2].user_info.access_level).toBe(20)
         })

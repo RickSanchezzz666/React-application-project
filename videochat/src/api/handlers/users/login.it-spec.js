@@ -45,7 +45,7 @@ describe('login', () => {
                     phone: '+380000000001',
                     name: 'Roman',
                     surname: 'Romanovich',
-                    login: 'user',
+                    login: 'user2',
                     password: '123',
                     profile_pic: 'https://i.ibb.co/HFbBrvn/Icon-profile.png',
                     access_level: 30,
@@ -67,6 +67,11 @@ describe('login', () => {
             }
         ])
     });
+
+    afterAll(async () => {
+        await Users.deleteMany();
+    })
+    
     describe('should be opened', () => {
         const res = {
             send: jest.fn(),

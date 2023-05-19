@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const UsersAccount = ({ name, surname, profilePic }) => {
     const [appointments, setAppointments] = useState([]);
+    const [appointmentsUpdate, setAppointmentsUpdate] = useState([])
 
     const userAccountNotification15min = () => toast.info('Your appointment is in 15 min. Get ready soon!', {
         position: "bottom-right",
@@ -52,6 +53,10 @@ const UsersAccount = ({ name, surname, profilePic }) => {
         });
         document.title = "Dashboard | MedDoc";
         getAppointments();
+        setInterval(() => {
+            getAppointments();
+            userAccountNotificationShow();
+        }, 29900);
     }, []);
 
     const navigate = useNavigate();
@@ -94,9 +99,6 @@ const UsersAccount = ({ name, surname, profilePic }) => {
     function userAccountNotificationUpdate() {
         setTimeout(() => {
             userAccountNotificationShow();
-            setInterval(() => {
-                userAccountNotificationShow();
-            }, 30000);
         }, 2500);
     }
 

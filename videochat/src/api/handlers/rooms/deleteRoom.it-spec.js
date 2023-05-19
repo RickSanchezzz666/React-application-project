@@ -1,8 +1,10 @@
 const { deleteRoom } = require('./deleteRoom');
 const { RoomsModel } = require('../../../models/rooms');
+const {v4: uuid} =  require('uuid')
 const mongoose = require('mongoose');
 
 describe('deleteRoom', () => {
+    let roomId;
     beforeAll(async () => {
         await mongoose.connect(process.env.MONGO_DB_URI, {
             auth: {
@@ -11,10 +13,10 @@ describe('deleteRoom', () => {
             }
         });
         console.log('mongoose was connected');
-
+         roomId = uuid();
         await RoomsModel.insertMany([
             {
-                roomId: 'UcTudU',
+                roomId,
                 password: 'VskCh',
                 startTime: '2023-05-11T14:23:00.000Z',
                 createdBy: 'Roman Lapiyk'
@@ -36,11 +38,9 @@ describe('deleteRoom', () => {
                     }
                 },
                 body: {
-                    roomId: 'UcTudU'
+                    roomId
                 }
             }
-
-            const roomId = req.body.roomId;
 
             await deleteRoom(req, res);
 
@@ -59,7 +59,7 @@ describe('deleteRoom', () => {
                     }
                 },
                 body: {
-                    roomId: 'UcTudU'
+                    roomId
                 }
             }
 

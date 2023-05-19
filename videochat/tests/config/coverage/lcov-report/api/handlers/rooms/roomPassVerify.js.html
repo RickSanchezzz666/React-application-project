@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">37.5% </span>
+                <span class="strong">87.5% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>6/16</span>
+                <span class='fraction'>14/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">37.5% </span>
+                <span class="strong">87.5% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>6/16</span>
+                <span class='fraction'>14/16</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -92,54 +92,54 @@
 <a name='L27'></a><a href='#L27'>27</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const { RoomsModel } = require('../../../models/rooms');
 &nbsp;
 module.exports.roomPassVerify = async (req, res) =&gt; {
     try {
         const { roomId, password } = req.query;
-<span class="cstat-no" title="statement not covered" >        if (!roomId) {</span>
-<span class="cstat-no" title="statement not covered" >            return res.status(400).send({ message: 'Parameter roomId is required' });</span>
+        if (!roomId) {
+            return res.status(400).send({ message: 'Parameter roomId is required' });
         }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        if (!password) {</span>
-<span class="cstat-no" title="statement not covered" >            return res.status(400).send({ message: 'Parameter password is required' });</span>
+        if (!password) {
+            return res.status(400).send({ message: 'Parameter password is required' });
         }
 &nbsp;
-        const room_ident = <span class="cstat-no" title="statement not covered" >await RoomsModel.findOne({ roomId });</span>
+        const room_ident = await RoomsModel.findOne({ roomId });
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        if (!room_ident) {</span>
-<span class="cstat-no" title="statement not covered" >            return res.status(400).send({ message: 'We not found any room with such room id' });</span>
+        if (!room_ident) {
+            return res.status(400).send({ message: 'We not found any room with such room id' });
         };
-<span class="cstat-no" title="statement not covered" >        if (room_ident.password !== password) {</span>
-<span class="cstat-no" title="statement not covered" >            return res.status(401).send();</span>
+        if (room_ident.password !== password) {
+            return res.status(401).send();
         };
-<span class="cstat-no" title="statement not covered" >        res.status(200).send();</span>
+        res.status(200).send();
     } catch (error) {
-        console.error(error);
-        res.status(500).send();
+<span class="cstat-no" title="statement not covered" >        console.error(error);</span>
+<span class="cstat-no" title="statement not covered" >        res.status(500).send();</span>
     }
 }</pre></td></tr></table></pre>
 
@@ -148,7 +148,7 @@ module.exports.roomPassVerify = async (req, res) =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-05-12T12:23:48.450Z
+                at 2023-05-19T08:10:35.983Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

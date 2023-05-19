@@ -1,8 +1,10 @@
 const { roomPassVerify } = require('./roomPassVerify')
 const { RoomsModel } = require('../../../models/rooms');
 const mongoose = require('mongoose')
+const { v4: uuid } = require('uuid')
 
 describe('roomPassVerify', () => {
+    let roomId = uuid();
     beforeAll(async () => {
         await mongoose.connect(process.env.MONGO_DB_URI, {
             auth: {
@@ -14,13 +16,17 @@ describe('roomPassVerify', () => {
 
         await RoomsModel.insertMany([
             {
-                roomId: 'UcTudU',
+                roomId,
                 password: 'VskCh',
                 startTime: '2023-05-11T14:23:00.000Z',
                 createdBy: 'Roman Lapiyk'
             }
         ])
     });
+
+    afterAll(async () => {
+        await RoomsModel.deleteMany();
+    })
 
     describe('should be opened', () => {
         const res = {
@@ -36,30 +42,25 @@ describe('roomPassVerify', () => {
                     }
                 },
                 query: {
-                    roomId: 'UcTudU',
+                    roomId,
                     password: 'VskCh'
                 }
             }
 
-            it('and verify the password', async () => {
-                const roomId = req.query.roomId;
-
+            it('and verify the password and return 200 and send', async () => {
                 await roomPassVerify(req, res);
 
                 const room_ident = await RoomsModel.findOne({ roomId });
 
                 expect(room_ident).not.toBeNull();
-                expect(room_ident.roomId).toBe('UcTudU');
+                expect(room_ident.roomId).toBe(roomId);
                 expect(room_ident.password).toBe('VskCh');
-            });
-
-            it('and return 200 and send', async () => {
-                await roomPassVerify(req, res);
 
                 expect(res.status).toBeCalled();
                 expect(res.status).toBeCalledWith(200);
                 expect(res.send).toBeCalled();
             });
+
 
         })
 
@@ -90,7 +91,7 @@ describe('roomPassVerify', () => {
                         }
                     },
                     query: {
-                        roomId: 'UcTudU'
+                        roomId
                     }
                 }
                 await roomPassVerify(req, res)
@@ -127,7 +128,7 @@ describe('roomPassVerify', () => {
                         }
                     },
                     query: {
-                        roomId: 'UcTudU',
+                        roomId,
                         password: 'grey'
                     }
                 }

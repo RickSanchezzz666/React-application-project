@@ -1,8 +1,13 @@
 const { createNewUser } = require('./createNewUser')
 const { Users } = require('../../../models/users');
 const mongoose = require('mongoose');
+const { v4: uuid } = require('uuid')
 
 describe('createNewUser', () => {
+    let login1 = uuid();
+    let login2 = uuid();
+    console.log(`login1:${login1}`)
+    console.log(`login2:${login2}`)
     beforeAll(async () => {
         await mongoose.connect(process.env.MONGO_DB_URI, {
             auth: {
@@ -12,6 +17,10 @@ describe('createNewUser', () => {
         });
         console.log('mongoose was connected');
     });
+
+    afterAll(async () => {
+        await Users.deleteMany();
+    })    
 
     describe('should be opened', () => {
         const res = {
@@ -28,7 +37,7 @@ describe('createNewUser', () => {
                             phone: '+380000000000',
                             name: 'Users',
                             surname: 'Accounts',
-                            login: 'user',
+                            login: login1,
                             password: '123',
                             profile_pic: 'https://i.ibb.co/HFbBrvn/Icon-profile.png',
                             access_level: 20,
@@ -59,7 +68,7 @@ describe('createNewUser', () => {
 
                 await createNewUser(req, res);
 
-                const user = await Users.findOne({ login: login });
+                const user = await Users.findOne({ 'user_info.login': login });
 
 
                 expect(user).not.toBeNull();
@@ -67,7 +76,7 @@ describe('createNewUser', () => {
                 expect(user.user_info.phone).toBe('+380000000000');
                 expect(user.user_info.name).toBe('Users');
                 expect(user.user_info.surname).toBe('Accounts');
-                expect(user.user_info.login).toBe('user');
+                expect(user.user_info.login).toBe(login1);
                 expect(user.user_info.password).toBe('123');
                 expect(user.user_info.profile_pic).toBe('https://i.ibb.co/HFbBrvn/Icon-profile.png');
                 expect(user.user_info.access_level).toBe(20);
@@ -112,9 +121,9 @@ describe('createNewUser', () => {
                         user_info: {
                             email: 'testmail@gmail.com',
                             phone: '+380000000000',
-                            name: 'Users',
-                            surname: 'Accounts',
-                            login: 'users',
+                            name: 'User',
+                            surname: 'Account',
+                            login: login2,
                             password: '123',
                             profile_pic: 'https://i.ibb.co/HFbBrvn/Icon-profile.png',
                             createdBy: 'Maksym Pasternak',
@@ -144,14 +153,13 @@ describe('createNewUser', () => {
 
                 await createNewUser(req, res);
 
-                const user = await Users.findOne({ login: login });
-
+                const user = await Users.findOne({ 'user_info.login': login });
                 expect(user).not.toBeNull();
                 expect(user.user_info.email).toBe('testmail@gmail.com');
                 expect(user.user_info.phone).toBe('+380000000000');
-                expect(user.user_info.name).toBe('Users');
-                expect(user.user_info.surname).toBe('Accounts');
-                expect(user.user_info.login).toBe('user');
+                expect(user.user_info.name).toBe('User');
+                expect(user.user_info.surname).toBe('Account');
+                expect(user.user_info.login).toBe(login2);
                 expect(user.user_info.password).toBe('123');
                 expect(user.user_info.profile_pic).toBe('https://i.ibb.co/HFbBrvn/Icon-profile.png');
                 expect(user.user_info.createdBy).toBe('Maksym Pasternak');

@@ -3,8 +3,11 @@
  */
 
 const request = require('supertest')
+// require('dotenv'.config({ path: '../../.env.test'}))
 const setupResult = require('../../server')
 const { Users } = require('../../src/models/users')
+
+console.log(process.env.MONGO_DB_AUTH)
 describe('scenario 1', () => {
     let app;
     beforeAll(async () => {

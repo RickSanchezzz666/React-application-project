@@ -1,8 +1,10 @@
 const { createRoom } = require('./createRoom')
 const { RoomsModel } = require('../../../models/rooms');
 const mongoose = require('mongoose');
+const { v4: uuid } = require('uuid')
 
 describe('createRoom', () => {
+    let roomId = uuid();
     beforeAll(async () => {
         await mongoose.connect(process.env.MONGO_DB_URI, {
             auth: {
@@ -12,6 +14,10 @@ describe('createRoom', () => {
         });
         console.log('mongoose was connected');
     });
+
+    afterAll(async () => {
+        await RoomsModel.deleteMany();
+    })
 
     describe('should be opened', () => {
         const res = {
@@ -28,21 +34,19 @@ describe('createRoom', () => {
                     }
                 },
                 body: {
-                    roomId: 'UcTudU',
+                    roomId,
                     password: 'VskCh',
                     startTime: '2023-05-11T14:23:00.000Z',
                     createdBy: 'Roman Lapiyk'
                 }
             }
-    
-            const roomId = req.body.roomId;
 
             await createRoom(req, res);
 
-            const room = await RoomsModel.findOne(req.body)
+            const room = await RoomsModel.findOne({roomId})
 
             expect(room).not.toBeNull();
-            expect(room.roomId).toBe('UcTudU');
+            expect(room.roomId).toBe(roomId);
             expect(room.password).toBe('VskCh');
             expect(room.startTime).toEqual(new Date('2023-05-11T14:23:00.000Z'));
             expect(room.createdBy).toBe('Roman Lapiyk');
@@ -69,7 +73,7 @@ describe('createRoom', () => {
 
             await createRoom(req, res)
 
-            
+
             expect(res.status).toBeCalled();
             expect(res.status).toBeCalledWith(400);
             expect(res.send).toBeCalled();

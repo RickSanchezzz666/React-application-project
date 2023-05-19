@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">38.88% </span>
+                <span class="strong">94.44% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>7/18</span>
+                <span class='fraction'>17/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">38.88% </span>
+                <span class="strong">94.44% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/18</span>
+                <span class='fraction'>17/18</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -114,35 +114,35 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -163,33 +163,33 @@ const jwt = require('jsonwebtoken');
 module.exports.login = async (req, res) =&gt; {
     try {
         const { user_info: { login, password } } = req.body;
-<span class="cstat-no" title="statement not covered" >        if (!login) {</span>
-<span class="cstat-no" title="statement not covered" >            return res.status(400).send({</span>
+        if (!login) {
+            return res.status(400).send({
                 message: 'Parameter login is required'
             });
         }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        if (!password) {</span>
-<span class="cstat-no" title="statement not covered" >            return res.status(400).send({</span>
+        if (!password) {
+            return res.status(400).send({
                 message: 'Parameter password is required'
             });
         }
 &nbsp;
-        const user = <span class="cstat-no" title="statement not covered" >await Users.findOne({ "user_info.login": login });</span>
+        const user = await Users.findOne({ "user_info.login": login });
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        if (!user) {</span>
-<span class="cstat-no" title="statement not covered" >            return res.status(400).send({</span>
+        if (!user) {
+            return res.status(400).send({
                 message: 'We not found any user with combination'
             });
         }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        if (user.user_info.password !== password) {</span>
-<span class="cstat-no" title="statement not covered" >            return res.status(401).send({</span>
+        if (user.user_info.password !== password) {
+            return res.status(401).send({
                 message: 'Password is invalid'
             });
         }
 &nbsp;
-        const token = <span class="cstat-no" title="statement not covered" >jwt.sign(</span>
+        const token = jwt.sign(
             {
                 _id: user._id,
                 username: user.user_info.login
@@ -211,7 +211,7 @@ module.exports.login = async (req, res) =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-05-15T13:23:56.605Z
+                at 2023-05-19T08:13:55.608Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
