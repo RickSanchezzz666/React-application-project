@@ -43,7 +43,7 @@ describe('createRoom', () => {
 
             await createRoom(req, res);
 
-            const room = await RoomsModel.findOne({roomId})
+            const room = await RoomsModel.findOne({ roomId })
 
             expect(room).not.toBeNull();
             expect(room.roomId).toBe(roomId);

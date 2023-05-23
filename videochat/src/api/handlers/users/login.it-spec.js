@@ -3,7 +3,14 @@ const { Users } = require('../../../models/users');
 const mongoose = require('mongoose')
 
 describe('login', () => {
+    afterAll(() => {
+        process.env.JWT_TOKEN = '';
+        process.env.JWT_EXPIRES_IN_HOURS = '';
+        
+    })
     beforeAll(async () => {
+        process.env.JWT_TOKEN = '123';
+        process.env.JWT_EXPIRES_IN_HOURS = '8';
         await mongoose.connect(process.env.MONGO_DB_URI, {
             auth: {
                 username: process.env.MONGO_DB_LOGIN,
